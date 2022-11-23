@@ -72,10 +72,7 @@ def raygrid_intersect (r : ray) (grd : grid) : { hit : bool, t_enter : f32, t_le
   let hit = vec3_max t_enter <= vec3_min t_leave && 0.0 <= vec3_min t_leave
   in { hit = hit, t_enter = vec3_max t_enter, t_leave = vec3_min t_leave }
 
-def raytrace (grd : grid) (r : ray) : argb.colour =
-  let voxels = 
-    make_grid_3d grd.dim grd.dim grd.dim 
-    |> map (map (map (\(x, y, z) -> let p = grid_voxel2world grd x y z in vec3.norm p <= 10.0)))
+def raytrace [n] (grd : grid) (voxels : [n][n][n]bool) (r : ray) : argb.colour =
   let { hit, t_enter, t_leave } = raygrid_intersect r grd in
   if !hit then 0 else
   let (_, color) = 
@@ -134,9 +131,12 @@ entry main
     size = 20.0, 
     dim = 256 
   }
+  let voxels = 
+    make_grid_3d grd.dim grd.dim grd.dim 
+    |> map (map (map (\(x, y, z) -> let p = grid_voxel2world grd x y z in vec3.norm p <= 10.0)))
   in make_grid_2d pixel_width pixel_height
   |> map (map (\(x, y) -> camera_make_ray cam x y)) 
-  |> map (map (raytrace grd))
+  |> map (map (raytrace grd voxels))
 
 
 -- ==
