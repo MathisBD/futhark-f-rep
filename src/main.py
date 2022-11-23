@@ -9,6 +9,7 @@ FOV_RAD = np.deg2rad(70)
 # The move speed of the camera, in world unit per second
 CAM_MOVE_SPEED = 5
 MAX_FPS = 120
+WHITE = (255, 255, 255)
 
 # A simple class for storing the average of the last [n] measurements
 class MovingAverage:
@@ -34,7 +35,7 @@ def main():
     # Create the window
     pygame.init()
     pygame.font.init()
-    surf = pygame.display.set_mode((WIDTH, HEIGHT))
+    screen = pygame.display.set_mode((WIDTH, HEIGHT), depth = 32)
     pygame.display.set_caption("F-rep rendering on the GPU")
 
     # Create a font
@@ -86,11 +87,11 @@ def main():
 
         # Draw the image
         # Blitting to the whole screen seems to very slow : it's quite annoying
-        pygame.surfarray.blit_array(surf, img)
-        fps_text = font.render("%.1f FPS" % clock.get_fps(), 1, (255, 255, 255))
-        surf.blit(fps_text, (10, 10))
-        ma_text = font.render("Raytracing : %.1f ms" % ma.get_average(), 1, (255, 255, 255))
-        surf.blit(ma_text, (10, 30))
+        pygame.surfarray.blit_array(screen, img)
+        fps_text = font.render("%.1f FPS" % clock.get_fps(), 1, WHITE)
+        screen.blit(fps_text, (10, 10))
+        ma_text = font.render("Raytracing : %.1f ms" % ma.get_average(), 1, WHITE)
+        screen.blit(ma_text, (10, 30))
         pygame.display.update()
 
     pygame.quit()

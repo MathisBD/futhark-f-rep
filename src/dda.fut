@@ -1,3 +1,4 @@
+import "lib/github.com/athas/matte/colour"
 import "utils"
 
 type ray = { orig : vec3.vector, dir : vec3.vector }
@@ -50,7 +51,6 @@ def camera_make_ray (cam : camera) pixel_x pixel_y : ray =
     vec3.scale (dy * screen_world_size_y) cam.up
   in { orig = cam.pos, dir = vec3.normalise dir }
 
-
 -- hit is true iff the ray intersects the grid
 -- t_enter is the time that the ray enters the grid (undefined when hit = false)
 -- t_leave is the time at which the ray leaves the grid (undefined when hit = false)
@@ -72,7 +72,7 @@ def raygrid_intersect (r : ray) (grd : grid) : { hit : bool, t_enter : f32, t_le
   let hit = vec3_max t_enter <= vec3_min t_leave && 0.0 <= vec3_min t_leave
   in { hit = hit, t_enter = vec3_max t_enter, t_leave = vec3_min t_leave }
 
-def raytrace (grd : grid) (r : ray) : i32 =
+def raytrace (grd : grid) (r : ray) : argb.colour =
   let voxels = 
     make_grid_3d grd.dim grd.dim grd.dim 
     |> map (map (map (\(x, y, z) -> let p = grid_voxel2world grd x y z in vec3.norm p <= 10.0)))
@@ -82,7 +82,7 @@ def raytrace (grd : grid) (r : ray) : i32 =
     -- t_curr is at the proximal boundary of the current voxel : 
     -- testing which voxel the corresponding position is in is thus unstable.
     -- We add EPS to t_curr to get a position slightly inside the current voxel.
-    loop (t_curr, _) = (f32.max 0.0 t_enter, 0) while t_curr + EPS < t_leave do
+    loop (t_curr, _) = (f32.max 0.0 t_enter, argb.black) while t_curr + EPS < t_leave do
       -- This is the voxel with float coordinates that t_curr is in.
       let norm_pos = vec3.scale (1.0 / grid_cell_size grd) ((ray_eval r (t_curr + EPS)) vec3.- grd.pos)
       -- This is the voxel with integer coordinates that t_curr is in.
@@ -90,23 +90,24 @@ def raytrace (grd : grid) (r : ray) : i32 =
         norm_pos.x |> f32.floor |> i64.f32, 
         norm_pos.y |> f32.floor |> i64.f32, 
         norm_pos.z |> f32.floor |> i64.f32)
-      -- These are the first times at which we cross the x/y/z axis after t_curr. 
-      -- We have to use the same t as in norm_pos.
-      let (t_x, t_y, t_z) = (
-        t_curr + EPS + (f32.i64 x + (if r.dir.x >= 0.0 then 1.0 else 0.0) - norm_pos.x) * (grid_cell_size grd) / r.dir.x,
-        t_curr + EPS + (f32.i64 y + (if r.dir.y >= 0.0 then 1.0 else 0.0) - norm_pos.y) * (grid_cell_size grd) / r.dir.y,
-        t_curr + EPS + (f32.i64 z + (if r.dir.z >= 0.0 then 1.0 else 0.0) - norm_pos.z) * (grid_cell_size grd) / r.dir.z)
       in 
-        if voxels[i64_clamp x 0 (grd.dim-1), i64_clamp y 0 (grd.dim-1), i64_clamp z 0 (grd.dim-1)]
-         -- We hit a voxel.
-        then (t_leave, (255 << 16)) -- red
-        -- Otherwise step forward.
-        else (vec3_min { x=t_x, y=t_y, z=t_z }, 0)
+        if 0 <= x && x < grd.dim && 0 <= y && y < grd.dim && 0 <= z && z < grd.dim && voxels[x, y, z]
+        -- We hit a voxel.
+        then (t_leave, argb.red) 
+        -- Otherwise step forward
+        -- These are the first times at which we cross the x/y/z axis after t_curr. 
+        -- We have to use the same t as in norm_pos.
+        else let (t_x, t_y, t_z) = (
+          t_curr + EPS + (f32.i64 x + (if r.dir.x >= 0.0 then 1.0 else 0.0) - norm_pos.x) * (grid_cell_size grd) / r.dir.x,
+          t_curr + EPS + (f32.i64 y + (if r.dir.y >= 0.0 then 1.0 else 0.0) - norm_pos.y) * (grid_cell_size grd) / r.dir.y,
+          t_curr + EPS + (f32.i64 z + (if r.dir.z >= 0.0 then 1.0 else 0.0) - norm_pos.z) * (grid_cell_size grd) / r.dir.z)
+        in (vec3_min { x=t_x, y=t_y, z=t_z }, argb.black)
   in color
 
 
 -- Assumes that the camera axis vectors are normalized, orthogonal and correctly oriented.
 -- The camera field of view is the horizontal field of view in radians.
+-- This returns a matrix of 32-bit ARGB colours.
 entry main 
   -- The pixel sizes are passed in as 64bits integers because 
   -- we use them as the size of the returned array.
@@ -118,7 +119,7 @@ entry main
   (cam_right_x : f32) (cam_right_y : f32) (cam_right_z : f32) 
   (cam_up_x : f32) (cam_up_y : f32) (cam_up_z : f32)  
   (cam_fov_rad : f32)
-    : [pixel_width][pixel_height]i32 =
+    : [pixel_width][pixel_height]argb.colour =
   let cam : camera = { 
     pos = { x=cam_pos_x, y=cam_pos_y, z=cam_pos_z },
     forward = { x=cam_forward_x, y=cam_forward_y, z=cam_forward_z }, 
