@@ -1,5 +1,5 @@
 import graphviz
-
+import math 
 
 # Nullary operators (no inputs)
 OP_X = 0
@@ -66,6 +66,24 @@ def op_to_string(op):
     elif op == OP_MAX: return "MAX"
     else: assert(False)            
 
+# Evaluate an operator on float inputs
+def eval_op(op, args):
+    assert(is_input_op(op))
+    assert(op_arity(op) == len(args))
+    args = [float(a) for a in args]
+    if   op == OP_SIN: return math.sin(args[0])
+    elif op == OP_COS: return math.cos(args[0])
+    elif op == OP_EXP: return math.exp(args[0])
+    elif op == OP_SQRT: return math.sqrt(args[0])
+    elif op == OP_NEG: return -args[0]
+    elif op == OP_ADD: return args[0] + args[1]
+    elif op == OP_SUB: return args[0] - args[1]
+    elif op == OP_MUL: return args[0] * args[1]
+    elif op == OP_DIV: return args[0] / args[1]
+    elif op == OP_MIN: return min(args[0], args[1])
+    elif op == OP_MAX: return max(args[0], args[1])
+    else: assert(False)
+
 class Node:
     # Create an axis node (X, Y, Z or T)
     @classmethod
@@ -93,6 +111,29 @@ class Node:
         node.inputs = inputs
         return node
 
+    # Test whether a node is a constant with a given value
+    def is_constant(self, c):
+        return self.op == OP_CONST and self.constant == float(c)
+
+    # node[i] gets the i-th input of the node
+    def __getitem__(self, idx):
+        assert(is_input_op(self.op))
+        return self.inputs[idx]
+
+    # Replace the axis nodes with new nodes.
+    # This is useful to implement translations/rotations etc. of shapes.
+    def __call__(self, newX, newY, newZ, newT):
+        def replace(node, new_inputs):
+            if   node.op == OP_X: return newX
+            elif node.op == OP_Y: return newY
+            elif node.op == OP_Z: return newZ
+            elif node.op == OP_T: return newT
+            elif node.op == OP_CONST: return node
+            else:
+                assert(is_input_op(node.op))
+                return Node.input(node.op, new_inputs)
+        return self.topo_map(replace)
+            
     # We overload standard math operators
     def __add__(self, other):
         return Node.input(OP_ADD, [self, other])
@@ -102,6 +143,8 @@ class Node:
         return Node.input(OP_MUL, [self, other])
     def __truediv__(self, other):
         return Node.input(OP_DIV, [self, other])
+    def __neg__(self):
+        return Node.input(OP_NEG, [self])
     
     # This calls the function f on each node of the DAG rooted at self.
     def topo_iter(self, f):
@@ -185,3 +228,56 @@ def mul(node1, node2): return Node.input(OP_MUL, [node1, node2])
 def div(node1, node2): return Node.input(OP_DIV, [node1, node2])
 def min(node1, node2): return Node.input(OP_MIN, [node1, node2])
 def max(node1, node2): return Node.input(OP_MAX, [node1, node2])
+
+
+# Perform a single constant fold step (i.e. don't recurse on the inputs)
+def constant_fold_step(node):
+    if not is_input_op(node.op): return node
+    
+    # If all the inputs are constants, simply evaluate the node
+    if all(inp.op == OP_CONST for inp in node.inputs):
+        args = [inp.constant for inp in node.inputs]
+        return Node.constant(eval_op(node.op, args))
+
+    # If only some of the inputs are constants, we can still simplify some operations
+    if node.op == OP_ADD:
+        if node[0].is_constant(0): return node[1]
+        elif node[1].is_constant(0): return node[0]
+        elif node[0].op == OP_NEG and node[1].op == OP_NEG: return constant_fold_step(-(node[0][0] + node[1][0]))
+        elif node[0].op == OP_NEG: return constant_fold_step(node[1] - node[0][0])
+        elif node[1].op == OP_NEG: return constant_fold_step(node[0] - node[1][0])
+    elif node.op == OP_MUL:
+        if node[0].is_constant(0) or node[1].is_constant(0): return Node.constant(0)
+        elif node[0].is_constant(1): return node[1]
+        elif node[1].is_constant(1): return node[0]
+        elif node[0].is_constant(-1): return constant_fold_step(-node[1])
+        elif node[1].is_constant(-1): return constant_fold_step(-node[0])
+        elif node[0].op == OP_NEG and node[1].op == OP_NEG: return constant_fold_step(node[0][0] * node[1][0])
+    elif node.op == OP_SUB:
+        if node[0].is_constant(0): return constant_fold_step(-node[1])
+        elif node[1].is_constant(0): return node[0]
+        elif node[1].op == OP_NEG: return constant_fold_step(node[0] + node[1][0])
+    elif node.op == OP_DIV:
+        if node[0].is_constant(0): return Node.constant(0)
+        elif node[1].is_constant(1): return node[0]
+        elif node[1].is_constant(-1): return constant_fold_step(-node[0])
+        elif node[1].op == OP_CONST: return constant_fold_step(node[0] * Node.constant(1.0 / node[1].constant))
+        elif node[0].op == OP_NEG and node[1].op == OP_NEG: return constant_fold_step(node[0][0] / node[1][0])
+    elif node.op == OP_NEG:
+        if node[0].op == OP_NEG: return node[0][0]
+        elif node[0].op == OP_SUB: return constant_fold_step(node[0][1] - node[0][0])
+    elif node.op == OP_COS:
+        if node[0].op == OP_NEG: return cos(node[0][0])
+    
+    # Otherwise just return the node unchanged
+    return node
+
+# Carry out all operations on constants and simplify operations 
+# that have some constant arguments
+def constant_fold(root):
+    def step(node, inputs):
+        if not is_input_op(node.op): 
+            return node
+        else: 
+            return constant_fold_step(Node.input(node.op, inputs))
+    return root.topo_map(step)

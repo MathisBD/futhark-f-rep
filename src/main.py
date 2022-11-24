@@ -82,10 +82,10 @@ def main():
 def main2():
     X = csg.X()
     Y = csg.Y()
-    Z = csg.Z()
-    sphere = X * X - Y * Y + Z / csg.sin(Z) + csg.const(-100)
-    graph = sphere.to_dot_graph(True)
-    
+    Z = csg.const(4.0)
+    sphere = (- ((-X) * (-X) - Y * csg.const(-1))) + Y / csg.sin(Z) + csg.const(-100)
+    graph = csg.constant_fold(sphere).to_dot_graph(True)
+
     filepath = "csg.dot"
     with open(filepath, 'w') as f:
         f.write(graph.source)
