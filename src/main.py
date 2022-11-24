@@ -33,6 +33,11 @@ def main():
     cam_right   = np.array([1.0, 0.0, 0.0])
     cam_up      = np.array([0.0, 1.0, 0.0])
         
+    # Create the expression and tape
+    expr = csg.X() * csg.X() + csg.Y() * csg.Y() + csg.Z() * csg.Z() - csg.const(100)
+    tap = tape.Tape(expr)
+    print(tap.to_string(detailed = True))
+
     run = True
     clock = pygame.time.Clock()
     ma = MovingAverage(30)
@@ -62,7 +67,12 @@ def main():
 
         # Raytrace the image
         t0 = pygame.time.get_ticks()
-        raw_img = fut.main(WIDTH, HEIGHT, *cam_pos, *cam_forward, *cam_right, *cam_up, FOV_RAD).get()
+        raw_img = fut.main(
+            WIDTH, HEIGHT, 
+            *cam_pos, *cam_forward, *cam_right, *cam_up, FOV_RAD,
+            np.array(tap.instructions, dtype = np.uint32), 
+            np.array(tap.constant_pool, dtype = np.float32),
+            tap.slot_count).get()
         t1 = pygame.time.get_ticks()
         ma.add_sample(t1 - t0)
         # For pygame, the first axis is horizontal from left to right
@@ -96,4 +106,4 @@ def main2():
 
 
 if __name__ == "__main__":
-    main2()
+    main()

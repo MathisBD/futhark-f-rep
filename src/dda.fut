@@ -101,6 +101,76 @@ def raytrace [n] (grd : grid) (voxels : [n][n][n]bool) (r : ray) : argb.colour =
         in (vec3_min { x=t_x, y=t_y, z=t_z }, argb.black)
   in color
 
+type tape_instr = { op : u8, out_slot : u8, in_slotA : u8, in_slotB : u8 }
+
+type~ tape = { 
+  instrs : []tape_instr, 
+  constants : []f32,
+  slot_count : i64  
+}
+
+def decode_instruction (instr : u32) : tape_instr =
+  let op       = u8.u32 ((instr >> 24) & 0xFF)
+  let out_slot = u8.u32 ((instr >> 16) & 0xFF)
+  let in_slotA = u8.u32 ((instr >> 8)  & 0xFF)
+  let in_slotB = u8.u32 ((instr >> 0)  & 0xFF)
+  in { op, out_slot, in_slotA, in_slotB }
+
+
+def OP_CONST = 0u8
+def OP_SIN = 1u8
+def OP_COS = 2u8
+def OP_EXP = 3u8
+def OP_SQRT = 4u8
+def OP_NEG = 5u8
+def OP_ADD = 6u8
+def OP_SUB = 7u8
+def OP_MUL = 8u8
+def OP_DIV = 9u8
+def OP_MIN = 10u8
+def OP_MAX = 11u8
+def OP_COPY = 12u8
+
+-- Sequentially evaluate a tape given values for the axes.
+def eval_tape (tap : tape) x y z t : f32 =
+  let slots = replicate tap.slot_count 0f32 
+    with [0] = x
+    with [1] = y
+    with [2] = z
+    with [3] = t
+  in 
+    let slots = loop slots = slots for instr in tap.instrs do 
+      if instr.op == OP_CONST 
+        then slots with [i8.u8 instr.out_slot] = tap.constants[i8.u8 instr.in_slotA]
+      else if instr.op == OP_SIN 
+        then slots with [i8.u8 instr.out_slot] = f32.sin slots[i8.u8 instr.in_slotA]
+      else if instr.op == OP_COS 
+        then slots with [i8.u8 instr.out_slot] = f32.cos slots[i8.u8 instr.in_slotA]
+      else if instr.op == OP_EXP 
+        then slots with [i8.u8 instr.out_slot] = f32.exp slots[i8.u8 instr.in_slotA]
+      else if instr.op == OP_SQRT 
+        then slots with [i8.u8 instr.out_slot] = f32.sqrt slots[i8.u8 instr.in_slotA]
+      else if instr.op == OP_NEG 
+        then slots with [i8.u8 instr.out_slot] = -slots[i8.u8 instr.in_slotA]
+      else if instr.op == OP_ADD 
+        then slots with [i8.u8 instr.out_slot] = slots[i8.u8 instr.in_slotA] + slots[i8.u8 instr.in_slotB]
+      else if instr.op == OP_SUB 
+        then slots with [i8.u8 instr.out_slot] = slots[i8.u8 instr.in_slotA] - slots[i8.u8 instr.in_slotB]
+      else if instr.op == OP_MUL 
+        then slots with [i8.u8 instr.out_slot] = slots[i8.u8 instr.in_slotA] * slots[i8.u8 instr.in_slotB]
+      else if instr.op == OP_DIV 
+        then slots with [i8.u8 instr.out_slot] = slots[i8.u8 instr.in_slotA] / slots[i8.u8 instr.in_slotB]
+      else if instr.op == OP_MIN 
+        then slots with [i8.u8 instr.out_slot] = f32.min slots[i8.u8 instr.in_slotA] slots[i8.u8 instr.in_slotB]
+      else if instr.op == OP_MAX 
+        then slots with [i8.u8 instr.out_slot] = f32.max slots[i8.u8 instr.in_slotA] slots[i8.u8 instr.in_slotB]
+      else if instr.op == OP_COPY
+        then slots with [i8.u8 instr.out_slot] = slots[i8.u8 instr.in_slotA]
+      else slots
+  -- The output is always in slot 0
+  in slots[0]
+
+  
 
 -- Assumes that the camera axis vectors are normalized, orthogonal and correctly oriented.
 -- The camera field of view is the horizontal field of view in radians.
@@ -116,6 +186,9 @@ entry main
   (cam_right_x : f32) (cam_right_y : f32) (cam_right_z : f32) 
   (cam_up_x : f32) (cam_up_y : f32) (cam_up_z : f32)  
   (cam_fov_rad : f32)
+  (tape_instrs : []u32)
+  (tape_constants : []f32)
+  (tape_slot_count : i64)
     : [pixel_width][pixel_height]argb.colour =
   let cam : camera = { 
     pos = { x=cam_pos_x, y=cam_pos_y, z=cam_pos_z },
@@ -131,15 +204,21 @@ entry main
     size = 20.0, 
     dim = 256 
   }
+  let tap : tape = { 
+    instrs = map decode_instruction tape_instrs, 
+    slot_count = tape_slot_count, 
+    constants = tape_constants 
+  }
   let voxels = 
     make_grid_3d grd.dim grd.dim grd.dim 
-    |> map (map (map (\(x, y, z) -> let p = grid_voxel2world grd x y z in vec3.norm p <= 10.0)))
+    |> map (map (map (\(x, y, z) -> grid_voxel2world grd x y z)))
+    |> map (map (map (\p -> eval_tape tap p.x p.y p.z 0.0 <= 0.0)))
   in make_grid_2d pixel_width pixel_height
   |> map (map (\(x, y) -> camera_make_ray cam x y)) 
   |> map (map (raytrace grd voxels))
 
 
--- ==
+-- 
 -- compiled input { 
 --   1200i64 900i64 
 --   0f32 0f32 20f32 
