@@ -83,8 +83,8 @@ def main2():
     X = csg.X()
     Y = csg.Y()
     Z = csg.Z()
-    sphere = X * X + Y * Y + Z * csg.sin(Z) + csg.const(-100)
-    graph = sphere.to_dot_graph()
+    sphere = X * X - Y * Y + Z / csg.sin(Z) + csg.const(-100)
+    graph = sphere.to_dot_graph(True)
     
     filepath = "csg.dot"
     with open(filepath, 'w') as f:
