@@ -3,6 +3,7 @@ import pygame
 
 from moving_average import MovingAverage
 import csg
+import tape
 from dda import dda
 
 # Dimensions (in pixels) of the screen
@@ -83,12 +84,15 @@ def main2():
     X = csg.X()
     Y = csg.Y()
     Z = csg.const(4.0)
-    sphere = (- ((-X) * (-X) - Y * csg.const(-1))) + Y / csg.sin(Z) + csg.const(-100)
-    graph = csg.constant_fold(sphere).to_dot_graph(True)
+    expr = X * X + Y * csg.const(-1) + Y / csg.sin(Z)
+    graph = csg.merge_axes(expr).to_dot_graph(True)
 
     filepath = "csg.dot"
     with open(filepath, 'w') as f:
         f.write(graph.source)
+
+    t = tape.Tape(expr)
+    print(t.to_string(detailed = True))
     
 
 if __name__ == "__main__":

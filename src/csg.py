@@ -229,6 +229,29 @@ def div(node1, node2): return Node.input(OP_DIV, [node1, node2])
 def min(node1, node2): return Node.input(OP_MIN, [node1, node2])
 def max(node1, node2): return Node.input(OP_MAX, [node1, node2])
 
+# Merge the copies of each axis node
+def merge_axes(root):
+    x, y, z, t = None, None, None, None
+    def step(node, inputs):
+        nonlocal x, y, z, t
+        if node.op == OP_X:
+            if x is None: x = node
+            return x
+        elif node.op == OP_Y:
+            if y is None: y = node
+            return y
+        elif node.op == OP_Z:
+            if z is None: z = node
+            return z
+        elif node.op == OP_T:
+            if t is None: t = node
+            return t
+        elif node.op == OP_CONST: 
+            return node
+        else: 
+            assert(is_input_op(node.op))
+            return Node.input(node.op, inputs)
+    return root.topo_map(step)
 
 # Perform a single constant fold step (i.e. don't recurse on the inputs)
 def constant_fold_step(node):
