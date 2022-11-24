@@ -1,4 +1,5 @@
 import csg
+import math
 
 
 # The set of tape operators is not exactly the same as the set of csg operators
@@ -92,20 +93,20 @@ class Tape:
                 self.constant_idx[node.constant] = len(self.constant_pool)
                 self.constant_pool.append(node.constant)
 
+        # Compute the liveliness of each node (except the root)
+        # The liveliness of a node is the index of the last node that uses it as input.
+        self.liveliness = dict()
+        for i, node in enumerate(self.nodes):
+            if csg.is_input_op(node.op):
+                for inp in node.inputs:
+                    self.liveliness[inp] = i
+        # Check every node except the root has a liveliness
+        for node in self.nodes:
+            assert(node == expr or node in self.liveliness.keys())
+
         # Build the instructions
         self.instructions = []
-        self.slots = []
         self.build_instructions()
-
-    def get_curr_slot(self, node):
-        for i in range(len(self.slots)):
-            if node == self.slots[i]:
-                return i
-        assert(False)
-
-    def get_free_slot(self):
-        self.slots.append(None)
-        return len(self.slots) - 1
 
     def build_instructions(self):
         # Get the axis nodes
@@ -117,10 +118,26 @@ class Tape:
             if node.op == csg.OP_T: t = node
 
         # Initially, the axis nodes occupy the first slots
-        self.slots += [x, y, z, t]
+        slots = [x, y, z, t]
+
+        # Gets the index of the slot a node currently is stored in.
+        def get_curr_slot(node):
+            for i in range(len(slots)):
+                if node == slots[i]:
+                    return i
+            assert(False)
+
+        # Returns the index of a free slot.
+        # Creates a new slot if none is free.
+        def get_free_slot():
+            for i in range(len(slots)):
+                if slots[i] is None:
+                    return i
+            slots.append(None)
+            return len(slots) - 1
 
         # Process each instruction in topological order
-        for node in self.nodes:
+        for i, node in enumerate(self.nodes):
             if csg.is_axis_op(node.op): continue
             
             # Compute the input slots of the node
@@ -129,27 +146,42 @@ class Tape:
             if node.op == csg.OP_CONST:
                 in_slotA = self.constant_idx[node.constant]
             elif csg.op_arity(node.op) == 1:
-                in_slotA = self.get_curr_slot(node[0])
+                in_slotA = get_curr_slot(node[0])
             elif csg.op_arity(node.op) == 2:
-                in_slotA = self.get_curr_slot(node[0])
-                in_slotB = self.get_curr_slot(node[1])
+                in_slotA = get_curr_slot(node[0])
+                in_slotB = get_curr_slot(node[1])
             else: 
                 assert(False)
+
+            # Free the slots of the inputs if we can.
+            # We have to be careful if the node's two inputs are the same.
+            if csg.is_input_op(node.op):
+                to_free = []
+                for inp in node.inputs:
+                    assert(self.liveliness[inp] >= i)
+                    if self.liveliness[inp] == i:
+                        to_free.append(get_curr_slot(inp))
+                for s in to_free:
+                    slots[s] = None
             
-            # Get a slot for the output
-            out_slot = self.get_free_slot()
-            self.slots[out_slot] = node
+            # Get a slot for the output (we do this AFTER freeing the inputs)
+            # to enable reading and writing to the same slot
+            out_slot = get_free_slot()
+            slots[out_slot] = node
 
             # Encode the instruction
             instr = encode_instruction(tape_op_from_csg_op(node.op), out_slot, in_slotA, in_slotB)
             self.instructions.append(instr)
 
-        # Change the last instruction to output into slot 0
-        op, _, in_slotA, in_slotB = decode_instruction(self.instructions[-1])
-        self.instructions[-1] = encode_instruction(op, 0, in_slotA, in_slotB)
+        # Check the last instruction outputs to slot 0
+        _, out_slot, _, _ = decode_instruction(self.instructions[-1])
+        assert(out_slot == 0)
+
+        # Store the total number of slots for future use
+        self.slot_count = len(slots)
 
     def to_string(self, detailed = False):
-        str = "[+] Tape: instr_count=%u slot_count=%u\n" % (len(self.instructions), len(self.slots))
+        str = "[+] Tape: instr_count=%u slot_count=%u\n" % (len(self.instructions), self.slot_count)
         if detailed:
             for i, instr in enumerate(self.instructions):
                 op, out_slot, in_slotA, in_slotB = decode_instruction(instr)
@@ -160,3 +192,32 @@ class Tape:
             for i, const in enumerate(self.constant_pool):
                 str += "\t%2u %4.2f\n" % (i, const)
         return str
+
+    # Evaluate the tape, given float values for x, y, z and t.
+    # This should only be used for debug purposes : 
+    # tape evaluation should really happen on the GPU.
+    def eval(self, x, y, z, t):
+        slots = [None for _ in range(self.slot_count)]
+        slots[0] = x
+        slots[1] = y
+        slots[2] = z
+        slots[3] = t
+
+        for instr in self.instructions:
+            op, out_slot, in_slotA, in_slotB = decode_instruction(instr)
+            if op == OP_CONST: slots[out_slot]  = self.constant_pool[in_slotA]
+            elif op == OP_SIN: slots[out_slot]  = math.sin(slots[in_slotA])
+            elif op == OP_COS: slots[out_slot]  = math.cos(slots[in_slotA])
+            elif op == OP_EXP: slots[out_slot]  = math.exp(slots[in_slotA])
+            elif op == OP_SQRT: slots[out_slot] = math.sqrt(slots[in_slotA])
+            elif op == OP_NEG: slots[out_slot]  = -slots[in_slotA]
+            elif op == OP_ADD: slots[out_slot]  = slots[in_slotA] + slots[in_slotB]
+            elif op == OP_SUB: slots[out_slot]  = slots[in_slotA] - slots[in_slotB]
+            elif op == OP_MUL: slots[out_slot]  = slots[in_slotA] * slots[in_slotB]
+            elif op == OP_DIV: slots[out_slot]  = slots[in_slotA] / slots[in_slotB]
+            elif op == OP_MIN: slots[out_slot]  = min(slots[in_slotA], slots[in_slotB])
+            elif op == OP_MAX: slots[out_slot]  = max(slots[in_slotA], slots[in_slotB])
+            elif op == OP_COPY: slots[out_slot] = slots[in_slotA]
+            else: assert(False)
+
+        return slots[0]

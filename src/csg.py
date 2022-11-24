@@ -210,6 +210,21 @@ class Node:
         self.topo_map(step)
         return graph
 
+    # Recursively evaluate the node, given float values for the axes.
+    # This should only be used for debug purposes :
+    # evaluation should be done on tapes and on the GPU.
+    def eval(self, x, y, z, t):
+        def step(node, args):
+            if   node.op == OP_X: return x
+            elif node.op == OP_Y: return y
+            elif node.op == OP_Z: return z
+            elif node.op == OP_T: return t
+            elif node.op == OP_CONST: return node.constant
+            else:
+                assert(is_input_op(node.op))
+                return eval_op(node.op, args)
+        return self.topo_map(step)
+
 
 # Helper functions to build nodes
 def X(): return Node.axis(OP_X)

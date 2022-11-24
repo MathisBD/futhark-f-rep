@@ -91,9 +91,9 @@ def main2():
     with open(filepath, 'w') as f:
         f.write(graph.source)
 
-    t = tape.Tape(expr)
-    print(t.to_string(detailed = True))
-    
+    tap = tape.Tape(expr)
+    print(tap.to_string(detailed = True))
+
 
 if __name__ == "__main__":
     main2()
