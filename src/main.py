@@ -2,6 +2,7 @@ import numpy as np
 import pygame
 
 from moving_average import MovingAverage
+import csg
 from dda import dda
 
 # Dimensions (in pixels) of the screen
@@ -78,5 +79,17 @@ def main():
 
     pygame.quit()
 
+def main2():
+    X = csg.X()
+    Y = csg.Y()
+    Z = csg.Z()
+    sphere = X * X + Y * Y + Z * csg.sin(Z) + csg.const(-100)
+    graph = sphere.to_dot_graph()
+    
+    filepath = "csg.dot"
+    with open(filepath, 'w') as f:
+        f.write(graph.source)
+    
+
 if __name__ == "__main__":
-    main()
+    main2()

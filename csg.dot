@@ -1,0 +1,26 @@
+digraph "CSG-DAG with 11 nodes" {
+	1 [label=X]
+	2 [label=MUL]
+	2 -> 1
+	2 -> 1
+	3 [label=Y]
+	4 [label=MUL]
+	4 -> 3
+	4 -> 3
+	5 [label=ADD]
+	5 -> 2
+	5 -> 4
+	6 [label=Z]
+	7 [label=SIN]
+	7 -> 6
+	8 [label=MUL]
+	8 -> 6
+	8 -> 7
+	9 [label=ADD]
+	9 -> 5
+	9 -> 8
+	10 [label=-100.0]
+	11 [label=ADD]
+	11 -> 9
+	11 -> 10
+}
