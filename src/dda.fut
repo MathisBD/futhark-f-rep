@@ -111,7 +111,8 @@ def shade (tap : tape) (r : ray) (h : hit) : argb.colour =
   case #hit h -> 
     let pos = ray_eval r h.t
     let normal = vec3.normalise (tape_gradient tap pos.x pos.y pos.z 0.0)
-    in argb.from_rgba normal.x normal.y normal.z 1.0
+    let color = (vec3_full 0.5) vec3.+ (vec3.scale 0.5 normal)
+    in argb.from_rgba color.x color.y color.z 1.0
     --let light = vec3.normalise { x = -1.0, y = -1.0, z = 0.0 } 
     -- The intensity of the light at this point.
     -- There is a minus sign in front of the dot product 
