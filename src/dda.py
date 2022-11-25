@@ -4870,9 +4870,9 @@ inline int64_t atomic_xor_i64_local(volatile __local int64_t *p, int64_t x) {
 
 
 
-__kernel void mainzisegmap_19469(__global int *global_failure, int64_t dz2080U_13897, __global unsigned char *tape_instrs_mem_21332, __global unsigned char *mem_21336, __global unsigned char *mem_21338, __global unsigned char *mem_21340, __global unsigned char *mem_21342)
+__kernel void mainzisegmap_22702(__global int *global_failure, int64_t dz2080U_15879, __global unsigned char *tape_instrs_mem_25524, __global unsigned char *mem_25528, __global unsigned char *mem_25530, __global unsigned char *mem_25532, __global unsigned char *mem_25534)
 {
-    #define segmap_group_sizze_19462 (mainzisegmap_group_sizze_19443)
+    #define segmap_group_sizze_22695 (mainzisegmap_group_sizze_22676)
     
     const int block_dim0 = 0;
     const int block_dim1 = 1;
@@ -4881,52 +4881,52 @@ __kernel void mainzisegmap_19469(__global int *global_failure, int64_t dz2080U_1
     if (*global_failure >= 0)
         return;
     
-    int32_t local_tid_21372;
-    int64_t group_sizze_21375;
-    int32_t wave_sizze_21374;
-    int32_t group_tid_21373;
+    int32_t local_tid_25646;
+    int64_t group_sizze_25649;
+    int32_t wave_sizze_25648;
+    int32_t group_tid_25647;
     
-    local_tid_21372 = get_local_id(0);
-    group_sizze_21375 = get_local_size(0);
-    wave_sizze_21374 = LOCKSTEP_WIDTH;
-    group_tid_21373 = get_group_id(0);
+    local_tid_25646 = get_local_id(0);
+    group_sizze_25649 = get_local_size(0);
+    wave_sizze_25648 = LOCKSTEP_WIDTH;
+    group_tid_25647 = get_group_id(0);
     
-    int32_t global_tid_21371 = group_tid_21373 * group_sizze_21375 + local_tid_21372;
-    int32_t phys_tid_19469 = global_tid_21371;
-    int64_t global_tid_21376 = sext_i32_i64(group_tid_21373) * segmap_group_sizze_19462 + sext_i32_i64(local_tid_21372);
-    int64_t slice_21377 = dz2080U_13897;
-    int64_t gtid_19468 = global_tid_21376;
-    int64_t remnant_21378 = global_tid_21376 - gtid_19468;
+    int32_t global_tid_25645 = group_tid_25647 * group_sizze_25649 + local_tid_25646;
+    int32_t phys_tid_22702 = global_tid_25645;
+    int64_t global_tid_25650 = sext_i32_i64(group_tid_25647) * segmap_group_sizze_22695 + sext_i32_i64(local_tid_25646);
+    int64_t slice_25651 = dz2080U_15879;
+    int64_t gtid_22701 = global_tid_25650;
+    int64_t remnant_25652 = global_tid_25650 - gtid_22701;
     
-    if (slt64(gtid_19468, dz2080U_13897)) {
-        int32_t x_19470 = ((__global int32_t *) tape_instrs_mem_21332)[gtid_19468];
-        int32_t x_19471 = lshr32(x_19470, 24);
-        int32_t u32_arg_19472 = 255 & x_19471;
-        int8_t u32_res_19473 = zext_i32_i8(u32_arg_19472);
-        int32_t x_19474 = lshr32(x_19470, 16);
-        int32_t u32_arg_19475 = 255 & x_19474;
-        int8_t u32_res_19476 = zext_i32_i8(u32_arg_19475);
-        int32_t x_19477 = lshr32(x_19470, 8);
-        int32_t u32_arg_19478 = 255 & x_19477;
-        int8_t u32_res_19479 = zext_i32_i8(u32_arg_19478);
-        int32_t x_19480 = lshr32(x_19470, 0);
-        int32_t u32_arg_19481 = 255 & x_19480;
-        int8_t u32_res_19482 = zext_i32_i8(u32_arg_19481);
+    if (slt64(gtid_22701, dz2080U_15879)) {
+        int32_t x_22703 = ((__global int32_t *) tape_instrs_mem_25524)[gtid_22701];
+        int32_t x_22704 = lshr32(x_22703, 24);
+        int32_t u32_arg_22705 = 255 & x_22704;
+        int8_t u32_res_22706 = zext_i32_i8(u32_arg_22705);
+        int32_t x_22707 = lshr32(x_22703, 16);
+        int32_t u32_arg_22708 = 255 & x_22707;
+        int8_t u32_res_22709 = zext_i32_i8(u32_arg_22708);
+        int32_t x_22710 = lshr32(x_22703, 8);
+        int32_t u32_arg_22711 = 255 & x_22710;
+        int8_t u32_res_22712 = zext_i32_i8(u32_arg_22711);
+        int32_t x_22713 = lshr32(x_22703, 0);
+        int32_t u32_arg_22714 = 255 & x_22713;
+        int8_t u32_res_22715 = zext_i32_i8(u32_arg_22714);
         
-        ((__global int8_t *) mem_21336)[gtid_19468] = u32_res_19479;
-        ((__global int8_t *) mem_21338)[gtid_19468] = u32_res_19482;
-        ((__global int8_t *) mem_21340)[gtid_19468] = u32_res_19473;
-        ((__global int8_t *) mem_21342)[gtid_19468] = u32_res_19476;
+        ((__global int8_t *) mem_25528)[gtid_22701] = u32_res_22712;
+        ((__global int8_t *) mem_25530)[gtid_22701] = u32_res_22715;
+        ((__global int8_t *) mem_25532)[gtid_22701] = u32_res_22706;
+        ((__global int8_t *) mem_25534)[gtid_22701] = u32_res_22709;
     }
     
   error_0:
     return;
-    #undef segmap_group_sizze_19462
+    #undef segmap_group_sizze_22695
 }
-__kernel void mainzisegmap_20572(__global int *global_failure, int failure_is_an_option, __global int64_t *global_failure_args, int64_t dz2080U_13897, int64_t dz2081U_13898, int64_t tape_slot_count_13916, __global unsigned char *tape_constants_mem_21333, __global unsigned char *mem_21336, __global unsigned char *mem_21338, __global unsigned char *mem_21340, __global unsigned char *mem_21342, __global unsigned char *mem_21358, __global unsigned char *color_21364)
+__kernel void mainzisegmap_23607(__global int *global_failure, int failure_is_an_option, __global int64_t *global_failure_args, int64_t dz2080U_15879, int64_t dz2081U_15880, int64_t tape_slot_count_15898, __global unsigned char *tape_constants_mem_25525, __global unsigned char *mem_25528, __global unsigned char *mem_25530, __global unsigned char *mem_25532, __global unsigned char *mem_25534, __global unsigned char *mem_25550, __global unsigned char *color_25630)
 {
-    #define segmap_group_sizze_20566 (mainzisegmap_group_sizze_19568)
-    #define num_threads_21366 (mainzisegmap_group_sizze_19568 * sdiv_up64((int64_t) 16777216, mainzisegmap_group_sizze_19568))
+    #define segmap_group_sizze_23601 (mainzisegmap_group_sizze_22801)
+    #define num_threads_25636 (mainzisegmap_group_sizze_22801 * sdiv_up64((int64_t) 16777216, mainzisegmap_group_sizze_22801))
     
     const int block_dim0 = 0;
     const int block_dim1 = 1;
@@ -4935,723 +4935,589 @@ __kernel void mainzisegmap_20572(__global int *global_failure, int failure_is_an
     if (*global_failure >= 0)
         return;
     
-    int32_t local_tid_21381;
-    int64_t group_sizze_21384;
-    int32_t wave_sizze_21383;
-    int32_t group_tid_21382;
+    int32_t local_tid_25655;
+    int64_t group_sizze_25658;
+    int32_t wave_sizze_25657;
+    int32_t group_tid_25656;
     
-    local_tid_21381 = get_local_id(0);
-    group_sizze_21384 = get_local_size(0);
-    wave_sizze_21383 = LOCKSTEP_WIDTH;
-    group_tid_21382 = get_group_id(0);
+    local_tid_25655 = get_local_id(0);
+    group_sizze_25658 = get_local_size(0);
+    wave_sizze_25657 = LOCKSTEP_WIDTH;
+    group_tid_25656 = get_group_id(0);
     
-    int32_t global_tid_21380 = group_tid_21382 * group_sizze_21384 + local_tid_21381;
-    int32_t phys_tid_20572 = global_tid_21380;
-    int64_t global_tid_21385 = sext_i32_i64(group_tid_21382) * segmap_group_sizze_20566 + sext_i32_i64(local_tid_21381);
-    int64_t slice_21386 = (int64_t) 256;
-    int64_t slice_21387 = (int64_t) 256 * slice_21386;
-    int64_t slice_21388 = (int64_t) 256 * slice_21387;
-    int64_t gtid_20569 = squot64(global_tid_21385, slice_21387);
-    int64_t remnant_21389 = global_tid_21385 - gtid_20569 * slice_21387;
-    int64_t gtid_20570 = squot64(remnant_21389, slice_21386);
-    int64_t remnant_21390 = remnant_21389 - gtid_20570 * slice_21386;
-    int64_t gtid_20571 = remnant_21390;
-    int64_t remnant_21391 = remnant_21390 - gtid_20571;
+    int32_t global_tid_25654 = group_tid_25656 * group_sizze_25658 + local_tid_25655;
+    int32_t phys_tid_23607 = global_tid_25654;
+    int64_t global_tid_25659 = sext_i32_i64(group_tid_25656) * segmap_group_sizze_23601 + sext_i32_i64(local_tid_25655);
+    int64_t slice_25660 = (int64_t) 256;
+    int64_t slice_25661 = (int64_t) 256 * slice_25660;
+    int64_t slice_25662 = (int64_t) 256 * slice_25661;
+    int64_t gtid_23604 = squot64(global_tid_25659, slice_25661);
+    int64_t remnant_25663 = global_tid_25659 - gtid_23604 * slice_25661;
+    int64_t gtid_23605 = squot64(remnant_25663, slice_25660);
+    int64_t remnant_25664 = remnant_25663 - gtid_23605 * slice_25660;
+    int64_t gtid_23606 = remnant_25664;
+    int64_t remnant_25665 = remnant_25664 - gtid_23606;
     
-    if ((slt64(gtid_20569, (int64_t) 256) && slt64(gtid_20570, (int64_t) 256)) && slt64(gtid_20571, (int64_t) 256)) {
-        for (int64_t i_21392 = 0; i_21392 < tape_slot_count_13916; i_21392++) {
-            ((__global float *) color_21364)[phys_tid_20572 + i_21392 * num_threads_21366] = 0.0F;
+    if ((slt64(gtid_23604, (int64_t) 256) && slt64(gtid_23605, (int64_t) 256)) && slt64(gtid_23606, (int64_t) 256)) {
+        for (int64_t i_25666 = 0; i_25666 < tape_slot_count_15898; i_25666++) {
+            ((__global float *) color_25630)[phys_tid_23607 + i_25666 * num_threads_25636] = 0.0F;
         }
         
-        float binop_x_21313 = sitofp_i64_f32(gtid_20569);
-        float binop_y_21314 = binop_x_21313 / 256.0F;
-        float binop_y_21315 = 20.0F * binop_y_21314;
-        float update_elem_21316 = -10.0F + binop_y_21315;
+        float binop_x_25505 = sitofp_i64_f32(gtid_23604);
+        float binop_y_25506 = binop_x_25505 / 256.0F;
+        float binop_y_25507 = 20.0F * binop_y_25506;
+        float update_elem_25508 = -10.0F + binop_y_25507;
         
-        ((__global float *) color_21364)[phys_tid_20572] = update_elem_21316;
+        ((__global float *) color_25630)[phys_tid_23607] = update_elem_25508;
         
-        float binop_x_21328 = sitofp_i64_f32(gtid_20570);
-        float binop_y_21329 = binop_x_21328 / 256.0F;
-        float binop_y_21330 = 20.0F * binop_y_21329;
-        float update_elem_21331 = -10.0F + binop_y_21330;
+        float binop_x_25520 = sitofp_i64_f32(gtid_23605);
+        float binop_y_25521 = binop_x_25520 / 256.0F;
+        float binop_y_25522 = 20.0F * binop_y_25521;
+        float update_elem_25523 = -10.0F + binop_y_25522;
         
-        ((__global float *) color_21364)[phys_tid_20572 + num_threads_21366] = update_elem_21331;
+        ((__global float *) color_25630)[phys_tid_23607 + num_threads_25636] = update_elem_25523;
         
-        float binop_x_21319 = sitofp_i64_f32(gtid_20571);
-        float binop_y_21320 = binop_x_21319 / 256.0F;
-        float binop_y_21321 = 20.0F * binop_y_21320;
-        float update_elem_21322 = -10.0F + binop_y_21321;
+        float binop_x_25511 = sitofp_i64_f32(gtid_23606);
+        float binop_y_25512 = binop_x_25511 / 256.0F;
+        float binop_y_25513 = 20.0F * binop_y_25512;
+        float update_elem_25514 = -10.0F + binop_y_25513;
         
-        ((__global float *) color_21364)[phys_tid_20572 + (int64_t) 2 * num_threads_21366] = update_elem_21322;
-        ((__global float *) color_21364)[phys_tid_20572 + (int64_t) 3 * num_threads_21366] = 0.0F;
+        ((__global float *) color_25630)[phys_tid_23607 + (int64_t) 2 * num_threads_25636] = update_elem_25514;
+        ((__global float *) color_25630)[phys_tid_23607 + (int64_t) 3 * num_threads_25636] = 0.0F;
         
-        int8_t instr_20584;
-        int8_t instr_20586;
-        int8_t instr_20587;
+        int8_t instr_23619;
+        int8_t instr_23621;
+        int8_t instr_23622;
         
-        for (int64_t i_20582 = 0; i_20582 < dz2080U_13897; i_20582++) {
-            instr_20584 = ((__global int8_t *) mem_21336)[i_20582];
-            instr_20586 = ((__global int8_t *) mem_21340)[i_20582];
-            instr_20587 = ((__global int8_t *) mem_21342)[i_20582];
+        for (int64_t i_23617 = 0; i_23617 < dz2080U_15879; i_23617++) {
+            instr_23619 = ((__global int8_t *) mem_25528)[i_23617];
+            instr_23621 = ((__global int8_t *) mem_25532)[i_23617];
+            instr_23622 = ((__global int8_t *) mem_25534)[i_23617];
             
-            bool cond_20588 = instr_20586 == (int8_t) 0;
+            bool cond_23623 = instr_23621 == (int8_t) 0;
+            float lw_val_23624;
             
-            if (cond_20588 == 1) {
-                int64_t i_20590 = sext_i8_i64(instr_20584);
-                bool x_20591 = sle64((int64_t) 0, i_20590);
-                bool y_20592 = slt64(i_20590, dz2081U_13898);
-                bool bounds_check_20593 = x_20591 && y_20592;
-                bool index_certs_20594;
+            if (cond_23623 == 1) {
+                int64_t iA_23625 = sext_i8_i64(instr_23619);
+                bool x_23626 = sle64((int64_t) 0, iA_23625);
+                bool y_23627 = slt64(iA_23625, dz2081U_15880);
+                bool bounds_check_23628 = x_23626 && y_23627;
+                bool index_certs_23629;
                 
-                if (!bounds_check_20593) {
+                if (!bounds_check_23628) {
                     {
                         if (atomic_cmpxchg_i32_global(global_failure, -1, 0) == -1) {
-                            global_failure_args[0] = (int64_t) i_20590;
-                            global_failure_args[1] = (int64_t) dz2081U_13898;
+                            global_failure_args[0] = (int64_t) iA_23625;
+                            global_failure_args[1] = (int64_t) dz2081U_15880;
                             ;
                         }
                         return;
                     }
                 }
                 
-                int64_t i_20596 = sext_i8_i64(instr_20587);
-                bool x_20597 = sle64((int64_t) 0, i_20596);
-                bool y_20598 = slt64(i_20596, tape_slot_count_13916);
-                bool bounds_check_20599 = x_20597 && y_20598;
-                bool index_certs_20600;
+                float lw_val_t_res_23630 = ((__global float *) tape_constants_mem_25525)[iA_23625];
                 
-                if (!bounds_check_20599) {
-                    {
-                        if (atomic_cmpxchg_i32_global(global_failure, -1, 1) == -1) {
-                            global_failure_args[0] = (int64_t) i_20596;
-                            global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                            ;
-                        }
-                        return;
-                    }
-                }
-                for (int64_t i_21394 = 0; i_21394 < (int64_t) 1; i_21394++) {
-                    float tmp_21395 = ((__global float *) tape_constants_mem_21333)[i_20590 + i_21394];
-                    
-                    ((__global float *) color_21364)[phys_tid_20572 + num_threads_21366 * i_20596 + i_21394 * num_threads_21366] = tmp_21395;
-                }
+                lw_val_23624 = lw_val_t_res_23630;
             } else {
-                bool cond_20602 = instr_20586 == (int8_t) 1;
+                bool cond_23631 = instr_23621 == (int8_t) 1;
+                float lw_val_f_res_23632;
                 
-                if (cond_20602 == 1) {
-                    int64_t i_20604 = sext_i8_i64(instr_20584);
-                    bool x_20605 = sle64((int64_t) 0, i_20604);
-                    bool y_20606 = slt64(i_20604, tape_slot_count_13916);
-                    bool bounds_check_20607 = x_20605 && y_20606;
-                    bool index_certs_20608;
+                if (cond_23631 == 1) {
+                    int64_t iA_23633 = sext_i8_i64(instr_23619);
+                    bool x_23634 = sle64((int64_t) 0, iA_23633);
+                    bool y_23635 = slt64(iA_23633, tape_slot_count_15898);
+                    bool bounds_check_23636 = x_23634 && y_23635;
+                    bool index_certs_23637;
                     
-                    if (!bounds_check_20607) {
+                    if (!bounds_check_23636) {
                         {
-                            if (atomic_cmpxchg_i32_global(global_failure, -1, 2) == -1) {
-                                global_failure_args[0] = (int64_t) i_20604;
-                                global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                            if (atomic_cmpxchg_i32_global(global_failure, -1, 1) == -1) {
+                                global_failure_args[0] = (int64_t) iA_23633;
+                                global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                 ;
                             }
                             return;
                         }
                     }
                     
-                    float sin_arg_20609 = ((__global float *) color_21364)[phys_tid_20572 + i_20604 * num_threads_21366];
-                    float sin_res_20610 = futrts_sin32(sin_arg_20609);
-                    int64_t i_20611 = sext_i8_i64(instr_20587);
-                    bool x_20612 = sle64((int64_t) 0, i_20611);
-                    bool y_20613 = slt64(i_20611, tape_slot_count_13916);
-                    bool bounds_check_20614 = x_20612 && y_20613;
-                    bool index_certs_20615;
+                    float sin_arg_23638 = ((__global float *) color_25630)[phys_tid_23607 + iA_23633 * num_threads_25636];
+                    float sin_res_23639 = futrts_sin32(sin_arg_23638);
                     
-                    if (!bounds_check_20614) {
-                        {
-                            if (atomic_cmpxchg_i32_global(global_failure, -1, 3) == -1) {
-                                global_failure_args[0] = (int64_t) i_20611;
-                                global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                                ;
-                            }
-                            return;
-                        }
-                    }
-                    ((__global float *) color_21364)[phys_tid_20572 + i_20611 * num_threads_21366] = sin_res_20610;
+                    lw_val_f_res_23632 = sin_res_23639;
                 } else {
-                    bool cond_20617 = instr_20586 == (int8_t) 2;
+                    bool cond_23640 = instr_23621 == (int8_t) 2;
+                    float lw_val_f_res_f_res_23641;
                     
-                    if (cond_20617 == 1) {
-                        int64_t i_20619 = sext_i8_i64(instr_20584);
-                        bool x_20620 = sle64((int64_t) 0, i_20619);
-                        bool y_20621 = slt64(i_20619, tape_slot_count_13916);
-                        bool bounds_check_20622 = x_20620 && y_20621;
-                        bool index_certs_20623;
+                    if (cond_23640 == 1) {
+                        int64_t iA_23642 = sext_i8_i64(instr_23619);
+                        bool x_23643 = sle64((int64_t) 0, iA_23642);
+                        bool y_23644 = slt64(iA_23642, tape_slot_count_15898);
+                        bool bounds_check_23645 = x_23643 && y_23644;
+                        bool index_certs_23646;
                         
-                        if (!bounds_check_20622) {
+                        if (!bounds_check_23645) {
                             {
-                                if (atomic_cmpxchg_i32_global(global_failure, -1, 4) == -1) {
-                                    global_failure_args[0] = (int64_t) i_20619;
-                                    global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                if (atomic_cmpxchg_i32_global(global_failure, -1, 2) == -1) {
+                                    global_failure_args[0] = (int64_t) iA_23642;
+                                    global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                     ;
                                 }
                                 return;
                             }
                         }
                         
-                        float cos_arg_20624 = ((__global float *) color_21364)[phys_tid_20572 + i_20619 * num_threads_21366];
-                        float cos_res_20625 = futrts_cos32(cos_arg_20624);
-                        int64_t i_20626 = sext_i8_i64(instr_20587);
-                        bool x_20627 = sle64((int64_t) 0, i_20626);
-                        bool y_20628 = slt64(i_20626, tape_slot_count_13916);
-                        bool bounds_check_20629 = x_20627 && y_20628;
-                        bool index_certs_20630;
+                        float cos_arg_23647 = ((__global float *) color_25630)[phys_tid_23607 + iA_23642 * num_threads_25636];
+                        float cos_res_23648 = futrts_cos32(cos_arg_23647);
                         
-                        if (!bounds_check_20629) {
-                            {
-                                if (atomic_cmpxchg_i32_global(global_failure, -1, 5) == -1) {
-                                    global_failure_args[0] = (int64_t) i_20626;
-                                    global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                                    ;
-                                }
-                                return;
-                            }
-                        }
-                        ((__global float *) color_21364)[phys_tid_20572 + i_20626 * num_threads_21366] = cos_res_20625;
+                        lw_val_f_res_f_res_23641 = cos_res_23648;
                     } else {
-                        bool cond_20632 = instr_20586 == (int8_t) 3;
+                        bool cond_23649 = instr_23621 == (int8_t) 3;
+                        float lw_val_f_res_f_res_f_res_23650;
                         
-                        if (cond_20632 == 1) {
-                            int64_t i_20634 = sext_i8_i64(instr_20584);
-                            bool x_20635 = sle64((int64_t) 0, i_20634);
-                            bool y_20636 = slt64(i_20634, tape_slot_count_13916);
-                            bool bounds_check_20637 = x_20635 && y_20636;
-                            bool index_certs_20638;
+                        if (cond_23649 == 1) {
+                            int64_t iA_23651 = sext_i8_i64(instr_23619);
+                            bool x_23652 = sle64((int64_t) 0, iA_23651);
+                            bool y_23653 = slt64(iA_23651, tape_slot_count_15898);
+                            bool bounds_check_23654 = x_23652 && y_23653;
+                            bool index_certs_23655;
                             
-                            if (!bounds_check_20637) {
+                            if (!bounds_check_23654) {
                                 {
-                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 6) == -1) {
-                                        global_failure_args[0] = (int64_t) i_20634;
-                                        global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 3) == -1) {
+                                        global_failure_args[0] = (int64_t) iA_23651;
+                                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                         ;
                                     }
                                     return;
                                 }
                             }
                             
-                            float exp_arg_20639 = ((__global float *) color_21364)[phys_tid_20572 + i_20634 * num_threads_21366];
-                            float exp_res_20640 = futrts_exp32(exp_arg_20639);
-                            int64_t i_20641 = sext_i8_i64(instr_20587);
-                            bool x_20642 = sle64((int64_t) 0, i_20641);
-                            bool y_20643 = slt64(i_20641, tape_slot_count_13916);
-                            bool bounds_check_20644 = x_20642 && y_20643;
-                            bool index_certs_20645;
+                            float exp_arg_23656 = ((__global float *) color_25630)[phys_tid_23607 + iA_23651 * num_threads_25636];
+                            float exp_res_23657 = futrts_exp32(exp_arg_23656);
                             
-                            if (!bounds_check_20644) {
-                                {
-                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 7) == -1) {
-                                        global_failure_args[0] = (int64_t) i_20641;
-                                        global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                                        ;
-                                    }
-                                    return;
-                                }
-                            }
-                            ((__global float *) color_21364)[phys_tid_20572 + i_20641 * num_threads_21366] = exp_res_20640;
+                            lw_val_f_res_f_res_f_res_23650 = exp_res_23657;
                         } else {
-                            bool cond_20647 = instr_20586 == (int8_t) 4;
+                            bool cond_23658 = instr_23621 == (int8_t) 4;
+                            float lw_val_f_res_f_res_f_res_f_res_23659;
                             
-                            if (cond_20647 == 1) {
-                                int64_t i_20649 = sext_i8_i64(instr_20584);
-                                bool x_20650 = sle64((int64_t) 0, i_20649);
-                                bool y_20651 = slt64(i_20649, tape_slot_count_13916);
-                                bool bounds_check_20652 = x_20650 && y_20651;
-                                bool index_certs_20653;
+                            if (cond_23658 == 1) {
+                                int64_t iA_23660 = sext_i8_i64(instr_23619);
+                                bool x_23661 = sle64((int64_t) 0, iA_23660);
+                                bool y_23662 = slt64(iA_23660, tape_slot_count_15898);
+                                bool bounds_check_23663 = x_23661 && y_23662;
+                                bool index_certs_23664;
                                 
-                                if (!bounds_check_20652) {
+                                if (!bounds_check_23663) {
                                     {
-                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 8) == -1) {
-                                            global_failure_args[0] = (int64_t) i_20649;
-                                            global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 4) == -1) {
+                                            global_failure_args[0] = (int64_t) iA_23660;
+                                            global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                             ;
                                         }
                                         return;
                                     }
                                 }
                                 
-                                float sqrt_arg_20654 = ((__global float *) color_21364)[phys_tid_20572 + i_20649 * num_threads_21366];
-                                float sqrt_res_20655 = futrts_sqrt32(sqrt_arg_20654);
-                                int64_t i_20656 = sext_i8_i64(instr_20587);
-                                bool x_20657 = sle64((int64_t) 0, i_20656);
-                                bool y_20658 = slt64(i_20656, tape_slot_count_13916);
-                                bool bounds_check_20659 = x_20657 && y_20658;
-                                bool index_certs_20660;
+                                float sqrt_arg_23665 = ((__global float *) color_25630)[phys_tid_23607 + iA_23660 * num_threads_25636];
+                                float sqrt_res_23666 = futrts_sqrt32(sqrt_arg_23665);
                                 
-                                if (!bounds_check_20659) {
-                                    {
-                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 9) == -1) {
-                                            global_failure_args[0] = (int64_t) i_20656;
-                                            global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                                            ;
-                                        }
-                                        return;
-                                    }
-                                }
-                                ((__global float *) color_21364)[phys_tid_20572 + i_20656 * num_threads_21366] = sqrt_res_20655;
+                                lw_val_f_res_f_res_f_res_f_res_23659 = sqrt_res_23666;
                             } else {
-                                bool cond_20662 = instr_20586 == (int8_t) 5;
+                                bool cond_23667 = instr_23621 == (int8_t) 5;
+                                float lw_val_f_res_f_res_f_res_f_res_f_res_23668;
                                 
-                                if (cond_20662 == 1) {
-                                    int64_t i_20664 = sext_i8_i64(instr_20584);
-                                    bool x_20665 = sle64((int64_t) 0, i_20664);
-                                    bool y_20666 = slt64(i_20664, tape_slot_count_13916);
-                                    bool bounds_check_20667 = x_20665 && y_20666;
-                                    bool index_certs_20668;
+                                if (cond_23667 == 1) {
+                                    int64_t iA_23669 = sext_i8_i64(instr_23619);
+                                    bool x_23670 = sle64((int64_t) 0, iA_23669);
+                                    bool y_23671 = slt64(iA_23669, tape_slot_count_15898);
+                                    bool bounds_check_23672 = x_23670 && y_23671;
+                                    bool index_certs_23673;
                                     
-                                    if (!bounds_check_20667) {
+                                    if (!bounds_check_23672) {
                                         {
-                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 10) == -1) {
-                                                global_failure_args[0] = (int64_t) i_20664;
-                                                global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 5) == -1) {
+                                                global_failure_args[0] = (int64_t) iA_23669;
+                                                global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                 ;
                                             }
                                             return;
                                         }
                                     }
                                     
-                                    float negate_arg_20669 = ((__global float *) color_21364)[phys_tid_20572 + i_20664 * num_threads_21366];
-                                    float lw_val_20670 = 0.0F - negate_arg_20669;
-                                    int64_t i_20671 = sext_i8_i64(instr_20587);
-                                    bool x_20672 = sle64((int64_t) 0, i_20671);
-                                    bool y_20673 = slt64(i_20671, tape_slot_count_13916);
-                                    bool bounds_check_20674 = x_20672 && y_20673;
-                                    bool index_certs_20675;
+                                    float negate_arg_23674 = ((__global float *) color_25630)[phys_tid_23607 + iA_23669 * num_threads_25636];
+                                    float lw_val_f_res_f_res_f_res_f_res_f_res_t_res_23675 = 0.0F - negate_arg_23674;
                                     
-                                    if (!bounds_check_20674) {
-                                        {
-                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 11) == -1) {
-                                                global_failure_args[0] = (int64_t) i_20671;
-                                                global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                                                ;
-                                            }
-                                            return;
-                                        }
-                                    }
-                                    ((__global float *) color_21364)[phys_tid_20572 + i_20671 * num_threads_21366] = lw_val_20670;
+                                    lw_val_f_res_f_res_f_res_f_res_f_res_23668 = lw_val_f_res_f_res_f_res_f_res_f_res_t_res_23675;
                                 } else {
-                                    int8_t instr_20585 = ((__global int8_t *) mem_21338)[i_20582];
-                                    bool cond_20677 = instr_20586 == (int8_t) 6;
+                                    int8_t instr_23620 = ((__global int8_t *) mem_25530)[i_23617];
+                                    bool cond_23676 = instr_23621 == (int8_t) 6;
+                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_23677;
                                     
-                                    if (cond_20677 == 1) {
-                                        int64_t i_20679 = sext_i8_i64(instr_20584);
-                                        bool x_20680 = sle64((int64_t) 0, i_20679);
-                                        bool y_20681 = slt64(i_20679, tape_slot_count_13916);
-                                        bool bounds_check_20682 = x_20680 && y_20681;
-                                        bool index_certs_20683;
+                                    if (cond_23676 == 1) {
+                                        int64_t iA_23678 = sext_i8_i64(instr_23619);
+                                        bool x_23679 = sle64((int64_t) 0, iA_23678);
+                                        bool y_23680 = slt64(iA_23678, tape_slot_count_15898);
+                                        bool bounds_check_23681 = x_23679 && y_23680;
+                                        bool index_certs_23682;
                                         
-                                        if (!bounds_check_20682) {
+                                        if (!bounds_check_23681) {
                                             {
-                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 12) == -1) {
-                                                    global_failure_args[0] = (int64_t) i_20679;
-                                                    global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 6) == -1) {
+                                                    global_failure_args[0] = (int64_t) iA_23678;
+                                                    global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                     ;
                                                 }
                                                 return;
                                             }
                                         }
                                         
-                                        float x_20684 = ((__global float *) color_21364)[phys_tid_20572 + i_20679 * num_threads_21366];
-                                        int64_t i_20685 = sext_i8_i64(instr_20585);
-                                        bool x_20686 = sle64((int64_t) 0, i_20685);
-                                        bool y_20687 = slt64(i_20685, tape_slot_count_13916);
-                                        bool bounds_check_20688 = x_20686 && y_20687;
-                                        bool index_certs_20689;
+                                        float x_23683 = ((__global float *) color_25630)[phys_tid_23607 + iA_23678 * num_threads_25636];
+                                        int64_t iB_23684 = sext_i8_i64(instr_23620);
+                                        bool x_23685 = sle64((int64_t) 0, iB_23684);
+                                        bool y_23686 = slt64(iB_23684, tape_slot_count_15898);
+                                        bool bounds_check_23687 = x_23685 && y_23686;
+                                        bool index_certs_23688;
                                         
-                                        if (!bounds_check_20688) {
+                                        if (!bounds_check_23687) {
                                             {
-                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 13) == -1) {
-                                                    global_failure_args[0] = (int64_t) i_20685;
-                                                    global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 7) == -1) {
+                                                    global_failure_args[0] = (int64_t) iB_23684;
+                                                    global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                     ;
                                                 }
                                                 return;
                                             }
                                         }
                                         
-                                        float y_20690 = ((__global float *) color_21364)[phys_tid_20572 + i_20685 * num_threads_21366];
-                                        float lw_val_20691 = x_20684 + y_20690;
-                                        int64_t i_20692 = sext_i8_i64(instr_20587);
-                                        bool x_20693 = sle64((int64_t) 0, i_20692);
-                                        bool y_20694 = slt64(i_20692, tape_slot_count_13916);
-                                        bool bounds_check_20695 = x_20693 && y_20694;
-                                        bool index_certs_20696;
+                                        float y_23689 = ((__global float *) color_25630)[phys_tid_23607 + iB_23684 * num_threads_25636];
+                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_t_res_23690 = x_23683 + y_23689;
                                         
-                                        if (!bounds_check_20695) {
-                                            {
-                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 14) == -1) {
-                                                    global_failure_args[0] = (int64_t) i_20692;
-                                                    global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                                                    ;
-                                                }
-                                                return;
-                                            }
-                                        }
-                                        ((__global float *) color_21364)[phys_tid_20572 + i_20692 * num_threads_21366] = lw_val_20691;
+                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_23677 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_t_res_23690;
                                     } else {
-                                        bool cond_20698 = instr_20586 == (int8_t) 7;
+                                        bool cond_23691 = instr_23621 == (int8_t) 7;
+                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23692;
                                         
-                                        if (cond_20698 == 1) {
-                                            int64_t i_20700 = sext_i8_i64(instr_20584);
-                                            bool x_20701 = sle64((int64_t) 0, i_20700);
-                                            bool y_20702 = slt64(i_20700, tape_slot_count_13916);
-                                            bool bounds_check_20703 = x_20701 && y_20702;
-                                            bool index_certs_20704;
+                                        if (cond_23691 == 1) {
+                                            int64_t iA_23693 = sext_i8_i64(instr_23619);
+                                            bool x_23694 = sle64((int64_t) 0, iA_23693);
+                                            bool y_23695 = slt64(iA_23693, tape_slot_count_15898);
+                                            bool bounds_check_23696 = x_23694 && y_23695;
+                                            bool index_certs_23697;
                                             
-                                            if (!bounds_check_20703) {
+                                            if (!bounds_check_23696) {
                                                 {
-                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 15) == -1) {
-                                                        global_failure_args[0] = (int64_t) i_20700;
-                                                        global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 8) == -1) {
+                                                        global_failure_args[0] = (int64_t) iA_23693;
+                                                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                         ;
                                                     }
                                                     return;
                                                 }
                                             }
                                             
-                                            float x_20705 = ((__global float *) color_21364)[phys_tid_20572 + i_20700 * num_threads_21366];
-                                            int64_t i_20706 = sext_i8_i64(instr_20585);
-                                            bool x_20707 = sle64((int64_t) 0, i_20706);
-                                            bool y_20708 = slt64(i_20706, tape_slot_count_13916);
-                                            bool bounds_check_20709 = x_20707 && y_20708;
-                                            bool index_certs_20710;
+                                            float x_23698 = ((__global float *) color_25630)[phys_tid_23607 + iA_23693 * num_threads_25636];
+                                            int64_t iB_23699 = sext_i8_i64(instr_23620);
+                                            bool x_23700 = sle64((int64_t) 0, iB_23699);
+                                            bool y_23701 = slt64(iB_23699, tape_slot_count_15898);
+                                            bool bounds_check_23702 = x_23700 && y_23701;
+                                            bool index_certs_23703;
                                             
-                                            if (!bounds_check_20709) {
+                                            if (!bounds_check_23702) {
                                                 {
-                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 16) == -1) {
-                                                        global_failure_args[0] = (int64_t) i_20706;
-                                                        global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 9) == -1) {
+                                                        global_failure_args[0] = (int64_t) iB_23699;
+                                                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                         ;
                                                     }
                                                     return;
                                                 }
                                             }
                                             
-                                            float y_20711 = ((__global float *) color_21364)[phys_tid_20572 + i_20706 * num_threads_21366];
-                                            float lw_val_20712 = x_20705 - y_20711;
-                                            int64_t i_20713 = sext_i8_i64(instr_20587);
-                                            bool x_20714 = sle64((int64_t) 0, i_20713);
-                                            bool y_20715 = slt64(i_20713, tape_slot_count_13916);
-                                            bool bounds_check_20716 = x_20714 && y_20715;
-                                            bool index_certs_20717;
+                                            float y_23704 = ((__global float *) color_25630)[phys_tid_23607 + iB_23699 * num_threads_25636];
+                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_23705 = x_23698 - y_23704;
                                             
-                                            if (!bounds_check_20716) {
-                                                {
-                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 17) == -1) {
-                                                        global_failure_args[0] = (int64_t) i_20713;
-                                                        global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                                                        ;
-                                                    }
-                                                    return;
-                                                }
-                                            }
-                                            ((__global float *) color_21364)[phys_tid_20572 + i_20713 * num_threads_21366] = lw_val_20712;
+                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23692 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_23705;
                                         } else {
-                                            bool cond_20719 = instr_20586 == (int8_t) 8;
+                                            bool cond_23706 = instr_23621 == (int8_t) 8;
+                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23707;
                                             
-                                            if (cond_20719 == 1) {
-                                                int64_t i_20721 = sext_i8_i64(instr_20584);
-                                                bool x_20722 = sle64((int64_t) 0, i_20721);
-                                                bool y_20723 = slt64(i_20721, tape_slot_count_13916);
-                                                bool bounds_check_20724 = x_20722 && y_20723;
-                                                bool index_certs_20725;
+                                            if (cond_23706 == 1) {
+                                                int64_t iA_23708 = sext_i8_i64(instr_23619);
+                                                bool x_23709 = sle64((int64_t) 0, iA_23708);
+                                                bool y_23710 = slt64(iA_23708, tape_slot_count_15898);
+                                                bool bounds_check_23711 = x_23709 && y_23710;
+                                                bool index_certs_23712;
                                                 
-                                                if (!bounds_check_20724) {
+                                                if (!bounds_check_23711) {
                                                     {
-                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 18) == -1) {
-                                                            global_failure_args[0] = (int64_t) i_20721;
-                                                            global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 10) == -1) {
+                                                            global_failure_args[0] = (int64_t) iA_23708;
+                                                            global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                             ;
                                                         }
                                                         return;
                                                     }
                                                 }
                                                 
-                                                float x_20726 = ((__global float *) color_21364)[phys_tid_20572 + i_20721 * num_threads_21366];
-                                                int64_t i_20727 = sext_i8_i64(instr_20585);
-                                                bool x_20728 = sle64((int64_t) 0, i_20727);
-                                                bool y_20729 = slt64(i_20727, tape_slot_count_13916);
-                                                bool bounds_check_20730 = x_20728 && y_20729;
-                                                bool index_certs_20731;
+                                                float x_23713 = ((__global float *) color_25630)[phys_tid_23607 + iA_23708 * num_threads_25636];
+                                                int64_t iB_23714 = sext_i8_i64(instr_23620);
+                                                bool x_23715 = sle64((int64_t) 0, iB_23714);
+                                                bool y_23716 = slt64(iB_23714, tape_slot_count_15898);
+                                                bool bounds_check_23717 = x_23715 && y_23716;
+                                                bool index_certs_23718;
                                                 
-                                                if (!bounds_check_20730) {
+                                                if (!bounds_check_23717) {
                                                     {
-                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 19) == -1) {
-                                                            global_failure_args[0] = (int64_t) i_20727;
-                                                            global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 11) == -1) {
+                                                            global_failure_args[0] = (int64_t) iB_23714;
+                                                            global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                             ;
                                                         }
                                                         return;
                                                     }
                                                 }
                                                 
-                                                float y_20732 = ((__global float *) color_21364)[phys_tid_20572 + i_20727 * num_threads_21366];
-                                                float lw_val_20733 = x_20726 * y_20732;
-                                                int64_t i_20734 = sext_i8_i64(instr_20587);
-                                                bool x_20735 = sle64((int64_t) 0, i_20734);
-                                                bool y_20736 = slt64(i_20734, tape_slot_count_13916);
-                                                bool bounds_check_20737 = x_20735 && y_20736;
-                                                bool index_certs_20738;
+                                                float y_23719 = ((__global float *) color_25630)[phys_tid_23607 + iB_23714 * num_threads_25636];
+                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_23720 = x_23713 * y_23719;
                                                 
-                                                if (!bounds_check_20737) {
-                                                    {
-                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 20) == -1) {
-                                                            global_failure_args[0] = (int64_t) i_20734;
-                                                            global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                                                            ;
-                                                        }
-                                                        return;
-                                                    }
-                                                }
-                                                ((__global float *) color_21364)[phys_tid_20572 + i_20734 * num_threads_21366] = lw_val_20733;
+                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23707 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_23720;
                                             } else {
-                                                bool cond_20740 = instr_20586 == (int8_t) 9;
+                                                bool cond_23721 = instr_23621 == (int8_t) 9;
+                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23722;
                                                 
-                                                if (cond_20740 == 1) {
-                                                    int64_t i_20742 = sext_i8_i64(instr_20584);
-                                                    bool x_20743 = sle64((int64_t) 0, i_20742);
-                                                    bool y_20744 = slt64(i_20742, tape_slot_count_13916);
-                                                    bool bounds_check_20745 = x_20743 && y_20744;
-                                                    bool index_certs_20746;
+                                                if (cond_23721 == 1) {
+                                                    int64_t iA_23723 = sext_i8_i64(instr_23619);
+                                                    bool x_23724 = sle64((int64_t) 0, iA_23723);
+                                                    bool y_23725 = slt64(iA_23723, tape_slot_count_15898);
+                                                    bool bounds_check_23726 = x_23724 && y_23725;
+                                                    bool index_certs_23727;
                                                     
-                                                    if (!bounds_check_20745) {
+                                                    if (!bounds_check_23726) {
                                                         {
-                                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 21) == -1) {
-                                                                global_failure_args[0] = (int64_t) i_20742;
-                                                                global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 12) == -1) {
+                                                                global_failure_args[0] = (int64_t) iA_23723;
+                                                                global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                                 ;
                                                             }
                                                             return;
                                                         }
                                                     }
                                                     
-                                                    float x_20747 = ((__global float *) color_21364)[phys_tid_20572 + i_20742 * num_threads_21366];
-                                                    int64_t i_20748 = sext_i8_i64(instr_20585);
-                                                    bool x_20749 = sle64((int64_t) 0, i_20748);
-                                                    bool y_20750 = slt64(i_20748, tape_slot_count_13916);
-                                                    bool bounds_check_20751 = x_20749 && y_20750;
-                                                    bool index_certs_20752;
+                                                    float x_23728 = ((__global float *) color_25630)[phys_tid_23607 + iA_23723 * num_threads_25636];
+                                                    int64_t iB_23729 = sext_i8_i64(instr_23620);
+                                                    bool x_23730 = sle64((int64_t) 0, iB_23729);
+                                                    bool y_23731 = slt64(iB_23729, tape_slot_count_15898);
+                                                    bool bounds_check_23732 = x_23730 && y_23731;
+                                                    bool index_certs_23733;
                                                     
-                                                    if (!bounds_check_20751) {
+                                                    if (!bounds_check_23732) {
                                                         {
-                                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 22) == -1) {
-                                                                global_failure_args[0] = (int64_t) i_20748;
-                                                                global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 13) == -1) {
+                                                                global_failure_args[0] = (int64_t) iB_23729;
+                                                                global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                                 ;
                                                             }
                                                             return;
                                                         }
                                                     }
                                                     
-                                                    float y_20753 = ((__global float *) color_21364)[phys_tid_20572 + i_20748 * num_threads_21366];
-                                                    float lw_val_20754 = x_20747 / y_20753;
-                                                    int64_t i_20755 = sext_i8_i64(instr_20587);
-                                                    bool x_20756 = sle64((int64_t) 0, i_20755);
-                                                    bool y_20757 = slt64(i_20755, tape_slot_count_13916);
-                                                    bool bounds_check_20758 = x_20756 && y_20757;
-                                                    bool index_certs_20759;
+                                                    float y_23734 = ((__global float *) color_25630)[phys_tid_23607 + iB_23729 * num_threads_25636];
+                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_23735 = x_23728 / y_23734;
                                                     
-                                                    if (!bounds_check_20758) {
-                                                        {
-                                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 23) == -1) {
-                                                                global_failure_args[0] = (int64_t) i_20755;
-                                                                global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                                                                ;
-                                                            }
-                                                            return;
-                                                        }
-                                                    }
-                                                    ((__global float *) color_21364)[phys_tid_20572 + i_20755 * num_threads_21366] = lw_val_20754;
+                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23722 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_23735;
                                                 } else {
-                                                    bool cond_20761 = instr_20586 == (int8_t) 10;
+                                                    bool cond_23736 = instr_23621 == (int8_t) 10;
+                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23737;
                                                     
-                                                    if (cond_20761 == 1) {
-                                                        int64_t i_20763 = sext_i8_i64(instr_20585);
-                                                        bool x_20764 = sle64((int64_t) 0, i_20763);
-                                                        bool y_20765 = slt64(i_20763, tape_slot_count_13916);
-                                                        bool bounds_check_20766 = x_20764 && y_20765;
-                                                        bool index_certs_20767;
+                                                    if (cond_23736 == 1) {
+                                                        int64_t iB_23738 = sext_i8_i64(instr_23620);
+                                                        bool x_23739 = sle64((int64_t) 0, iB_23738);
+                                                        bool y_23740 = slt64(iB_23738, tape_slot_count_15898);
+                                                        bool bounds_check_23741 = x_23739 && y_23740;
+                                                        bool index_certs_23742;
                                                         
-                                                        if (!bounds_check_20766) {
+                                                        if (!bounds_check_23741) {
                                                             {
-                                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 24) == -1) {
-                                                                    global_failure_args[0] = (int64_t) i_20763;
-                                                                    global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 14) == -1) {
+                                                                    global_failure_args[0] = (int64_t) iB_23738;
+                                                                    global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                                     ;
                                                                 }
                                                                 return;
                                                             }
                                                         }
                                                         
-                                                        float min_arg_20768 = ((__global float *) color_21364)[phys_tid_20572 + i_20763 * num_threads_21366];
-                                                        int64_t i_20769 = sext_i8_i64(instr_20584);
-                                                        bool x_20770 = sle64((int64_t) 0, i_20769);
-                                                        bool y_20771 = slt64(i_20769, tape_slot_count_13916);
-                                                        bool bounds_check_20772 = x_20770 && y_20771;
-                                                        bool index_certs_20773;
+                                                        float min_arg_23743 = ((__global float *) color_25630)[phys_tid_23607 + iB_23738 * num_threads_25636];
+                                                        int64_t iA_23744 = sext_i8_i64(instr_23619);
+                                                        bool x_23745 = sle64((int64_t) 0, iA_23744);
+                                                        bool y_23746 = slt64(iA_23744, tape_slot_count_15898);
+                                                        bool bounds_check_23747 = x_23745 && y_23746;
+                                                        bool index_certs_23748;
                                                         
-                                                        if (!bounds_check_20772) {
+                                                        if (!bounds_check_23747) {
                                                             {
-                                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 25) == -1) {
-                                                                    global_failure_args[0] = (int64_t) i_20769;
-                                                                    global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 15) == -1) {
+                                                                    global_failure_args[0] = (int64_t) iA_23744;
+                                                                    global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                                     ;
                                                                 }
                                                                 return;
                                                             }
                                                         }
                                                         
-                                                        float min_arg_20774 = ((__global float *) color_21364)[phys_tid_20572 + i_20769 * num_threads_21366];
-                                                        float min_res_20775 = fmin32(min_arg_20768, min_arg_20774);
-                                                        int64_t i_20776 = sext_i8_i64(instr_20587);
-                                                        bool x_20777 = sle64((int64_t) 0, i_20776);
-                                                        bool y_20778 = slt64(i_20776, tape_slot_count_13916);
-                                                        bool bounds_check_20779 = x_20777 && y_20778;
-                                                        bool index_certs_20780;
+                                                        float min_arg_23749 = ((__global float *) color_25630)[phys_tid_23607 + iA_23744 * num_threads_25636];
+                                                        float min_res_23750 = fmin32(min_arg_23743, min_arg_23749);
                                                         
-                                                        if (!bounds_check_20779) {
-                                                            {
-                                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 26) == -1) {
-                                                                    global_failure_args[0] = (int64_t) i_20776;
-                                                                    global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                                                                    ;
-                                                                }
-                                                                return;
-                                                            }
-                                                        }
-                                                        ((__global float *) color_21364)[phys_tid_20572 + i_20776 * num_threads_21366] = min_res_20775;
+                                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23737 = min_res_23750;
                                                     } else {
-                                                        bool cond_20782 = instr_20586 == (int8_t) 11;
+                                                        bool cond_23751 = instr_23621 == (int8_t) 11;
+                                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23752;
                                                         
-                                                        if (cond_20782 == 1) {
-                                                            int64_t i_20784 = sext_i8_i64(instr_20585);
-                                                            bool x_20785 = sle64((int64_t) 0, i_20784);
-                                                            bool y_20786 = slt64(i_20784, tape_slot_count_13916);
-                                                            bool bounds_check_20787 = x_20785 && y_20786;
-                                                            bool index_certs_20788;
+                                                        if (cond_23751 == 1) {
+                                                            int64_t iB_23753 = sext_i8_i64(instr_23620);
+                                                            bool x_23754 = sle64((int64_t) 0, iB_23753);
+                                                            bool y_23755 = slt64(iB_23753, tape_slot_count_15898);
+                                                            bool bounds_check_23756 = x_23754 && y_23755;
+                                                            bool index_certs_23757;
                                                             
-                                                            if (!bounds_check_20787) {
+                                                            if (!bounds_check_23756) {
                                                                 {
-                                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 27) == -1) {
-                                                                        global_failure_args[0] = (int64_t) i_20784;
-                                                                        global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 16) == -1) {
+                                                                        global_failure_args[0] = (int64_t) iB_23753;
+                                                                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                                         ;
                                                                     }
                                                                     return;
                                                                 }
                                                             }
                                                             
-                                                            float max_arg_20789 = ((__global float *) color_21364)[phys_tid_20572 + i_20784 * num_threads_21366];
-                                                            int64_t i_20790 = sext_i8_i64(instr_20584);
-                                                            bool x_20791 = sle64((int64_t) 0, i_20790);
-                                                            bool y_20792 = slt64(i_20790, tape_slot_count_13916);
-                                                            bool bounds_check_20793 = x_20791 && y_20792;
-                                                            bool index_certs_20794;
+                                                            float max_arg_23758 = ((__global float *) color_25630)[phys_tid_23607 + iB_23753 * num_threads_25636];
+                                                            int64_t iA_23759 = sext_i8_i64(instr_23619);
+                                                            bool x_23760 = sle64((int64_t) 0, iA_23759);
+                                                            bool y_23761 = slt64(iA_23759, tape_slot_count_15898);
+                                                            bool bounds_check_23762 = x_23760 && y_23761;
+                                                            bool index_certs_23763;
                                                             
-                                                            if (!bounds_check_20793) {
+                                                            if (!bounds_check_23762) {
                                                                 {
-                                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 28) == -1) {
-                                                                        global_failure_args[0] = (int64_t) i_20790;
-                                                                        global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 17) == -1) {
+                                                                        global_failure_args[0] = (int64_t) iA_23759;
+                                                                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                                         ;
                                                                     }
                                                                     return;
                                                                 }
                                                             }
                                                             
-                                                            float max_arg_20795 = ((__global float *) color_21364)[phys_tid_20572 + i_20790 * num_threads_21366];
-                                                            float max_res_20796 = fmax32(max_arg_20789, max_arg_20795);
-                                                            int64_t i_20797 = sext_i8_i64(instr_20587);
-                                                            bool x_20798 = sle64((int64_t) 0, i_20797);
-                                                            bool y_20799 = slt64(i_20797, tape_slot_count_13916);
-                                                            bool bounds_check_20800 = x_20798 && y_20799;
-                                                            bool index_certs_20801;
+                                                            float max_arg_23764 = ((__global float *) color_25630)[phys_tid_23607 + iA_23759 * num_threads_25636];
+                                                            float max_res_23765 = fmax32(max_arg_23758, max_arg_23764);
                                                             
-                                                            if (!bounds_check_20800) {
-                                                                {
-                                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 29) == -1) {
-                                                                        global_failure_args[0] = (int64_t) i_20797;
-                                                                        global_failure_args[1] = (int64_t) tape_slot_count_13916;
-                                                                        ;
-                                                                    }
-                                                                    return;
-                                                                }
-                                                            }
-                                                            ((__global float *) color_21364)[phys_tid_20572 + i_20797 * num_threads_21366] = max_res_20796;
+                                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23752 = max_res_23765;
                                                         } else {
-                                                            bool cond_20803 = instr_20586 == (int8_t) 12;
+                                                            bool cond_23766 = instr_23621 == (int8_t) 12;
+                                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23767;
                                                             
-                                                            if (cond_20803 == 1) {
-                                                                int64_t i_20805 = sext_i8_i64(instr_20584);
-                                                                bool x_20806 = sle64((int64_t) 0, i_20805);
-                                                                bool y_20807 = slt64(i_20805, tape_slot_count_13916);
-                                                                bool bounds_check_20808 = x_20806 && y_20807;
-                                                                bool index_certs_20809;
+                                                            if (cond_23766 == 1) {
+                                                                int64_t iA_23768 = sext_i8_i64(instr_23619);
+                                                                bool x_23769 = sle64((int64_t) 0, iA_23768);
+                                                                bool y_23770 = slt64(iA_23768, tape_slot_count_15898);
+                                                                bool bounds_check_23771 = x_23769 && y_23770;
+                                                                bool index_certs_23772;
                                                                 
-                                                                if (!bounds_check_20808) {
+                                                                if (!bounds_check_23771) {
                                                                     {
-                                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 30) == -1) {
-                                                                            global_failure_args[0] = (int64_t) i_20805;
-                                                                            global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 18) == -1) {
+                                                                            global_failure_args[0] = (int64_t) iA_23768;
+                                                                            global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                                             ;
                                                                         }
                                                                         return;
                                                                     }
                                                                 }
                                                                 
-                                                                float lw_val_20810 = ((__global float *) color_21364)[phys_tid_20572 + i_20805 * num_threads_21366];
-                                                                int64_t i_20811 = sext_i8_i64(instr_20587);
-                                                                bool x_20812 = sle64((int64_t) 0, i_20811);
-                                                                bool y_20813 = slt64(i_20811, tape_slot_count_13916);
-                                                                bool bounds_check_20814 = x_20812 && y_20813;
-                                                                bool index_certs_20815;
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_23773 = ((__global float *) color_25630)[phys_tid_23607 + iA_23768 * num_threads_25636];
                                                                 
-                                                                if (!bounds_check_20814) {
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23767 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_23773;
+                                                            } else {
+                                                                int64_t iO_23774 = sext_i8_i64(instr_23622);
+                                                                bool x_23775 = sle64((int64_t) 0, iO_23774);
+                                                                bool y_23776 = slt64(iO_23774, tape_slot_count_15898);
+                                                                bool bounds_check_23777 = x_23775 && y_23776;
+                                                                bool index_certs_23778;
+                                                                
+                                                                if (!bounds_check_23777) {
                                                                     {
-                                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 31) == -1) {
-                                                                            global_failure_args[0] = (int64_t) i_20811;
-                                                                            global_failure_args[1] = (int64_t) tape_slot_count_13916;
+                                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 19) == -1) {
+                                                                            global_failure_args[0] = (int64_t) iO_23774;
+                                                                            global_failure_args[1] = (int64_t) tape_slot_count_15898;
                                                                             ;
                                                                         }
                                                                         return;
                                                                     }
                                                                 }
-                                                                ((__global float *) color_21364)[phys_tid_20572 + i_20811 * num_threads_21366] = lw_val_20810;
+                                                                
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23779 = ((__global float *) color_25630)[phys_tid_23607 + iO_23774 * num_threads_25636];
+                                                                
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23767 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23779;
                                                             }
+                                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23752 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23767;
                                                         }
+                                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23737 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23752;
                                                     }
+                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23722 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23737;
                                                 }
+                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23707 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23722;
                                             }
+                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23692 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23707;
                                         }
+                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_23677 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_23692;
                                     }
+                                    lw_val_f_res_f_res_f_res_f_res_f_res_23668 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_23677;
                                 }
+                                lw_val_f_res_f_res_f_res_f_res_23659 = lw_val_f_res_f_res_f_res_f_res_f_res_23668;
                             }
+                            lw_val_f_res_f_res_f_res_23650 = lw_val_f_res_f_res_f_res_f_res_23659;
                         }
+                        lw_val_f_res_f_res_23641 = lw_val_f_res_f_res_f_res_23650;
                     }
+                    lw_val_f_res_23632 = lw_val_f_res_f_res_23641;
+                }
+                lw_val_23624 = lw_val_f_res_23632;
+            }
+            
+            int64_t iO_23780 = sext_i8_i64(instr_23622);
+            bool x_23781 = sle64((int64_t) 0, iO_23780);
+            bool y_23782 = slt64(iO_23780, tape_slot_count_15898);
+            bool bounds_check_23783 = x_23781 && y_23782;
+            bool index_certs_23784;
+            
+            if (!bounds_check_23783) {
+                {
+                    if (atomic_cmpxchg_i32_global(global_failure, -1, 20) == -1) {
+                        global_failure_args[0] = (int64_t) iO_23780;
+                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                        ;
+                    }
+                    return;
                 }
             }
+            ((__global float *) color_25630)[phys_tid_23607 + iO_23780 * num_threads_25636] = lw_val_23624;
         }
         
-        float eval_tape_res_20817 = ((__global float *) color_21364)[phys_tid_20572];
-        bool defunc_0_f_res_20818 = eval_tape_res_20817 <= 0.0F;
+        float tape_eval_res_23786 = ((__global float *) color_25630)[phys_tid_23607];
+        bool defunc_0_f_res_23787 = tape_eval_res_23786 <= 0.0F;
         
-        ((__global bool *) mem_21358)[gtid_20569 * (int64_t) 65536 + gtid_20570 * (int64_t) 256 + gtid_20571] = defunc_0_f_res_20818;
+        ((__global bool *) mem_25550)[gtid_23604 * (int64_t) 65536 + gtid_23605 * (int64_t) 256 + gtid_23606] = defunc_0_f_res_23787;
     }
     
   error_0:
     return;
-    #undef segmap_group_sizze_20566
-    #undef num_threads_21366
+    #undef segmap_group_sizze_23601
+    #undef num_threads_25636
 }
-__kernel void mainzisegmap_21146(__global int *global_failure, int failure_is_an_option, __global int64_t *global_failure_args, int64_t pixel_width_13899, int64_t pixel_height_13900, float cam_pos_x_13901, float cam_pos_y_13902, float cam_pos_zz_13903, float cam_forward_x_13904, float cam_forward_y_13905, float cam_forward_zz_13906, float cam_right_x_13907, float cam_right_y_13908, float cam_right_zz_13909, float cam_up_x_13910, float cam_up_y_13911, float cam_up_zz_13912, float screen_world_sizze_x_16641, float i64_res_16642, float i64_res_16643, float screen_world_sizze_y_16645, float defunc_1_f_res_16940, float defunc_1_f_res_16941, float defunc_1_f_res_16942, float defunc_1_f_res_16949, float defunc_1_f_res_16950, float defunc_1_f_res_16951, __global unsigned char *mem_21358, __global unsigned char *mem_21363)
+__kernel void mainzisegmap_24931(__global int *global_failure, int failure_is_an_option, __global int64_t *global_failure_args, int64_t dz2080U_15879, int64_t dz2081U_15880, int64_t pixel_width_15881, int64_t pixel_height_15882, float cam_pos_x_15883, float cam_pos_y_15884, float cam_pos_zz_15885, float cam_forward_x_15886, float cam_forward_y_15887, float cam_forward_zz_15888, float cam_right_x_15889, float cam_right_y_15890, float cam_right_zz_15891, float cam_up_x_15892, float cam_up_y_15893, float cam_up_zz_15894, int64_t tape_slot_count_15898, float screen_world_sizze_x_20361, float i64_res_20362, float i64_res_20363, float screen_world_sizze_y_20365, float defunc_1_f_res_20934, float defunc_1_f_res_20935, float defunc_1_f_res_20936, float defunc_1_f_res_20952, float defunc_1_f_res_20953, float defunc_1_f_res_20954, int64_t num_threads_25638, __global unsigned char *tape_constants_mem_25525, __global unsigned char *mem_25528, __global unsigned char *mem_25530, __global unsigned char *mem_25532, __global unsigned char *mem_25534, __global unsigned char *mem_25550, __global unsigned char *mem_25607, __global unsigned char *color_25631, __global unsigned char *color_25632, __global unsigned char *color_25633, __global unsigned char *color_25634)
 {
-    #define segmap_group_sizze_21141 (mainzisegmap_group_sizze_20837)
+    #define segmap_group_sizze_24926 (mainzisegmap_group_sizze_23806)
     
     const int block_dim0 = 0;
     const int block_dim1 = 1;
@@ -5660,188 +5526,190 @@ __kernel void mainzisegmap_21146(__global int *global_failure, int failure_is_an
     if (*global_failure >= 0)
         return;
     
-    int32_t local_tid_21398;
-    int64_t group_sizze_21401;
-    int32_t wave_sizze_21400;
-    int32_t group_tid_21399;
+    int32_t local_tid_25670;
+    int64_t group_sizze_25673;
+    int32_t wave_sizze_25672;
+    int32_t group_tid_25671;
     
-    local_tid_21398 = get_local_id(0);
-    group_sizze_21401 = get_local_size(0);
-    wave_sizze_21400 = LOCKSTEP_WIDTH;
-    group_tid_21399 = get_group_id(0);
+    local_tid_25670 = get_local_id(0);
+    group_sizze_25673 = get_local_size(0);
+    wave_sizze_25672 = LOCKSTEP_WIDTH;
+    group_tid_25671 = get_group_id(0);
     
-    int32_t global_tid_21397 = group_tid_21399 * group_sizze_21401 + local_tid_21398;
-    int32_t phys_tid_21146 = global_tid_21397;
-    int64_t global_tid_21402 = sext_i32_i64(group_tid_21399) * segmap_group_sizze_21141 + sext_i32_i64(local_tid_21398);
-    int64_t slice_21403 = pixel_height_13900;
-    int64_t slice_21404 = pixel_width_13899 * slice_21403;
-    int64_t gtid_21144 = squot64(global_tid_21402, slice_21403);
-    int64_t remnant_21405 = global_tid_21402 - gtid_21144 * slice_21403;
-    int64_t gtid_21145 = remnant_21405;
-    int64_t remnant_21406 = remnant_21405 - gtid_21145;
+    int32_t global_tid_25669 = group_tid_25671 * group_sizze_25673 + local_tid_25670;
+    int32_t phys_tid_24931 = global_tid_25669;
+    int64_t global_tid_25674 = sext_i32_i64(group_tid_25671) * segmap_group_sizze_24926 + sext_i32_i64(local_tid_25670);
+    int64_t slice_25675 = pixel_height_15882;
+    int64_t slice_25676 = pixel_width_15881 * slice_25675;
+    int64_t gtid_24929 = squot64(global_tid_25674, slice_25675);
+    int64_t remnant_25677 = global_tid_25674 - gtid_24929 * slice_25675;
+    int64_t gtid_24930 = remnant_25677;
+    int64_t remnant_25678 = remnant_25677 - gtid_24930;
     
-    if (slt64(gtid_21144, pixel_width_13899) && slt64(gtid_21145, pixel_height_13900)) {
-        float binop_x_21304 = sitofp_i64_f32(gtid_21144);
-        float binop_y_21305 = binop_x_21304 / i64_res_16643;
-        float binop_x_21306 = 2.0F * binop_y_21305;
-        float binop_y_21307 = binop_x_21306 - 1.0F;
-        float binop_y_21308 = screen_world_sizze_x_16641 * binop_y_21307;
-        float binop_y_21309 = cam_right_x_13907 * binop_y_21308;
-        float index_primexp_21310 = cam_forward_x_13904 + binop_y_21309;
-        float binop_y_21300 = cam_right_y_13908 * binop_y_21308;
-        float index_primexp_21301 = cam_forward_y_13905 + binop_y_21300;
-        float binop_y_21291 = cam_right_zz_13909 * binop_y_21308;
-        float index_primexp_21292 = cam_forward_zz_13906 + binop_y_21291;
-        float i64_res_21151 = sitofp_i64_f32(gtid_21145);
-        float y_21152 = i64_res_21151 / i64_res_16642;
-        float x_21153 = 2.0F * y_21152;
-        float dy_21154 = x_21153 - 1.0F;
-        float scale_arg_21155 = screen_world_sizze_y_16645 * dy_21154;
-        float zt_res_21156 = cam_up_x_13910 * scale_arg_21155;
-        float zt_res_21157 = cam_up_y_13911 * scale_arg_21155;
-        float zt_res_21158 = cam_up_zz_13912 * scale_arg_21155;
-        float defunc_1_f_res_21159 = zt_res_21156 + index_primexp_21310;
-        float defunc_1_f_res_21160 = zt_res_21157 + index_primexp_21301;
-        float defunc_1_f_res_21161 = zt_res_21158 + index_primexp_21292;
-        float zt_res_21162 = defunc_1_f_res_21161 * defunc_1_f_res_21161;
-        float zt_res_21163 = defunc_1_f_res_21160 * defunc_1_f_res_21160;
-        float zt_res_21164 = defunc_1_f_res_21159 * defunc_1_f_res_21159;
-        float zp_res_21165 = zt_res_21163 + zt_res_21164;
-        float zp_res_21166 = zt_res_21162 + zp_res_21165;
-        float defunc_0_g_res_21167 = futrts_sqrt32(zp_res_21166);
-        float zs_res_21168 = 1.0F / defunc_0_g_res_21167;
-        float zt_res_21169 = defunc_1_f_res_21159 * zs_res_21168;
-        float zt_res_21170 = defunc_1_f_res_21160 * zs_res_21168;
-        float zt_res_21171 = defunc_1_f_res_21161 * zs_res_21168;
-        float defunc_1_f_res_21172 = defunc_1_f_res_16940 / zt_res_21169;
-        float defunc_1_f_res_21173 = defunc_1_f_res_16941 / zt_res_21170;
-        float defunc_1_f_res_21174 = defunc_1_f_res_16942 / zt_res_21171;
-        float defunc_1_f_res_21175 = defunc_1_f_res_16949 / zt_res_21169;
-        float defunc_1_f_res_21176 = defunc_1_f_res_16950 / zt_res_21170;
-        float defunc_1_f_res_21177 = defunc_1_f_res_16951 / zt_res_21171;
-        bool cond_21178 = 0.0F <= zt_res_21169;
-        float raygrid_intersect_res_21179;
+    if (slt64(gtid_24929, pixel_width_15881) && slt64(gtid_24930, pixel_height_15882)) {
+        float binop_x_25496 = sitofp_i64_f32(gtid_24929);
+        float binop_y_25497 = binop_x_25496 / i64_res_20363;
+        float binop_x_25498 = 2.0F * binop_y_25497;
+        float binop_y_25499 = binop_x_25498 - 1.0F;
+        float binop_y_25500 = screen_world_sizze_x_20361 * binop_y_25499;
+        float binop_y_25501 = cam_right_x_15889 * binop_y_25500;
+        float index_primexp_25502 = cam_forward_x_15886 + binop_y_25501;
+        float binop_y_25492 = cam_right_y_15890 * binop_y_25500;
+        float index_primexp_25493 = cam_forward_y_15887 + binop_y_25492;
+        float binop_y_25483 = cam_right_zz_15891 * binop_y_25500;
+        float index_primexp_25484 = cam_forward_zz_15888 + binop_y_25483;
+        float i64_res_24936 = sitofp_i64_f32(gtid_24930);
+        float y_24937 = i64_res_24936 / i64_res_20362;
+        float x_24938 = 2.0F * y_24937;
+        float dy_24939 = x_24938 - 1.0F;
+        float scale_arg_24940 = screen_world_sizze_y_20365 * dy_24939;
+        float zt_res_24941 = cam_up_x_15892 * scale_arg_24940;
+        float zt_res_24942 = cam_up_y_15893 * scale_arg_24940;
+        float zt_res_24943 = cam_up_zz_15894 * scale_arg_24940;
+        float defunc_1_f_res_24944 = zt_res_24941 + index_primexp_25502;
+        float defunc_1_f_res_24945 = zt_res_24942 + index_primexp_25493;
+        float defunc_1_f_res_24946 = zt_res_24943 + index_primexp_25484;
+        float zt_res_24947 = defunc_1_f_res_24946 * defunc_1_f_res_24946;
+        float zt_res_24948 = defunc_1_f_res_24945 * defunc_1_f_res_24945;
+        float zt_res_24949 = defunc_1_f_res_24944 * defunc_1_f_res_24944;
+        float zp_res_24950 = zt_res_24948 + zt_res_24949;
+        float zp_res_24951 = zt_res_24947 + zp_res_24950;
+        float defunc_0_g_res_24952 = futrts_sqrt32(zp_res_24951);
+        float zs_res_24953 = 1.0F / defunc_0_g_res_24952;
+        float zt_res_24954 = defunc_1_f_res_24944 * zs_res_24953;
+        float zt_res_24955 = defunc_1_f_res_24945 * zs_res_24953;
+        float zt_res_24956 = defunc_1_f_res_24946 * zs_res_24953;
+        float defunc_1_f_res_24957 = defunc_1_f_res_20934 / zt_res_24954;
+        float defunc_1_f_res_24958 = defunc_1_f_res_20935 / zt_res_24955;
+        float defunc_1_f_res_24959 = defunc_1_f_res_20936 / zt_res_24956;
+        float defunc_1_f_res_24960 = defunc_1_f_res_20952 / zt_res_24954;
+        float defunc_1_f_res_24961 = defunc_1_f_res_20953 / zt_res_24955;
+        float defunc_1_f_res_24962 = defunc_1_f_res_20954 / zt_res_24956;
+        bool cond_24963 = 0.0F <= zt_res_24954;
+        float raygrid_intersect_res_24964;
         
-        if (cond_21178 == 1) {
-            raygrid_intersect_res_21179 = defunc_1_f_res_21172;
+        if (cond_24963 == 1) {
+            raygrid_intersect_res_24964 = defunc_1_f_res_24957;
         } else {
-            raygrid_intersect_res_21179 = defunc_1_f_res_21175;
+            raygrid_intersect_res_24964 = defunc_1_f_res_24960;
         }
         
-        bool cond_21180 = 0.0F <= zt_res_21170;
-        float raygrid_intersect_res_21181;
+        bool cond_24965 = 0.0F <= zt_res_24955;
+        float raygrid_intersect_res_24966;
         
-        if (cond_21180 == 1) {
-            raygrid_intersect_res_21181 = defunc_1_f_res_21173;
+        if (cond_24965 == 1) {
+            raygrid_intersect_res_24966 = defunc_1_f_res_24958;
         } else {
-            raygrid_intersect_res_21181 = defunc_1_f_res_21176;
+            raygrid_intersect_res_24966 = defunc_1_f_res_24961;
         }
         
-        bool cond_21182 = 0.0F <= zt_res_21171;
-        float raygrid_intersect_res_21183;
+        bool cond_24967 = 0.0F <= zt_res_24956;
+        float raygrid_intersect_res_24968;
         
-        if (cond_21182 == 1) {
-            raygrid_intersect_res_21183 = defunc_1_f_res_21174;
+        if (cond_24967 == 1) {
+            raygrid_intersect_res_24968 = defunc_1_f_res_24959;
         } else {
-            raygrid_intersect_res_21183 = defunc_1_f_res_21177;
+            raygrid_intersect_res_24968 = defunc_1_f_res_24962;
         }
         
-        float raygrid_intersect_res_21184;
+        float raygrid_intersect_res_24969;
         
-        if (cond_21178 == 1) {
-            raygrid_intersect_res_21184 = defunc_1_f_res_21175;
+        if (cond_24963 == 1) {
+            raygrid_intersect_res_24969 = defunc_1_f_res_24960;
         } else {
-            raygrid_intersect_res_21184 = defunc_1_f_res_21172;
+            raygrid_intersect_res_24969 = defunc_1_f_res_24957;
         }
         
-        float raygrid_intersect_res_21185;
+        float raygrid_intersect_res_24970;
         
-        if (cond_21180 == 1) {
-            raygrid_intersect_res_21185 = defunc_1_f_res_21176;
+        if (cond_24965 == 1) {
+            raygrid_intersect_res_24970 = defunc_1_f_res_24961;
         } else {
-            raygrid_intersect_res_21185 = defunc_1_f_res_21173;
+            raygrid_intersect_res_24970 = defunc_1_f_res_24958;
         }
         
-        float raygrid_intersect_res_21186;
+        float raygrid_intersect_res_24971;
         
-        if (cond_21182 == 1) {
-            raygrid_intersect_res_21186 = defunc_1_f_res_21177;
+        if (cond_24967 == 1) {
+            raygrid_intersect_res_24971 = defunc_1_f_res_24962;
         } else {
-            raygrid_intersect_res_21186 = defunc_1_f_res_21174;
+            raygrid_intersect_res_24971 = defunc_1_f_res_24959;
         }
         
-        float max_res_21187 = fmax32(raygrid_intersect_res_21181, raygrid_intersect_res_21183);
-        float max_res_21188 = fmax32(raygrid_intersect_res_21179, max_res_21187);
-        float min_res_21189 = fmin32(raygrid_intersect_res_21185, raygrid_intersect_res_21186);
-        float min_res_21190 = fmin32(raygrid_intersect_res_21184, min_res_21189);
-        bool cond_21191 = max_res_21188 <= min_res_21190;
-        bool hit_t_res_21192 = 0.0F <= min_res_21190;
-        bool x_21193 = cond_21191 && hit_t_res_21192;
-        bool cond_21194 = !x_21193;
-        int32_t defunc_0_f_res_21195;
+        float max_res_24972 = fmax32(raygrid_intersect_res_24966, raygrid_intersect_res_24968);
+        float max_res_24973 = fmax32(raygrid_intersect_res_24964, max_res_24972);
+        float min_res_24974 = fmin32(raygrid_intersect_res_24970, raygrid_intersect_res_24971);
+        float min_res_24975 = fmin32(raygrid_intersect_res_24969, min_res_24974);
+        bool cond_24976 = max_res_24973 <= min_res_24975;
+        bool hit_t_res_24977 = 0.0F <= min_res_24975;
+        bool x_24978 = cond_24976 && hit_t_res_24977;
+        bool cond_24979 = !x_24978;
+        float max_res_24982 = fmax32(0.0F, max_res_24973);
+        float x_24983 = 1.0e-5F + max_res_24982;
+        bool loop_cond_24984 = x_24983 < min_res_24975;
+        int8_t hit_24987;
+        float hit_24988;
         
-        if (cond_21194 == 1) {
-            defunc_0_f_res_21195 = 0;
-        } else {
-            float max_res_21196 = fmax32(0.0F, max_res_21188);
-            float x_21197 = 1.0e-5F + max_res_21196;
-            bool loop_cond_21198 = x_21197 < min_res_21190;
-            bool color_21199;
-            float color_21200;
-            int32_t color_21201;
-            bool loop_while_21202;
-            float t_curr_21203;
-            int32_t nameless_21204;
+        if (x_24978 == 1) {
+            bool x_25617;
+            float x_25618;
+            int8_t x_25619;
+            float x_25620;
+            bool loop_while_24989;
+            float t_curr_24990;
+            int8_t nameless_24991;
+            float nameless_24992;
             
-            loop_while_21202 = loop_cond_21198;
-            t_curr_21203 = max_res_21196;
-            nameless_21204 = -16777216;
-            while (loop_while_21202) {
-                float ray_eval_arg_21205 = 1.0e-5F + t_curr_21203;
-                float zt_res_21206 = zt_res_21169 * ray_eval_arg_21205;
-                float zt_res_21207 = zt_res_21170 * ray_eval_arg_21205;
-                float zt_res_21208 = zt_res_21171 * ray_eval_arg_21205;
-                float defunc_1_f_res_21209 = cam_pos_x_13901 + zt_res_21206;
-                float defunc_1_f_res_21210 = cam_pos_y_13902 + zt_res_21207;
-                float defunc_1_f_res_21211 = cam_pos_zz_13903 + zt_res_21208;
-                float defunc_1_f_res_21212 = defunc_1_f_res_21209 - -10.0F;
-                float defunc_1_f_res_21213 = defunc_1_f_res_21210 - -10.0F;
-                float defunc_1_f_res_21214 = defunc_1_f_res_21211 - -10.0F;
-                float zt_res_21215 = 12.8F * defunc_1_f_res_21212;
-                float zt_res_21216 = 12.8F * defunc_1_f_res_21213;
-                float zt_res_21217 = 12.8F * defunc_1_f_res_21214;
-                float defunc_0_f_res_21218 = futrts_floor32(zt_res_21215);
-                int64_t defunc_0_f_res_21219 = fptosi_f32_i64(defunc_0_f_res_21218);
-                float defunc_0_f_res_21220 = futrts_floor32(zt_res_21216);
-                int64_t defunc_0_f_res_21221 = fptosi_f32_i64(defunc_0_f_res_21220);
-                float defunc_0_f_res_21222 = futrts_floor32(zt_res_21217);
-                int64_t defunc_0_f_res_21223 = fptosi_f32_i64(defunc_0_f_res_21222);
-                bool cond_21224 = sle64((int64_t) 0, defunc_0_f_res_21219);
-                bool cond_t_res_21225 = slt64(defunc_0_f_res_21219, (int64_t) 256);
-                bool x_21226 = cond_21224 && cond_t_res_21225;
-                bool cond_t_res_21227 = sle64((int64_t) 0, defunc_0_f_res_21221);
-                bool x_21228 = x_21226 && cond_t_res_21227;
-                bool cond_t_res_21229 = slt64(defunc_0_f_res_21221, (int64_t) 256);
-                bool x_21230 = x_21228 && cond_t_res_21229;
-                bool cond_t_res_21231 = sle64((int64_t) 0, defunc_0_f_res_21223);
-                bool x_21232 = x_21230 && cond_t_res_21231;
-                bool cond_t_res_21233 = slt64(defunc_0_f_res_21223, (int64_t) 256);
-                bool x_21234 = x_21232 && cond_t_res_21233;
-                bool cond_21235;
+            loop_while_24989 = loop_cond_24984;
+            t_curr_24990 = max_res_24982;
+            nameless_24991 = (int8_t) 1;
+            nameless_24992 = 0.0F;
+            while (loop_while_24989) {
+                float ray_eval_arg_24993 = 1.0e-5F + t_curr_24990;
+                float zt_res_24994 = zt_res_24954 * ray_eval_arg_24993;
+                float zt_res_24995 = zt_res_24955 * ray_eval_arg_24993;
+                float zt_res_24996 = zt_res_24956 * ray_eval_arg_24993;
+                float defunc_1_f_res_24997 = cam_pos_x_15883 + zt_res_24994;
+                float defunc_1_f_res_24998 = cam_pos_y_15884 + zt_res_24995;
+                float defunc_1_f_res_24999 = cam_pos_zz_15885 + zt_res_24996;
+                float defunc_1_f_res_25000 = defunc_1_f_res_24997 - -10.0F;
+                float defunc_1_f_res_25001 = defunc_1_f_res_24998 - -10.0F;
+                float defunc_1_f_res_25002 = defunc_1_f_res_24999 - -10.0F;
+                float zt_res_25003 = 12.8F * defunc_1_f_res_25000;
+                float zt_res_25004 = 12.8F * defunc_1_f_res_25001;
+                float zt_res_25005 = 12.8F * defunc_1_f_res_25002;
+                float defunc_0_f_res_25006 = futrts_floor32(zt_res_25003);
+                int64_t defunc_0_f_res_25007 = fptosi_f32_i64(defunc_0_f_res_25006);
+                float defunc_0_f_res_25008 = futrts_floor32(zt_res_25004);
+                int64_t defunc_0_f_res_25009 = fptosi_f32_i64(defunc_0_f_res_25008);
+                float defunc_0_f_res_25010 = futrts_floor32(zt_res_25005);
+                int64_t defunc_0_f_res_25011 = fptosi_f32_i64(defunc_0_f_res_25010);
+                bool cond_25012 = sle64((int64_t) 0, defunc_0_f_res_25007);
+                bool cond_t_res_25013 = slt64(defunc_0_f_res_25007, (int64_t) 256);
+                bool x_25014 = cond_25012 && cond_t_res_25013;
+                bool cond_t_res_25015 = sle64((int64_t) 0, defunc_0_f_res_25009);
+                bool x_25016 = x_25014 && cond_t_res_25015;
+                bool cond_t_res_25017 = slt64(defunc_0_f_res_25009, (int64_t) 256);
+                bool x_25018 = x_25016 && cond_t_res_25017;
+                bool cond_t_res_25019 = sle64((int64_t) 0, defunc_0_f_res_25011);
+                bool x_25020 = x_25018 && cond_t_res_25019;
+                bool cond_t_res_25021 = slt64(defunc_0_f_res_25011, (int64_t) 256);
+                bool x_25022 = x_25020 && cond_t_res_25021;
+                bool cond_25023;
                 
-                if (x_21234 == 1) {
-                    bool bounds_check_21236 = cond_t_res_21227 && cond_t_res_21229;
-                    bool bounds_check_21237 = cond_t_res_21231 && cond_t_res_21233;
-                    bool y_21238 = x_21226 && bounds_check_21237;
-                    bool index_ok_21239 = bounds_check_21236 && y_21238;
-                    bool index_certs_21240;
+                if (x_25022 == 1) {
+                    bool bounds_check_25024 = cond_t_res_25015 && cond_t_res_25017;
+                    bool bounds_check_25025 = cond_t_res_25019 && cond_t_res_25021;
+                    bool y_25026 = x_25014 && bounds_check_25025;
+                    bool index_ok_25027 = bounds_check_25024 && y_25026;
+                    bool index_certs_25028;
                     
-                    if (!index_ok_21239) {
+                    if (!index_ok_25027) {
                         {
-                            if (atomic_cmpxchg_i32_global(global_failure, -1, 32) == -1) {
-                                global_failure_args[0] = (int64_t) defunc_0_f_res_21219;
-                                global_failure_args[1] = (int64_t) defunc_0_f_res_21221;
-                                global_failure_args[2] = (int64_t) defunc_0_f_res_21223;
+                            if (atomic_cmpxchg_i32_global(global_failure, -1, 21) == -1) {
+                                global_failure_args[0] = (int64_t) defunc_0_f_res_25007;
+                                global_failure_args[1] = (int64_t) defunc_0_f_res_25009;
+                                global_failure_args[2] = (int64_t) defunc_0_f_res_25011;
                                 global_failure_args[3] = (int64_t) (int64_t) 256;
                                 global_failure_args[4] = (int64_t) (int64_t) 256;
                                 global_failure_args[5] = (int64_t) (int64_t) 256;
@@ -5851,95 +5719,1085 @@ __kernel void mainzisegmap_21146(__global int *global_failure, int failure_is_an
                         }
                     }
                     
-                    bool cond_t_res_21241 = ((__global bool *) mem_21358)[defunc_0_f_res_21219 * (int64_t) 65536 + defunc_0_f_res_21221 * (int64_t) 256 + defunc_0_f_res_21223];
+                    bool cond_t_res_25029 = ((__global bool *) mem_25550)[defunc_0_f_res_25007 * (int64_t) 65536 + defunc_0_f_res_25009 * (int64_t) 256 + defunc_0_f_res_25011];
                     
-                    cond_21235 = cond_t_res_21241;
+                    cond_25023 = cond_t_res_25029;
                 } else {
-                    cond_21235 = 0;
+                    cond_25023 = 0;
                 }
                 
-                int32_t loopres_21242;
+                bool cond_neg_25030 = !cond_25023;
+                int8_t loopres_25031 = btoi_bool_i8(cond_neg_25030);
+                float loopres_25032;
                 
-                if (cond_21235 == 1) {
-                    loopres_21242 = -65536;
+                if (cond_25023 == 1) {
+                    loopres_25032 = t_curr_24990;
                 } else {
-                    loopres_21242 = -16777216;
+                    loopres_25032 = 0.0F;
                 }
                 
-                float loopres_21243;
+                float loopres_25033;
                 
-                if (cond_21235 == 1) {
-                    loopres_21243 = min_res_21190;
+                if (cond_25023 == 1) {
+                    loopres_25033 = min_res_24975;
                 } else {
-                    float i64_res_21244 = sitofp_i64_f32(defunc_0_f_res_21219);
-                    float y_21245;
+                    float i64_res_25034 = sitofp_i64_f32(defunc_0_f_res_25007);
+                    float y_25035;
                     
-                    if (cond_21178 == 1) {
-                        y_21245 = 1.0F;
+                    if (cond_24963 == 1) {
+                        y_25035 = 1.0F;
                     } else {
-                        y_21245 = 0.0F;
+                        y_25035 = 0.0F;
                     }
                     
-                    float x_21246 = i64_res_21244 + y_21245;
-                    float x_21247 = x_21246 - zt_res_21215;
-                    float x_21248 = 7.8125e-2F * x_21247;
-                    float y_21249 = x_21248 / zt_res_21169;
-                    float loopres_f_res_21250 = ray_eval_arg_21205 + y_21249;
-                    float i64_res_21251 = sitofp_i64_f32(defunc_0_f_res_21221);
-                    float y_21252;
+                    float x_25036 = i64_res_25034 + y_25035;
+                    float x_25037 = x_25036 - zt_res_25003;
+                    float x_25038 = 7.8125e-2F * x_25037;
+                    float y_25039 = x_25038 / zt_res_24954;
+                    float loopres_f_res_25040 = ray_eval_arg_24993 + y_25039;
+                    float i64_res_25041 = sitofp_i64_f32(defunc_0_f_res_25009);
+                    float y_25042;
                     
-                    if (cond_21180 == 1) {
-                        y_21252 = 1.0F;
+                    if (cond_24965 == 1) {
+                        y_25042 = 1.0F;
                     } else {
-                        y_21252 = 0.0F;
+                        y_25042 = 0.0F;
                     }
                     
-                    float x_21253 = i64_res_21251 + y_21252;
-                    float x_21254 = x_21253 - zt_res_21216;
-                    float x_21255 = 7.8125e-2F * x_21254;
-                    float y_21256 = x_21255 / zt_res_21170;
-                    float loopres_f_res_21257 = ray_eval_arg_21205 + y_21256;
-                    float i64_res_21258 = sitofp_i64_f32(defunc_0_f_res_21223);
-                    float y_21259;
+                    float x_25043 = i64_res_25041 + y_25042;
+                    float x_25044 = x_25043 - zt_res_25004;
+                    float x_25045 = 7.8125e-2F * x_25044;
+                    float y_25046 = x_25045 / zt_res_24955;
+                    float loopres_f_res_25047 = ray_eval_arg_24993 + y_25046;
+                    float i64_res_25048 = sitofp_i64_f32(defunc_0_f_res_25011);
+                    float y_25049;
                     
-                    if (cond_21182 == 1) {
-                        y_21259 = 1.0F;
+                    if (cond_24967 == 1) {
+                        y_25049 = 1.0F;
                     } else {
-                        y_21259 = 0.0F;
+                        y_25049 = 0.0F;
                     }
                     
-                    float x_21260 = i64_res_21258 + y_21259;
-                    float x_21261 = x_21260 - zt_res_21217;
-                    float x_21262 = 7.8125e-2F * x_21261;
-                    float y_21263 = x_21262 / zt_res_21171;
-                    float loopres_f_res_21264 = ray_eval_arg_21205 + y_21263;
-                    float min_res_21265 = fmin32(loopres_f_res_21257, loopres_f_res_21264);
-                    float min_res_21266 = fmin32(loopres_f_res_21250, min_res_21265);
+                    float x_25050 = i64_res_25048 + y_25049;
+                    float x_25051 = x_25050 - zt_res_25005;
+                    float x_25052 = 7.8125e-2F * x_25051;
+                    float y_25053 = x_25052 / zt_res_24956;
+                    float loopres_f_res_25054 = ray_eval_arg_24993 + y_25053;
+                    float min_res_25055 = fmin32(loopres_f_res_25047, loopres_f_res_25054);
+                    float min_res_25056 = fmin32(loopres_f_res_25040, min_res_25055);
                     
-                    loopres_21243 = min_res_21266;
+                    loopres_25033 = min_res_25056;
                 }
                 
-                float x_21267 = 1.0e-5F + loopres_21243;
-                bool loop_cond_21268 = x_21267 < min_res_21190;
-                bool loop_while_tmp_21407 = loop_cond_21268;
-                float t_curr_tmp_21408 = loopres_21243;
-                int32_t nameless_tmp_21409 = loopres_21242;
+                float x_25057 = 1.0e-5F + loopres_25033;
+                bool loop_cond_25058 = x_25057 < min_res_24975;
+                bool loop_while_tmp_25679 = loop_cond_25058;
+                float t_curr_tmp_25680 = loopres_25033;
+                int8_t nameless_tmp_25681 = loopres_25031;
+                float nameless_tmp_25682 = loopres_25032;
                 
-                loop_while_21202 = loop_while_tmp_21407;
-                t_curr_21203 = t_curr_tmp_21408;
-                nameless_21204 = nameless_tmp_21409;
+                loop_while_24989 = loop_while_tmp_25679;
+                t_curr_24990 = t_curr_tmp_25680;
+                nameless_24991 = nameless_tmp_25681;
+                nameless_24992 = nameless_tmp_25682;
             }
-            color_21199 = loop_while_21202;
-            color_21200 = t_curr_21203;
-            color_21201 = nameless_21204;
-            defunc_0_f_res_21195 = color_21201;
+            x_25617 = loop_while_24989;
+            x_25618 = t_curr_24990;
+            x_25619 = nameless_24991;
+            x_25620 = nameless_24992;
+            hit_24987 = x_25619;
+            hit_24988 = x_25620;
+        } else {
+            hit_24987 = (int8_t) 0;
+            hit_24988 = 0.0F;
         }
-        ((__global int32_t *) mem_21363)[gtid_21144 * pixel_height_13900 + gtid_21145] = defunc_0_f_res_21195;
+        
+        int8_t raytrace_res_24980;
+        
+        if (cond_24979 == 1) {
+            raytrace_res_24980 = (int8_t) 1;
+        } else {
+            raytrace_res_24980 = hit_24987;
+        }
+        
+        float raytrace_res_24981;
+        
+        if (cond_24979 == 1) {
+            raytrace_res_24981 = 0.0F;
+        } else {
+            raytrace_res_24981 = hit_24988;
+        }
+        
+        int32_t shade_res_25059;
+        
+        if (raytrace_res_24980 == (int8_t) 1) {
+            shade_res_25059 = -16777216;
+        } else {
+            float zt_res_25060 = zt_res_24954 * raytrace_res_24981;
+            float zt_res_25061 = zt_res_24955 * raytrace_res_24981;
+            float zt_res_25062 = zt_res_24956 * raytrace_res_24981;
+            float defunc_1_f_res_25063 = cam_pos_x_15883 + zt_res_25060;
+            float defunc_1_f_res_25064 = cam_pos_y_15884 + zt_res_25061;
+            float defunc_1_f_res_25065 = cam_pos_zz_15885 + zt_res_25062;
+            
+            for (int64_t i_25683 = 0; i_25683 < tape_slot_count_15898; i_25683++) {
+                ((__global float *) color_25634)[phys_tid_24931 + i_25683 * num_threads_25638] = 0.0F;
+            }
+            for (int64_t i_25684 = 0; i_25684 < tape_slot_count_15898; i_25684++) {
+                ((__global float *) color_25633)[phys_tid_24931 + i_25684 * num_threads_25638] = 0.0F;
+            }
+            for (int64_t i_25685 = 0; i_25685 < tape_slot_count_15898; i_25685++) {
+                ((__global float *) color_25632)[phys_tid_24931 + i_25685 * num_threads_25638] = 0.0F;
+            }
+            for (int64_t i_25686 = 0; i_25686 < tape_slot_count_15898; i_25686++) {
+                ((__global float *) color_25631)[phys_tid_24931 + i_25686 * num_threads_25638] = 0.0F;
+            }
+            
+            bool y_25070 = slt64((int64_t) 0, tape_slot_count_15898);
+            bool index_certs_25071;
+            
+            if (!y_25070) {
+                {
+                    if (atomic_cmpxchg_i32_global(global_failure, -1, 22) == -1) {
+                        global_failure_args[0] = (int64_t) (int64_t) 0;
+                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                        ;
+                    }
+                    return;
+                }
+            }
+            ((__global float *) color_25634)[phys_tid_24931] = 1.0F;
+            ((__global float *) color_25633)[phys_tid_24931] = 0.0F;
+            ((__global float *) color_25632)[phys_tid_24931] = 0.0F;
+            ((__global float *) color_25631)[phys_tid_24931] = defunc_1_f_res_25063;
+            
+            bool y_25076 = slt64((int64_t) 1, tape_slot_count_15898);
+            bool index_certs_25077;
+            
+            if (!y_25076) {
+                {
+                    if (atomic_cmpxchg_i32_global(global_failure, -1, 23) == -1) {
+                        global_failure_args[0] = (int64_t) (int64_t) 1;
+                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                        ;
+                    }
+                    return;
+                }
+            }
+            ((__global float *) color_25634)[phys_tid_24931 + num_threads_25638] = 0.0F;
+            ((__global float *) color_25633)[phys_tid_24931 + num_threads_25638] = 1.0F;
+            ((__global float *) color_25632)[phys_tid_24931 + num_threads_25638] = 0.0F;
+            ((__global float *) color_25631)[phys_tid_24931 + num_threads_25638] = defunc_1_f_res_25064;
+            
+            bool y_25082 = slt64((int64_t) 2, tape_slot_count_15898);
+            bool index_certs_25083;
+            
+            if (!y_25082) {
+                {
+                    if (atomic_cmpxchg_i32_global(global_failure, -1, 24) == -1) {
+                        global_failure_args[0] = (int64_t) (int64_t) 2;
+                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                        ;
+                    }
+                    return;
+                }
+            }
+            ((__global float *) color_25634)[phys_tid_24931 + (int64_t) 2 * num_threads_25638] = 0.0F;
+            ((__global float *) color_25633)[phys_tid_24931 + (int64_t) 2 * num_threads_25638] = 0.0F;
+            ((__global float *) color_25632)[phys_tid_24931 + (int64_t) 2 * num_threads_25638] = 1.0F;
+            ((__global float *) color_25631)[phys_tid_24931 + (int64_t) 2 * num_threads_25638] = defunc_1_f_res_25065;
+            
+            bool y_25088 = slt64((int64_t) 3, tape_slot_count_15898);
+            bool index_certs_25089;
+            
+            if (!y_25088) {
+                {
+                    if (atomic_cmpxchg_i32_global(global_failure, -1, 25) == -1) {
+                        global_failure_args[0] = (int64_t) (int64_t) 3;
+                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                        ;
+                    }
+                    return;
+                }
+            }
+            ((__global float *) color_25634)[phys_tid_24931 + (int64_t) 3 * num_threads_25638] = 0.0F;
+            ((__global float *) color_25633)[phys_tid_24931 + (int64_t) 3 * num_threads_25638] = 0.0F;
+            ((__global float *) color_25632)[phys_tid_24931 + (int64_t) 3 * num_threads_25638] = 0.0F;
+            ((__global float *) color_25631)[phys_tid_24931 + (int64_t) 3 * num_threads_25638] = 0.0F;
+            
+            int8_t instr_25103;
+            int8_t instr_25105;
+            int8_t instr_25106;
+            
+            for (int64_t i_25098 = 0; i_25098 < dz2080U_15879; i_25098++) {
+                instr_25103 = ((__global int8_t *) mem_25528)[i_25098];
+                instr_25105 = ((__global int8_t *) mem_25532)[i_25098];
+                instr_25106 = ((__global int8_t *) mem_25534)[i_25098];
+                
+                bool cond_25107 = instr_25105 == (int8_t) 0;
+                float lw_val_25108;
+                float lw_val_25109;
+                float lw_val_25110;
+                float lw_val_25111;
+                
+                if (cond_25107 == 1) {
+                    int64_t iA_25112 = sext_i8_i64(instr_25103);
+                    bool x_25113 = sle64((int64_t) 0, iA_25112);
+                    bool y_25114 = slt64(iA_25112, dz2081U_15880);
+                    bool bounds_check_25115 = x_25113 && y_25114;
+                    bool index_certs_25116;
+                    
+                    if (!bounds_check_25115) {
+                        {
+                            if (atomic_cmpxchg_i32_global(global_failure, -1, 26) == -1) {
+                                global_failure_args[0] = (int64_t) iA_25112;
+                                global_failure_args[1] = (int64_t) dz2081U_15880;
+                                ;
+                            }
+                            return;
+                        }
+                    }
+                    
+                    float lw_val_t_res_25117 = ((__global float *) tape_constants_mem_25525)[iA_25112];
+                    
+                    lw_val_25108 = 0.0F;
+                    lw_val_25109 = 0.0F;
+                    lw_val_25110 = 0.0F;
+                    lw_val_25111 = lw_val_t_res_25117;
+                } else {
+                    bool cond_25118 = instr_25105 == (int8_t) 1;
+                    float lw_val_f_res_25119;
+                    float lw_val_f_res_25120;
+                    float lw_val_f_res_25121;
+                    float lw_val_f_res_25122;
+                    
+                    if (cond_25118 == 1) {
+                        int64_t iA_25123 = sext_i8_i64(instr_25103);
+                        bool x_25124 = sle64((int64_t) 0, iA_25123);
+                        bool y_25125 = slt64(iA_25123, tape_slot_count_15898);
+                        bool bounds_check_25126 = x_25124 && y_25125;
+                        bool index_certs_25127;
+                        
+                        if (!bounds_check_25126) {
+                            {
+                                if (atomic_cmpxchg_i32_global(global_failure, -1, 27) == -1) {
+                                    global_failure_args[0] = (int64_t) iA_25123;
+                                    global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                    ;
+                                }
+                                return;
+                            }
+                        }
+                        
+                        float x_25128 = ((__global float *) color_25634)[phys_tid_24931 + iA_25123 * num_threads_25638];
+                        float cos_arg_25129 = ((__global float *) color_25631)[phys_tid_24931 + iA_25123 * num_threads_25638];
+                        float cos_res_25130 = futrts_cos32(cos_arg_25129);
+                        float lw_val_f_res_t_res_25131 = x_25128 * cos_res_25130;
+                        float x_25132 = ((__global float *) color_25633)[phys_tid_24931 + iA_25123 * num_threads_25638];
+                        float lw_val_f_res_t_res_25133 = cos_res_25130 * x_25132;
+                        float x_25134 = ((__global float *) color_25632)[phys_tid_24931 + iA_25123 * num_threads_25638];
+                        float lw_val_f_res_t_res_25135 = cos_res_25130 * x_25134;
+                        float sin_res_25136 = futrts_sin32(cos_arg_25129);
+                        
+                        lw_val_f_res_25119 = lw_val_f_res_t_res_25131;
+                        lw_val_f_res_25120 = lw_val_f_res_t_res_25133;
+                        lw_val_f_res_25121 = lw_val_f_res_t_res_25135;
+                        lw_val_f_res_25122 = sin_res_25136;
+                    } else {
+                        bool cond_25137 = instr_25105 == (int8_t) 2;
+                        float lw_val_f_res_f_res_25138;
+                        float lw_val_f_res_f_res_25139;
+                        float lw_val_f_res_f_res_25140;
+                        float lw_val_f_res_f_res_25141;
+                        
+                        if (cond_25137 == 1) {
+                            int64_t iA_25142 = sext_i8_i64(instr_25103);
+                            bool x_25143 = sle64((int64_t) 0, iA_25142);
+                            bool y_25144 = slt64(iA_25142, tape_slot_count_15898);
+                            bool bounds_check_25145 = x_25143 && y_25144;
+                            bool index_certs_25146;
+                            
+                            if (!bounds_check_25145) {
+                                {
+                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 28) == -1) {
+                                        global_failure_args[0] = (int64_t) iA_25142;
+                                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                        ;
+                                    }
+                                    return;
+                                }
+                            }
+                            
+                            float negate_arg_25147 = ((__global float *) color_25634)[phys_tid_24931 + iA_25142 * num_threads_25638];
+                            float x_25148 = 0.0F - negate_arg_25147;
+                            float sin_arg_25149 = ((__global float *) color_25631)[phys_tid_24931 + iA_25142 * num_threads_25638];
+                            float sin_res_25150 = futrts_sin32(sin_arg_25149);
+                            float lw_val_f_res_f_res_t_res_25151 = x_25148 * sin_res_25150;
+                            float negate_arg_25152 = ((__global float *) color_25633)[phys_tid_24931 + iA_25142 * num_threads_25638];
+                            float x_25153 = 0.0F - negate_arg_25152;
+                            float lw_val_f_res_f_res_t_res_25154 = sin_res_25150 * x_25153;
+                            float negate_arg_25155 = ((__global float *) color_25632)[phys_tid_24931 + iA_25142 * num_threads_25638];
+                            float x_25156 = 0.0F - negate_arg_25155;
+                            float lw_val_f_res_f_res_t_res_25157 = sin_res_25150 * x_25156;
+                            float cos_res_25158 = futrts_cos32(sin_arg_25149);
+                            
+                            lw_val_f_res_f_res_25138 = lw_val_f_res_f_res_t_res_25151;
+                            lw_val_f_res_f_res_25139 = lw_val_f_res_f_res_t_res_25154;
+                            lw_val_f_res_f_res_25140 = lw_val_f_res_f_res_t_res_25157;
+                            lw_val_f_res_f_res_25141 = cos_res_25158;
+                        } else {
+                            bool cond_25159 = instr_25105 == (int8_t) 3;
+                            float lw_val_f_res_f_res_f_res_25160;
+                            float lw_val_f_res_f_res_f_res_25161;
+                            float lw_val_f_res_f_res_f_res_25162;
+                            float lw_val_f_res_f_res_f_res_25163;
+                            
+                            if (cond_25159 == 1) {
+                                int64_t iA_25164 = sext_i8_i64(instr_25103);
+                                bool x_25165 = sle64((int64_t) 0, iA_25164);
+                                bool y_25166 = slt64(iA_25164, tape_slot_count_15898);
+                                bool bounds_check_25167 = x_25165 && y_25166;
+                                bool index_certs_25168;
+                                
+                                if (!bounds_check_25167) {
+                                    {
+                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 29) == -1) {
+                                            global_failure_args[0] = (int64_t) iA_25164;
+                                            global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                            ;
+                                        }
+                                        return;
+                                    }
+                                }
+                                
+                                float x_25169 = ((__global float *) color_25634)[phys_tid_24931 + iA_25164 * num_threads_25638];
+                                float exp_arg_25170 = ((__global float *) color_25631)[phys_tid_24931 + iA_25164 * num_threads_25638];
+                                float exp_res_25171 = futrts_exp32(exp_arg_25170);
+                                float lw_val_f_res_f_res_f_res_t_res_25172 = x_25169 * exp_res_25171;
+                                float x_25173 = ((__global float *) color_25633)[phys_tid_24931 + iA_25164 * num_threads_25638];
+                                float lw_val_f_res_f_res_f_res_t_res_25174 = exp_res_25171 * x_25173;
+                                float x_25175 = ((__global float *) color_25632)[phys_tid_24931 + iA_25164 * num_threads_25638];
+                                float lw_val_f_res_f_res_f_res_t_res_25176 = exp_res_25171 * x_25175;
+                                
+                                lw_val_f_res_f_res_f_res_25160 = lw_val_f_res_f_res_f_res_t_res_25172;
+                                lw_val_f_res_f_res_f_res_25161 = lw_val_f_res_f_res_f_res_t_res_25174;
+                                lw_val_f_res_f_res_f_res_25162 = lw_val_f_res_f_res_f_res_t_res_25176;
+                                lw_val_f_res_f_res_f_res_25163 = exp_res_25171;
+                            } else {
+                                bool cond_25177 = instr_25105 == (int8_t) 4;
+                                float lw_val_f_res_f_res_f_res_f_res_25178;
+                                float lw_val_f_res_f_res_f_res_f_res_25179;
+                                float lw_val_f_res_f_res_f_res_f_res_25180;
+                                float lw_val_f_res_f_res_f_res_f_res_25181;
+                                
+                                if (cond_25177 == 1) {
+                                    int64_t iA_25182 = sext_i8_i64(instr_25103);
+                                    bool x_25183 = sle64((int64_t) 0, iA_25182);
+                                    bool y_25184 = slt64(iA_25182, tape_slot_count_15898);
+                                    bool bounds_check_25185 = x_25183 && y_25184;
+                                    bool index_certs_25186;
+                                    
+                                    if (!bounds_check_25185) {
+                                        {
+                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 30) == -1) {
+                                                global_failure_args[0] = (int64_t) iA_25182;
+                                                global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                ;
+                                            }
+                                            return;
+                                        }
+                                    }
+                                    
+                                    float x_25187 = ((__global float *) color_25634)[phys_tid_24931 + iA_25182 * num_threads_25638];
+                                    float sqrt_arg_25188 = ((__global float *) color_25631)[phys_tid_24931 + iA_25182 * num_threads_25638];
+                                    float sqrt_res_25189 = futrts_sqrt32(sqrt_arg_25188);
+                                    float y_25190 = 2.0F * sqrt_res_25189;
+                                    float lw_val_f_res_f_res_f_res_f_res_t_res_25191 = x_25187 / y_25190;
+                                    float x_25192 = ((__global float *) color_25633)[phys_tid_24931 + iA_25182 * num_threads_25638];
+                                    float lw_val_f_res_f_res_f_res_f_res_t_res_25193 = x_25192 / y_25190;
+                                    float x_25194 = ((__global float *) color_25632)[phys_tid_24931 + iA_25182 * num_threads_25638];
+                                    float lw_val_f_res_f_res_f_res_f_res_t_res_25195 = x_25194 / y_25190;
+                                    
+                                    lw_val_f_res_f_res_f_res_f_res_25178 = lw_val_f_res_f_res_f_res_f_res_t_res_25191;
+                                    lw_val_f_res_f_res_f_res_f_res_25179 = lw_val_f_res_f_res_f_res_f_res_t_res_25193;
+                                    lw_val_f_res_f_res_f_res_f_res_25180 = lw_val_f_res_f_res_f_res_f_res_t_res_25195;
+                                    lw_val_f_res_f_res_f_res_f_res_25181 = sqrt_res_25189;
+                                } else {
+                                    bool cond_25196 = instr_25105 == (int8_t) 5;
+                                    float lw_val_f_res_f_res_f_res_f_res_f_res_25197;
+                                    float lw_val_f_res_f_res_f_res_f_res_f_res_25198;
+                                    float lw_val_f_res_f_res_f_res_f_res_f_res_25199;
+                                    float lw_val_f_res_f_res_f_res_f_res_f_res_25200;
+                                    
+                                    if (cond_25196 == 1) {
+                                        int64_t iA_25201 = sext_i8_i64(instr_25103);
+                                        bool x_25202 = sle64((int64_t) 0, iA_25201);
+                                        bool y_25203 = slt64(iA_25201, tape_slot_count_15898);
+                                        bool bounds_check_25204 = x_25202 && y_25203;
+                                        bool index_certs_25205;
+                                        
+                                        if (!bounds_check_25204) {
+                                            {
+                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 31) == -1) {
+                                                    global_failure_args[0] = (int64_t) iA_25201;
+                                                    global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                    ;
+                                                }
+                                                return;
+                                            }
+                                        }
+                                        
+                                        float negate_arg_25206 = ((__global float *) color_25634)[phys_tid_24931 + iA_25201 * num_threads_25638];
+                                        float lw_val_f_res_f_res_f_res_f_res_f_res_t_res_25207 = 0.0F - negate_arg_25206;
+                                        float negate_arg_25208 = ((__global float *) color_25633)[phys_tid_24931 + iA_25201 * num_threads_25638];
+                                        float lw_val_f_res_f_res_f_res_f_res_f_res_t_res_25209 = 0.0F - negate_arg_25208;
+                                        float negate_arg_25210 = ((__global float *) color_25632)[phys_tid_24931 + iA_25201 * num_threads_25638];
+                                        float lw_val_f_res_f_res_f_res_f_res_f_res_t_res_25211 = 0.0F - negate_arg_25210;
+                                        float negate_arg_25212 = ((__global float *) color_25631)[phys_tid_24931 + iA_25201 * num_threads_25638];
+                                        float lw_val_f_res_f_res_f_res_f_res_f_res_t_res_25213 = 0.0F - negate_arg_25212;
+                                        
+                                        lw_val_f_res_f_res_f_res_f_res_f_res_25197 = lw_val_f_res_f_res_f_res_f_res_f_res_t_res_25207;
+                                        lw_val_f_res_f_res_f_res_f_res_f_res_25198 = lw_val_f_res_f_res_f_res_f_res_f_res_t_res_25209;
+                                        lw_val_f_res_f_res_f_res_f_res_f_res_25199 = lw_val_f_res_f_res_f_res_f_res_f_res_t_res_25211;
+                                        lw_val_f_res_f_res_f_res_f_res_f_res_25200 = lw_val_f_res_f_res_f_res_f_res_f_res_t_res_25213;
+                                    } else {
+                                        int8_t instr_25104 = ((__global int8_t *) mem_25530)[i_25098];
+                                        bool cond_25214 = instr_25105 == (int8_t) 6;
+                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25215;
+                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25216;
+                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25217;
+                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25218;
+                                        
+                                        if (cond_25214 == 1) {
+                                            int64_t iA_25219 = sext_i8_i64(instr_25103);
+                                            bool x_25220 = sle64((int64_t) 0, iA_25219);
+                                            bool y_25221 = slt64(iA_25219, tape_slot_count_15898);
+                                            bool bounds_check_25222 = x_25220 && y_25221;
+                                            bool index_certs_25223;
+                                            
+                                            if (!bounds_check_25222) {
+                                                {
+                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 32) == -1) {
+                                                        global_failure_args[0] = (int64_t) iA_25219;
+                                                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                        ;
+                                                    }
+                                                    return;
+                                                }
+                                            }
+                                            
+                                            float x_25224 = ((__global float *) color_25634)[phys_tid_24931 + iA_25219 * num_threads_25638];
+                                            int64_t iB_25225 = sext_i8_i64(instr_25104);
+                                            bool x_25226 = sle64((int64_t) 0, iB_25225);
+                                            bool y_25227 = slt64(iB_25225, tape_slot_count_15898);
+                                            bool bounds_check_25228 = x_25226 && y_25227;
+                                            bool index_certs_25229;
+                                            
+                                            if (!bounds_check_25228) {
+                                                {
+                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 33) == -1) {
+                                                        global_failure_args[0] = (int64_t) iB_25225;
+                                                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                        ;
+                                                    }
+                                                    return;
+                                                }
+                                            }
+                                            
+                                            float y_25230 = ((__global float *) color_25634)[phys_tid_24931 + iB_25225 * num_threads_25638];
+                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25231 = x_25224 + y_25230;
+                                            float x_25232 = ((__global float *) color_25633)[phys_tid_24931 + iA_25219 * num_threads_25638];
+                                            float y_25233 = ((__global float *) color_25633)[phys_tid_24931 + iB_25225 * num_threads_25638];
+                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25234 = x_25232 + y_25233;
+                                            float x_25235 = ((__global float *) color_25632)[phys_tid_24931 + iA_25219 * num_threads_25638];
+                                            float y_25236 = ((__global float *) color_25632)[phys_tid_24931 + iB_25225 * num_threads_25638];
+                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25237 = x_25235 + y_25236;
+                                            float x_25238 = ((__global float *) color_25631)[phys_tid_24931 + iA_25219 * num_threads_25638];
+                                            float y_25239 = ((__global float *) color_25631)[phys_tid_24931 + iB_25225 * num_threads_25638];
+                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25240 = x_25238 + y_25239;
+                                            
+                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25215 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25231;
+                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25216 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25234;
+                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25217 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25237;
+                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25218 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25240;
+                                        } else {
+                                            bool cond_25241 = instr_25105 == (int8_t) 7;
+                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25242;
+                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25243;
+                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25244;
+                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25245;
+                                            
+                                            if (cond_25241 == 1) {
+                                                int64_t iA_25246 = sext_i8_i64(instr_25103);
+                                                bool x_25247 = sle64((int64_t) 0, iA_25246);
+                                                bool y_25248 = slt64(iA_25246, tape_slot_count_15898);
+                                                bool bounds_check_25249 = x_25247 && y_25248;
+                                                bool index_certs_25250;
+                                                
+                                                if (!bounds_check_25249) {
+                                                    {
+                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 34) == -1) {
+                                                            global_failure_args[0] = (int64_t) iA_25246;
+                                                            global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                            ;
+                                                        }
+                                                        return;
+                                                    }
+                                                }
+                                                
+                                                float x_25251 = ((__global float *) color_25634)[phys_tid_24931 + iA_25246 * num_threads_25638];
+                                                int64_t iB_25252 = sext_i8_i64(instr_25104);
+                                                bool x_25253 = sle64((int64_t) 0, iB_25252);
+                                                bool y_25254 = slt64(iB_25252, tape_slot_count_15898);
+                                                bool bounds_check_25255 = x_25253 && y_25254;
+                                                bool index_certs_25256;
+                                                
+                                                if (!bounds_check_25255) {
+                                                    {
+                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 35) == -1) {
+                                                            global_failure_args[0] = (int64_t) iB_25252;
+                                                            global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                            ;
+                                                        }
+                                                        return;
+                                                    }
+                                                }
+                                                
+                                                float y_25257 = ((__global float *) color_25634)[phys_tid_24931 + iB_25252 * num_threads_25638];
+                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25258 = x_25251 - y_25257;
+                                                float x_25259 = ((__global float *) color_25633)[phys_tid_24931 + iA_25246 * num_threads_25638];
+                                                float y_25260 = ((__global float *) color_25633)[phys_tid_24931 + iB_25252 * num_threads_25638];
+                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25261 = x_25259 - y_25260;
+                                                float x_25262 = ((__global float *) color_25632)[phys_tid_24931 + iA_25246 * num_threads_25638];
+                                                float y_25263 = ((__global float *) color_25632)[phys_tid_24931 + iB_25252 * num_threads_25638];
+                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25264 = x_25262 - y_25263;
+                                                float x_25265 = ((__global float *) color_25631)[phys_tid_24931 + iA_25246 * num_threads_25638];
+                                                float y_25266 = ((__global float *) color_25631)[phys_tid_24931 + iB_25252 * num_threads_25638];
+                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25267 = x_25265 - y_25266;
+                                                
+                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25242 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25258;
+                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25243 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25261;
+                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25244 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25264;
+                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25245 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25267;
+                                            } else {
+                                                bool cond_25268 = instr_25105 == (int8_t) 8;
+                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25269;
+                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25270;
+                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25271;
+                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25272;
+                                                
+                                                if (cond_25268 == 1) {
+                                                    int64_t iA_25273 = sext_i8_i64(instr_25103);
+                                                    bool x_25274 = sle64((int64_t) 0, iA_25273);
+                                                    bool y_25275 = slt64(iA_25273, tape_slot_count_15898);
+                                                    bool bounds_check_25276 = x_25274 && y_25275;
+                                                    bool index_certs_25277;
+                                                    
+                                                    if (!bounds_check_25276) {
+                                                        {
+                                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 36) == -1) {
+                                                                global_failure_args[0] = (int64_t) iA_25273;
+                                                                global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                                ;
+                                                            }
+                                                            return;
+                                                        }
+                                                    }
+                                                    
+                                                    float x_25278 = ((__global float *) color_25634)[phys_tid_24931 + iA_25273 * num_threads_25638];
+                                                    int64_t iB_25279 = sext_i8_i64(instr_25104);
+                                                    bool x_25280 = sle64((int64_t) 0, iB_25279);
+                                                    bool y_25281 = slt64(iB_25279, tape_slot_count_15898);
+                                                    bool bounds_check_25282 = x_25280 && y_25281;
+                                                    bool index_certs_25283;
+                                                    
+                                                    if (!bounds_check_25282) {
+                                                        {
+                                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 37) == -1) {
+                                                                global_failure_args[0] = (int64_t) iB_25279;
+                                                                global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                                ;
+                                                            }
+                                                            return;
+                                                        }
+                                                    }
+                                                    
+                                                    float y_25284 = ((__global float *) color_25631)[phys_tid_24931 + iB_25279 * num_threads_25638];
+                                                    float x_25285 = x_25278 * y_25284;
+                                                    float x_25286 = ((__global float *) color_25631)[phys_tid_24931 + iA_25273 * num_threads_25638];
+                                                    float y_25287 = ((__global float *) color_25634)[phys_tid_24931 + iB_25279 * num_threads_25638];
+                                                    float y_25288 = x_25286 * y_25287;
+                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25289 = x_25285 + y_25288;
+                                                    float x_25290 = ((__global float *) color_25633)[phys_tid_24931 + iA_25273 * num_threads_25638];
+                                                    float x_25291 = y_25284 * x_25290;
+                                                    float y_25292 = ((__global float *) color_25633)[phys_tid_24931 + iB_25279 * num_threads_25638];
+                                                    float y_25293 = x_25286 * y_25292;
+                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25294 = x_25291 + y_25293;
+                                                    float x_25295 = ((__global float *) color_25632)[phys_tid_24931 + iA_25273 * num_threads_25638];
+                                                    float x_25296 = y_25284 * x_25295;
+                                                    float y_25297 = ((__global float *) color_25632)[phys_tid_24931 + iB_25279 * num_threads_25638];
+                                                    float y_25298 = x_25286 * y_25297;
+                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25299 = x_25296 + y_25298;
+                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25300 = y_25284 * x_25286;
+                                                    
+                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25269 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25289;
+                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25270 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25294;
+                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25271 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25299;
+                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25272 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25300;
+                                                } else {
+                                                    bool cond_25301 = instr_25105 == (int8_t) 9;
+                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25302;
+                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25303;
+                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25304;
+                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25305;
+                                                    
+                                                    if (cond_25301 == 1) {
+                                                        int64_t iA_25306 = sext_i8_i64(instr_25103);
+                                                        bool x_25307 = sle64((int64_t) 0, iA_25306);
+                                                        bool y_25308 = slt64(iA_25306, tape_slot_count_15898);
+                                                        bool bounds_check_25309 = x_25307 && y_25308;
+                                                        bool index_certs_25310;
+                                                        
+                                                        if (!bounds_check_25309) {
+                                                            {
+                                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 38) == -1) {
+                                                                    global_failure_args[0] = (int64_t) iA_25306;
+                                                                    global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                                    ;
+                                                                }
+                                                                return;
+                                                            }
+                                                        }
+                                                        
+                                                        float x_25311 = ((__global float *) color_25634)[phys_tid_24931 + iA_25306 * num_threads_25638];
+                                                        int64_t iB_25312 = sext_i8_i64(instr_25104);
+                                                        bool x_25313 = sle64((int64_t) 0, iB_25312);
+                                                        bool y_25314 = slt64(iB_25312, tape_slot_count_15898);
+                                                        bool bounds_check_25315 = x_25313 && y_25314;
+                                                        bool index_certs_25316;
+                                                        
+                                                        if (!bounds_check_25315) {
+                                                            {
+                                                                if (atomic_cmpxchg_i32_global(global_failure, -1, 39) == -1) {
+                                                                    global_failure_args[0] = (int64_t) iB_25312;
+                                                                    global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                                    ;
+                                                                }
+                                                                return;
+                                                            }
+                                                        }
+                                                        
+                                                        float y_25317 = ((__global float *) color_25631)[phys_tid_24931 + iB_25312 * num_threads_25638];
+                                                        float x_25318 = x_25311 * y_25317;
+                                                        float x_25319 = ((__global float *) color_25631)[phys_tid_24931 + iA_25306 * num_threads_25638];
+                                                        float y_25320 = ((__global float *) color_25634)[phys_tid_24931 + iB_25312 * num_threads_25638];
+                                                        float y_25321 = x_25319 * y_25320;
+                                                        float x_25322 = x_25318 - y_25321;
+                                                        float y_25323 = fpow32(y_25317, 2.0F);
+                                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25324 = x_25322 / y_25323;
+                                                        float x_25325 = ((__global float *) color_25633)[phys_tid_24931 + iA_25306 * num_threads_25638];
+                                                        float x_25326 = y_25317 * x_25325;
+                                                        float y_25327 = ((__global float *) color_25633)[phys_tid_24931 + iB_25312 * num_threads_25638];
+                                                        float y_25328 = x_25319 * y_25327;
+                                                        float x_25329 = x_25326 - y_25328;
+                                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25330 = x_25329 / y_25323;
+                                                        float x_25331 = ((__global float *) color_25632)[phys_tid_24931 + iA_25306 * num_threads_25638];
+                                                        float x_25332 = y_25317 * x_25331;
+                                                        float y_25333 = ((__global float *) color_25632)[phys_tid_24931 + iB_25312 * num_threads_25638];
+                                                        float y_25334 = x_25319 * y_25333;
+                                                        float x_25335 = x_25332 - y_25334;
+                                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25336 = x_25335 / y_25323;
+                                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25337 = x_25319 / y_25317;
+                                                        
+                                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25302 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25324;
+                                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25303 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25330;
+                                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25304 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25336;
+                                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25305 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25337;
+                                                    } else {
+                                                        bool cond_25338 = instr_25105 == (int8_t) 10;
+                                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25339;
+                                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25340;
+                                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25341;
+                                                        float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25342;
+                                                        
+                                                        if (cond_25338 == 1) {
+                                                            int64_t iA_25343 = sext_i8_i64(instr_25103);
+                                                            bool x_25344 = sle64((int64_t) 0, iA_25343);
+                                                            bool y_25345 = slt64(iA_25343, tape_slot_count_15898);
+                                                            bool bounds_check_25346 = x_25344 && y_25345;
+                                                            bool index_certs_25347;
+                                                            
+                                                            if (!bounds_check_25346) {
+                                                                {
+                                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 40) == -1) {
+                                                                        global_failure_args[0] = (int64_t) iA_25343;
+                                                                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                                        ;
+                                                                    }
+                                                                    return;
+                                                                }
+                                                            }
+                                                            
+                                                            float x_25348 = ((__global float *) color_25631)[phys_tid_24931 + iA_25343 * num_threads_25638];
+                                                            int64_t iB_25349 = sext_i8_i64(instr_25104);
+                                                            bool x_25350 = sle64((int64_t) 0, iB_25349);
+                                                            bool y_25351 = slt64(iB_25349, tape_slot_count_15898);
+                                                            bool bounds_check_25352 = x_25350 && y_25351;
+                                                            bool index_certs_25353;
+                                                            
+                                                            if (!bounds_check_25352) {
+                                                                {
+                                                                    if (atomic_cmpxchg_i32_global(global_failure, -1, 41) == -1) {
+                                                                        global_failure_args[0] = (int64_t) iB_25349;
+                                                                        global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                                        ;
+                                                                    }
+                                                                    return;
+                                                                }
+                                                            }
+                                                            
+                                                            float y_25354 = ((__global float *) color_25631)[phys_tid_24931 + iB_25349 * num_threads_25638];
+                                                            bool cond_25355 = x_25348 < y_25354;
+                                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25356;
+                                                            
+                                                            if (cond_25355 == 1) {
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25356 = x_25348;
+                                                            } else {
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25356 = y_25354;
+                                                            }
+                                                            
+                                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25357;
+                                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25358;
+                                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25359;
+                                                            
+                                                            if (cond_25355 == 1) {
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25360 = ((__global float *) color_25634)[phys_tid_24931 + iA_25343 * num_threads_25638];
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25361 = ((__global float *) color_25633)[phys_tid_24931 + iA_25343 * num_threads_25638];
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25362 = ((__global float *) color_25632)[phys_tid_24931 + iA_25343 * num_threads_25638];
+                                                                
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25357 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25360;
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25358 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25361;
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25359 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25362;
+                                                            } else {
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25363 = ((__global float *) color_25634)[phys_tid_24931 + iB_25349 * num_threads_25638];
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25364 = ((__global float *) color_25633)[phys_tid_24931 + iB_25349 * num_threads_25638];
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25365 = ((__global float *) color_25632)[phys_tid_24931 + iB_25349 * num_threads_25638];
+                                                                
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25357 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25363;
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25358 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25364;
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25359 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25365;
+                                                            }
+                                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25339 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25357;
+                                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25340 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25358;
+                                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25341 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25359;
+                                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25342 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25356;
+                                                        } else {
+                                                            bool cond_25366 = instr_25105 == (int8_t) 11;
+                                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25367;
+                                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25368;
+                                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25369;
+                                                            float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25370;
+                                                            
+                                                            if (cond_25366 == 1) {
+                                                                int64_t iA_25371 = sext_i8_i64(instr_25103);
+                                                                bool x_25372 = sle64((int64_t) 0, iA_25371);
+                                                                bool y_25373 = slt64(iA_25371, tape_slot_count_15898);
+                                                                bool bounds_check_25374 = x_25372 && y_25373;
+                                                                bool index_certs_25375;
+                                                                
+                                                                if (!bounds_check_25374) {
+                                                                    {
+                                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 42) == -1) {
+                                                                            global_failure_args[0] = (int64_t) iA_25371;
+                                                                            global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                                            ;
+                                                                        }
+                                                                        return;
+                                                                    }
+                                                                }
+                                                                
+                                                                float x_25376 = ((__global float *) color_25631)[phys_tid_24931 + iA_25371 * num_threads_25638];
+                                                                int64_t iB_25377 = sext_i8_i64(instr_25104);
+                                                                bool x_25378 = sle64((int64_t) 0, iB_25377);
+                                                                bool y_25379 = slt64(iB_25377, tape_slot_count_15898);
+                                                                bool bounds_check_25380 = x_25378 && y_25379;
+                                                                bool index_certs_25381;
+                                                                
+                                                                if (!bounds_check_25380) {
+                                                                    {
+                                                                        if (atomic_cmpxchg_i32_global(global_failure, -1, 43) == -1) {
+                                                                            global_failure_args[0] = (int64_t) iB_25377;
+                                                                            global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                                            ;
+                                                                        }
+                                                                        return;
+                                                                    }
+                                                                }
+                                                                
+                                                                float y_25382 = ((__global float *) color_25631)[phys_tid_24931 + iB_25377 * num_threads_25638];
+                                                                bool cond_25383 = y_25382 < x_25376;
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25384;
+                                                                
+                                                                if (cond_25383 == 1) {
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25384 = x_25376;
+                                                                } else {
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25384 = y_25382;
+                                                                }
+                                                                
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25385;
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25386;
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25387;
+                                                                
+                                                                if (cond_25383 == 1) {
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25388 = ((__global float *) color_25634)[phys_tid_24931 + iA_25371 * num_threads_25638];
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25389 = ((__global float *) color_25633)[phys_tid_24931 + iA_25371 * num_threads_25638];
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25390 = ((__global float *) color_25632)[phys_tid_24931 + iA_25371 * num_threads_25638];
+                                                                    
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25385 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25388;
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25386 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25389;
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25387 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_t_res_25390;
+                                                                } else {
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25391 = ((__global float *) color_25634)[phys_tid_24931 + iB_25377 * num_threads_25638];
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25392 = ((__global float *) color_25633)[phys_tid_24931 + iB_25377 * num_threads_25638];
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25393 = ((__global float *) color_25632)[phys_tid_24931 + iB_25377 * num_threads_25638];
+                                                                    
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25385 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25391;
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25386 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25392;
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25387 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_f_res_25393;
+                                                                }
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25367 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25385;
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25368 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25386;
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25369 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25387;
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25370 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25384;
+                                                            } else {
+                                                                bool cond_25394 = instr_25105 == (int8_t) 12;
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25395;
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25396;
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25397;
+                                                                float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25398;
+                                                                
+                                                                if (cond_25394 == 1) {
+                                                                    int64_t iA_25399 = sext_i8_i64(instr_25103);
+                                                                    bool x_25400 = sle64((int64_t) 0, iA_25399);
+                                                                    bool y_25401 = slt64(iA_25399, tape_slot_count_15898);
+                                                                    bool bounds_check_25402 = x_25400 && y_25401;
+                                                                    bool index_certs_25403;
+                                                                    
+                                                                    if (!bounds_check_25402) {
+                                                                        {
+                                                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 44) == -1) {
+                                                                                global_failure_args[0] = (int64_t) iA_25399;
+                                                                                global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                                                ;
+                                                                            }
+                                                                            return;
+                                                                        }
+                                                                    }
+                                                                    
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25404 = ((__global float *) color_25634)[phys_tid_24931 + iA_25399 * num_threads_25638];
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25405 = ((__global float *) color_25633)[phys_tid_24931 + iA_25399 * num_threads_25638];
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25406 = ((__global float *) color_25632)[phys_tid_24931 + iA_25399 * num_threads_25638];
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25407 = ((__global float *) color_25631)[phys_tid_24931 + iA_25399 * num_threads_25638];
+                                                                    
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25395 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25404;
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25396 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25405;
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25397 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25406;
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25398 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_t_res_25407;
+                                                                } else {
+                                                                    int64_t iO_25408 = sext_i8_i64(instr_25106);
+                                                                    bool x_25409 = sle64((int64_t) 0, iO_25408);
+                                                                    bool y_25410 = slt64(iO_25408, tape_slot_count_15898);
+                                                                    bool bounds_check_25411 = x_25409 && y_25410;
+                                                                    bool index_certs_25412;
+                                                                    
+                                                                    if (!bounds_check_25411) {
+                                                                        {
+                                                                            if (atomic_cmpxchg_i32_global(global_failure, -1, 45) == -1) {
+                                                                                global_failure_args[0] = (int64_t) iO_25408;
+                                                                                global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                                                                                ;
+                                                                            }
+                                                                            return;
+                                                                        }
+                                                                    }
+                                                                    
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25413 = ((__global float *) color_25634)[phys_tid_24931 + iO_25408 * num_threads_25638];
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25414 = ((__global float *) color_25633)[phys_tid_24931 + iO_25408 * num_threads_25638];
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25415 = ((__global float *) color_25632)[phys_tid_24931 + iO_25408 * num_threads_25638];
+                                                                    float lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25416 = ((__global float *) color_25631)[phys_tid_24931 + iO_25408 * num_threads_25638];
+                                                                    
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25395 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25413;
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25396 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25414;
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25397 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25415;
+                                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25398 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25416;
+                                                                }
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25367 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25395;
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25368 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25396;
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25369 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25397;
+                                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25370 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25398;
+                                                            }
+                                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25339 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25367;
+                                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25340 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25368;
+                                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25341 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25369;
+                                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25342 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25370;
+                                                        }
+                                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25302 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25339;
+                                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25303 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25340;
+                                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25304 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25341;
+                                                        lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25305 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25342;
+                                                    }
+                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25269 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25302;
+                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25270 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25303;
+                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25271 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25304;
+                                                    lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25272 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25305;
+                                                }
+                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25242 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25269;
+                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25243 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25270;
+                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25244 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25271;
+                                                lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25245 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25272;
+                                            }
+                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25215 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25242;
+                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25216 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25243;
+                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25217 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25244;
+                                            lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25218 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_f_res_25245;
+                                        }
+                                        lw_val_f_res_f_res_f_res_f_res_f_res_25197 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25215;
+                                        lw_val_f_res_f_res_f_res_f_res_f_res_25198 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25216;
+                                        lw_val_f_res_f_res_f_res_f_res_f_res_25199 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25217;
+                                        lw_val_f_res_f_res_f_res_f_res_f_res_25200 = lw_val_f_res_f_res_f_res_f_res_f_res_f_res_25218;
+                                    }
+                                    lw_val_f_res_f_res_f_res_f_res_25178 = lw_val_f_res_f_res_f_res_f_res_f_res_25197;
+                                    lw_val_f_res_f_res_f_res_f_res_25179 = lw_val_f_res_f_res_f_res_f_res_f_res_25198;
+                                    lw_val_f_res_f_res_f_res_f_res_25180 = lw_val_f_res_f_res_f_res_f_res_f_res_25199;
+                                    lw_val_f_res_f_res_f_res_f_res_25181 = lw_val_f_res_f_res_f_res_f_res_f_res_25200;
+                                }
+                                lw_val_f_res_f_res_f_res_25160 = lw_val_f_res_f_res_f_res_f_res_25178;
+                                lw_val_f_res_f_res_f_res_25161 = lw_val_f_res_f_res_f_res_f_res_25179;
+                                lw_val_f_res_f_res_f_res_25162 = lw_val_f_res_f_res_f_res_f_res_25180;
+                                lw_val_f_res_f_res_f_res_25163 = lw_val_f_res_f_res_f_res_f_res_25181;
+                            }
+                            lw_val_f_res_f_res_25138 = lw_val_f_res_f_res_f_res_25160;
+                            lw_val_f_res_f_res_25139 = lw_val_f_res_f_res_f_res_25161;
+                            lw_val_f_res_f_res_25140 = lw_val_f_res_f_res_f_res_25162;
+                            lw_val_f_res_f_res_25141 = lw_val_f_res_f_res_f_res_25163;
+                        }
+                        lw_val_f_res_25119 = lw_val_f_res_f_res_25138;
+                        lw_val_f_res_25120 = lw_val_f_res_f_res_25139;
+                        lw_val_f_res_25121 = lw_val_f_res_f_res_25140;
+                        lw_val_f_res_25122 = lw_val_f_res_f_res_25141;
+                    }
+                    lw_val_25108 = lw_val_f_res_25119;
+                    lw_val_25109 = lw_val_f_res_25120;
+                    lw_val_25110 = lw_val_f_res_25121;
+                    lw_val_25111 = lw_val_f_res_25122;
+                }
+                
+                int64_t iO_25417 = sext_i8_i64(instr_25106);
+                bool x_25418 = sle64((int64_t) 0, iO_25417);
+                bool y_25419 = slt64(iO_25417, tape_slot_count_15898);
+                bool bounds_check_25420 = x_25418 && y_25419;
+                bool index_certs_25421;
+                
+                if (!bounds_check_25420) {
+                    {
+                        if (atomic_cmpxchg_i32_global(global_failure, -1, 46) == -1) {
+                            global_failure_args[0] = (int64_t) iO_25417;
+                            global_failure_args[1] = (int64_t) tape_slot_count_15898;
+                            ;
+                        }
+                        return;
+                    }
+                }
+                ((__global float *) color_25634)[phys_tid_24931 + iO_25417 * num_threads_25638] = lw_val_25108;
+                ((__global float *) color_25633)[phys_tid_24931 + iO_25417 * num_threads_25638] = lw_val_25109;
+                ((__global float *) color_25632)[phys_tid_24931 + iO_25417 * num_threads_25638] = lw_val_25110;
+                ((__global float *) color_25631)[phys_tid_24931 + iO_25417 * num_threads_25638] = lw_val_25111;
+            }
+            
+            float tape_gradient_res_25426 = ((__global float *) color_25634)[phys_tid_24931];
+            float tape_gradient_res_25427 = ((__global float *) color_25633)[phys_tid_24931];
+            float tape_gradient_res_25428 = ((__global float *) color_25632)[phys_tid_24931];
+            float zt_res_25429 = tape_gradient_res_25428 * tape_gradient_res_25428;
+            float zt_res_25430 = tape_gradient_res_25427 * tape_gradient_res_25427;
+            float zt_res_25431 = tape_gradient_res_25426 * tape_gradient_res_25426;
+            float zp_res_25432 = zt_res_25430 + zt_res_25431;
+            float zp_res_25433 = zt_res_25429 + zp_res_25432;
+            float defunc_0_g_res_25434 = futrts_sqrt32(zp_res_25433);
+            float zs_res_25435 = 1.0F / defunc_0_g_res_25434;
+            float zt_res_25436 = tape_gradient_res_25426 * zs_res_25435;
+            float zt_res_25437 = tape_gradient_res_25427 * zs_res_25435;
+            float zt_res_25438 = tape_gradient_res_25428 * zs_res_25435;
+            bool cond_25439 = zt_res_25436 < 0.0F;
+            float clamp_channel_res_25440;
+            
+            if (cond_25439 == 1) {
+                clamp_channel_res_25440 = 0.0F;
+            } else {
+                bool cond_25441 = 1.0F < zt_res_25436;
+                float clamp_channel_res_f_res_25442;
+                
+                if (cond_25441 == 1) {
+                    clamp_channel_res_f_res_25442 = 1.0F;
+                } else {
+                    clamp_channel_res_f_res_25442 = zt_res_25436;
+                }
+                clamp_channel_res_25440 = clamp_channel_res_f_res_25442;
+            }
+            
+            float f32_arg_25443 = 255.0F * clamp_channel_res_25440;
+            int32_t unsign_arg_25444 = fptoui_f32_i32(f32_arg_25443);
+            int32_t y_25445 = shl32(unsign_arg_25444, 16);
+            int32_t x_25446 = -16777216 | y_25445;
+            bool cond_25447 = zt_res_25437 < 0.0F;
+            float clamp_channel_res_25448;
+            
+            if (cond_25447 == 1) {
+                clamp_channel_res_25448 = 0.0F;
+            } else {
+                bool cond_25449 = 1.0F < zt_res_25437;
+                float clamp_channel_res_f_res_25450;
+                
+                if (cond_25449 == 1) {
+                    clamp_channel_res_f_res_25450 = 1.0F;
+                } else {
+                    clamp_channel_res_f_res_25450 = zt_res_25437;
+                }
+                clamp_channel_res_25448 = clamp_channel_res_f_res_25450;
+            }
+            
+            float f32_arg_25451 = 255.0F * clamp_channel_res_25448;
+            int32_t unsign_arg_25452 = fptoui_f32_i32(f32_arg_25451);
+            int32_t y_25453 = shl32(unsign_arg_25452, 8);
+            int32_t x_25454 = x_25446 | y_25453;
+            bool cond_25455 = zt_res_25438 < 0.0F;
+            float clamp_channel_res_25456;
+            
+            if (cond_25455 == 1) {
+                clamp_channel_res_25456 = 0.0F;
+            } else {
+                bool cond_25457 = 1.0F < zt_res_25438;
+                float clamp_channel_res_f_res_25458;
+                
+                if (cond_25457 == 1) {
+                    clamp_channel_res_f_res_25458 = 1.0F;
+                } else {
+                    clamp_channel_res_f_res_25458 = zt_res_25438;
+                }
+                clamp_channel_res_25456 = clamp_channel_res_f_res_25458;
+            }
+            
+            float f32_arg_25459 = 255.0F * clamp_channel_res_25456;
+            int32_t unsign_arg_25460 = fptoui_f32_i32(f32_arg_25459);
+            int32_t from_rgba_res_25461 = x_25454 | unsign_arg_25460;
+            
+            shade_res_25059 = from_rgba_res_25461;
+        }
+        ((__global int32_t *) mem_25607)[gtid_24929 * pixel_height_15882 + gtid_24930] = shade_res_25059;
     }
     
   error_0:
     return;
-    #undef segmap_group_sizze_21141
+    #undef segmap_group_sizze_24926
 }
 """
 # Start of values.py.
@@ -7684,7 +8542,7 @@ class dda:
   def __init__(self, build_options=build_options, command_queue=None, interactive=False, platform_pref=preferred_platform, device_pref=preferred_device, default_group_size=default_group_size, default_num_groups=default_num_groups, default_tile_size=default_tile_size, default_reg_tile_size=default_reg_tile_size, default_threshold=default_threshold, sizes=sizes):
     size_heuristics=[("NVIDIA CUDA", cl.device_type.GPU, "lockstep_width", lambda device: np.int32(32)), ("AMD Accelerated Parallel Processing", cl.device_type.GPU, "lockstep_width", lambda device: np.int32(32)), ("", cl.device_type.GPU, "lockstep_width", lambda device: np.int32(1)), ("", cl.device_type.GPU, "num_groups", lambda device: (np.int32(4) * device.get_info(getattr(cl.device_info, "MAX_COMPUTE_UNITS")))), ("", cl.device_type.GPU, "group_size", lambda device: np.int32(256)), ("", cl.device_type.GPU, "tile_size", lambda device: np.int32(16)), ("", cl.device_type.GPU, "reg_tile_size", lambda device: np.int32(4)), ("", cl.device_type.GPU, "threshold", lambda device: np.int32(32768)), ("", cl.device_type.CPU, "lockstep_width", lambda device: np.int32(1)), ("", cl.device_type.CPU, "num_groups", lambda device: device.get_info(getattr(cl.device_info, "MAX_COMPUTE_UNITS"))), ("", cl.device_type.CPU, "group_size", lambda device: np.int32(32)), ("", cl.device_type.CPU, "tile_size", lambda device: np.int32(4)), ("", cl.device_type.CPU, "reg_tile_size", lambda device: np.int32(1)), ("", cl.device_type.CPU, "threshold", lambda device: device.get_info(getattr(cl.device_info, "MAX_COMPUTE_UNITS")))]
     self.global_failure_args_max = 6
-    self.failure_msgs=["Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:144:50-84\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:144:14-84\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:146:58-84\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:146:14-84\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:148:58-84\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:148:14-84\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:150:58-84\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:150:14-84\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:152:59-85\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:152:14-85\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:154:51-77\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:154:14-77\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:156:50-76\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:156:80-106\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:156:14-106\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:158:50-76\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:158:80-106\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:158:14-106\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:160:50-76\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:160:80-106\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:160:14-106\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:162:50-76\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:162:80-106\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:162:14-106\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:164:86-112\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:164:58-84\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:164:14-112\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:166:86-112\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:166:58-84\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:166:14-112\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:168:50-76\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/dda.fut:168:14-76\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n", "Index [{}, {}, {}] out of bounds for array of shape [{}][{}][{}].\n-> #0  src/dda.fut:91:87-101\n   #1  /prelude/functional.fut:9:42-44\n   #2  src/dda.fut:216:6-218:36\n   #3  src/dda.fut:178:1-218:36\n"]
+    self.failure_msgs=["Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:46:36-52\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:47:47-55\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:48:47-55\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:49:47-55\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:50:49-57\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:51:40-48\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:52:39-47\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:52:51-59\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:53:39-47\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:53:51-59\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:54:39-47\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:54:51-59\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:55:39-47\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:55:51-59\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:56:57-65\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:56:47-55\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:57:57-65\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:57:47-55\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:58:40-48\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:59:12-20\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:45:8-59:20\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}, {}, {}] out of bounds for array of shape [{}][{}][{}].\n-> #0  src/dda.fut:95:87-101\n   #1  src/dda.fut:170:15-35\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:167:5-171:24\n   #4  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:67:15-68:27\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:67:15-69:27\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:67:15-70:27\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:67:15-71:27\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:79:19-35\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:81:10-18\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:86:12-20\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:91:10-18\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:96:10-18\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:101:11-19\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:106:10-18\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:106:24-32\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:111:10-18\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:111:24-32\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:116:10-18\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:116:24-32\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:121:11-19\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:121:25-33\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:126:13-21\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:126:27-35\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:128:13-21\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:128:27-35\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:129:40-48\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:130:12-20\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n", "Index [{}] out of bounds for array of shape [{}].\n-> #0  src/tape.fut:77:8-130:20\n   #1  src/dda.fut:113:34-72\n   #2  src/dda.fut:171:10-22\n   #3  /prelude/functional.fut:9:42-44\n   #4  src/dda.fut:167:5-171:24\n   #5  src/dda.fut:127:1-171:24\n"]
     program = initialise_opencl_object(self,
                                        program_src=fut_opencl_src,
                                        build_options=build_options,
@@ -7700,192 +8558,205 @@ class dda:
                                        size_heuristics=size_heuristics,
                                        required_types=["i8", "i32", "i64", "f32", "bool", "unit"],
                                        user_sizes=sizes,
-                                       all_sizes={"main.segmap_group_size_19443": {"class": "group_size", "value": None}, "main.segmap_group_size_19568": {"class": "group_size", "value": None}, "main.segmap_group_size_20837": {"class": "group_size", "value": None}})
-    self.mainzisegmap_19469_var = program.mainzisegmap_19469
-    self.mainzisegmap_20572_var = program.mainzisegmap_20572
-    self.mainzisegmap_21146_var = program.mainzisegmap_21146
+                                       all_sizes={"main.segmap_group_size_22676": {"class": "group_size", "value": None}, "main.segmap_group_size_22801": {"class": "group_size", "value": None}, "main.segmap_group_size_23806": {"class": "group_size", "value": None}})
+    self.mainzisegmap_22702_var = program.mainzisegmap_22702
+    self.mainzisegmap_23607_var = program.mainzisegmap_23607
+    self.mainzisegmap_24931_var = program.mainzisegmap_24931
     self.constants = {}
-  def futhark_entry_main(self, tape_instrs_mem_21332, tape_constants_mem_21333, dz2080U_13897, dz2081U_13898, pixel_width_13899, pixel_height_13900, cam_pos_x_13901, cam_pos_y_13902, cam_pos_zz_13903, cam_forward_x_13904, cam_forward_y_13905, cam_forward_zz_13906, cam_right_x_13907, cam_right_y_13908, cam_right_zz_13909, cam_up_x_13910, cam_up_y_13911, cam_up_zz_13912, cam_fov_rad_13913, tape_slot_count_13916):
-    segmap_group_sizze_19462 = self.sizes["main.segmap_group_size_19443"]
-    segmap_usable_groups_19463 = sdiv_up64(dz2080U_13897, segmap_group_sizze_19462)
-    bytes_21335 = smax64(np.int64(0), dz2080U_13897)
-    mem_21336 = opencl_alloc(self, bytes_21335, "mem_21336")
-    mem_21338 = opencl_alloc(self, bytes_21335, "mem_21338")
-    mem_21340 = opencl_alloc(self, bytes_21335, "mem_21340")
-    mem_21342 = opencl_alloc(self, bytes_21335, "mem_21342")
-    virt_num_groups_21370 = sext_i64_i32(sdiv_up64(dz2080U_13897, segmap_group_sizze_19462))
-    if ((1 * (np.int64(segmap_usable_groups_19463) * np.int64(segmap_group_sizze_19462))) != 0):
-      self.mainzisegmap_19469_var.set_args(self.global_failure, ct.c_int64(dz2080U_13897), tape_instrs_mem_21332, mem_21336, mem_21338, mem_21340, mem_21342)
-      cl.enqueue_nd_range_kernel(self.queue, self.mainzisegmap_19469_var, ((np.int64(segmap_usable_groups_19463) * np.int64(segmap_group_sizze_19462)),), (np.int64(segmap_group_sizze_19462),))
+  def futhark_entry_main(self, tape_instrs_mem_25524, tape_constants_mem_25525, dz2080U_15879, dz2081U_15880, pixel_width_15881, pixel_height_15882, cam_pos_x_15883, cam_pos_y_15884, cam_pos_zz_15885, cam_forward_x_15886, cam_forward_y_15887, cam_forward_zz_15888, cam_right_x_15889, cam_right_y_15890, cam_right_zz_15891, cam_up_x_15892, cam_up_y_15893, cam_up_zz_15894, cam_fov_rad_15895, tape_slot_count_15898):
+    segmap_group_sizze_22695 = self.sizes["main.segmap_group_size_22676"]
+    segmap_usable_groups_22696 = sdiv_up64(dz2080U_15879, segmap_group_sizze_22695)
+    bytes_25527 = smax64(np.int64(0), dz2080U_15879)
+    mem_25528 = opencl_alloc(self, bytes_25527, "mem_25528")
+    mem_25530 = opencl_alloc(self, bytes_25527, "mem_25530")
+    mem_25532 = opencl_alloc(self, bytes_25527, "mem_25532")
+    mem_25534 = opencl_alloc(self, bytes_25527, "mem_25534")
+    virt_num_groups_25644 = sext_i64_i32(sdiv_up64(dz2080U_15879, segmap_group_sizze_22695))
+    if ((1 * (np.int64(segmap_usable_groups_22696) * np.int64(segmap_group_sizze_22695))) != 0):
+      self.mainzisegmap_22702_var.set_args(self.global_failure, ct.c_int64(dz2080U_15879), tape_instrs_mem_25524, mem_25528, mem_25530, mem_25532, mem_25534)
+      cl.enqueue_nd_range_kernel(self.queue, self.mainzisegmap_22702_var, ((np.int64(segmap_usable_groups_22696) * np.int64(segmap_group_sizze_22695)),), (np.int64(segmap_group_sizze_22695),))
       if synchronous:
         sync(self)
-    y_16348 = slt64(np.int64(3), tape_slot_count_13916)
-    index_certs_16349 = True
-    assert y_16348, ("Error: %s%d%s%d%s\n\nBacktrace:\n-> #0  src/dda.fut:136:15-140:16\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n" % ("Index [", np.int64(3), "] out of bounds for array of shape [", tape_slot_count_13916, "]."))
-    y_16346 = slt64(np.int64(2), tape_slot_count_13916)
-    index_certs_16347 = True
-    assert y_16346, ("Error: %s%d%s%d%s\n\nBacktrace:\n-> #0  src/dda.fut:136:15-139:16\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n" % ("Index [", np.int64(2), "] out of bounds for array of shape [", tape_slot_count_13916, "]."))
-    y_16344 = slt64(np.int64(1), tape_slot_count_13916)
-    index_certs_16345 = True
-    assert y_16344, ("Error: %s%d%s%d%s\n\nBacktrace:\n-> #0  src/dda.fut:136:15-138:16\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n" % ("Index [", np.int64(1), "] out of bounds for array of shape [", tape_slot_count_13916, "]."))
-    y_16342 = slt64(np.int64(0), tape_slot_count_13916)
-    index_certs_16343 = True
-    assert y_16342, ("Error: %s%d%s%d%s\n\nBacktrace:\n-> #0  src/dda.fut:136:15-137:16\n   #1  src/dda.fut:215:29-57\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:213:5-215:67\n   #4  src/dda.fut:178:1-218:36\n" % ("Index [", np.int64(0), "] out of bounds for array of shape [", tape_slot_count_13916, "]."))
-    segmap_group_sizze_20566 = self.sizes["main.segmap_group_size_19568"]
-    segmap_usable_groups_20567 = sdiv_up64(np.int64(16777216), segmap_group_sizze_20566)
-    mem_21358 = opencl_alloc(self, np.int64(16777216), "mem_21358")
-    binop_y_21344 = (np.int64(4) * tape_slot_count_13916)
-    bytes_21345 = smax64(np.int64(0), binop_y_21344)
-    num_threads_21366 = (segmap_group_sizze_20566 * segmap_usable_groups_20567)
-    total_sizze_21367 = (bytes_21345 * num_threads_21366)
-    color_21364 = opencl_alloc(self, total_sizze_21367, "color_21364")
-    virt_num_groups_21379 = sext_i64_i32(sdiv_up64(np.int64(16777216), segmap_group_sizze_20566))
-    if ((1 * (np.int64(segmap_usable_groups_20567) * np.int64(segmap_group_sizze_20566))) != 0):
-      self.mainzisegmap_20572_var.set_args(self.global_failure, self.failure_is_an_option, self.global_failure_args, ct.c_int64(dz2080U_13897), ct.c_int64(dz2081U_13898), ct.c_int64(tape_slot_count_13916), tape_constants_mem_21333, mem_21336, mem_21338, mem_21340, mem_21342, mem_21358, color_21364)
-      cl.enqueue_nd_range_kernel(self.queue, self.mainzisegmap_20572_var, ((np.int64(segmap_usable_groups_20567) * np.int64(segmap_group_sizze_20566)),), (np.int64(segmap_group_sizze_20566),))
-      if synchronous:
-        sync(self)
-    self.failure_is_an_option = np.int32(1)
-    mem_21336 = None
-    mem_21338 = None
-    mem_21340 = None
-    mem_21342 = None
-    color_21364 = None
-    bounds_invalid_upwards_16877 = slt64(pixel_width_13899, np.int64(0))
-    valid_16878 = not(bounds_invalid_upwards_16877)
-    range_valid_c_16879 = True
-    assert valid_16878, ("Error: %s%d%s%d%s%d%s\n\nBacktrace:\n-> #0  /prelude/array.fut:95:3-10\n" % ("Range ", np.int64(0), "..", np.int64(1), "..<", pixel_width_13899, " is invalid."))
-    bounds_invalid_upwards_16882 = slt64(pixel_height_13900, np.int64(0))
-    valid_16883 = not(bounds_invalid_upwards_16882)
-    range_valid_c_16884 = True
-    assert valid_16883, ("Error: %s%d%s%d%s%d%s\n\nBacktrace:\n-> #0  /prelude/array.fut:95:3-10\n" % ("Range ", np.int64(0), "..", np.int64(1), "..<", pixel_height_13900, " is invalid."))
-    defunc_1_f_res_16951 = (np.float32(10.0) - cam_pos_zz_13903)
-    defunc_1_f_res_16950 = (np.float32(10.0) - cam_pos_y_13902)
-    defunc_1_f_res_16949 = (np.float32(10.0) - cam_pos_x_13901)
-    defunc_1_f_res_16942 = (np.float32(-10.0) - cam_pos_zz_13903)
-    defunc_1_f_res_16941 = (np.float32(-10.0) - cam_pos_y_13902)
-    defunc_1_f_res_16940 = (np.float32(-10.0) - cam_pos_x_13901)
-    i64_res_16643 = sitofp_i64_f32(pixel_width_13899)
-    i64_res_16642 = sitofp_i64_f32(pixel_height_13900)
-    y_16644 = (i64_res_16642 / i64_res_16643)
-    tan_arg_16639 = (cam_fov_rad_13913 / np.float32(2.0))
-    tan_res_16640 = futhark_tan32(tan_arg_16639)
-    screen_world_sizze_x_16641 = (np.float32(2.0) * tan_res_16640)
-    screen_world_sizze_y_16645 = (screen_world_sizze_x_16641 * y_16644)
-    nest_sizze_21140 = (pixel_width_13899 * pixel_height_13900)
-    segmap_group_sizze_21141 = self.sizes["main.segmap_group_size_20837"]
-    segmap_usable_groups_21142 = sdiv_up64(nest_sizze_21140, segmap_group_sizze_21141)
-    binop_y_21361 = (np.int64(4) * nest_sizze_21140)
-    bytes_21362 = smax64(np.int64(0), binop_y_21361)
-    mem_21363 = opencl_alloc(self, bytes_21362, "mem_21363")
-    virt_num_groups_21396 = sext_i64_i32(sdiv_up64((pixel_width_13899 * pixel_height_13900), segmap_group_sizze_21141))
-    if ((1 * (np.int64(segmap_usable_groups_21142) * np.int64(segmap_group_sizze_21141))) != 0):
-      self.mainzisegmap_21146_var.set_args(self.global_failure, self.failure_is_an_option, self.global_failure_args, ct.c_int64(pixel_width_13899), ct.c_int64(pixel_height_13900), ct.c_float(cam_pos_x_13901), ct.c_float(cam_pos_y_13902), ct.c_float(cam_pos_zz_13903), ct.c_float(cam_forward_x_13904), ct.c_float(cam_forward_y_13905), ct.c_float(cam_forward_zz_13906), ct.c_float(cam_right_x_13907), ct.c_float(cam_right_y_13908), ct.c_float(cam_right_zz_13909), ct.c_float(cam_up_x_13910), ct.c_float(cam_up_y_13911), ct.c_float(cam_up_zz_13912), ct.c_float(screen_world_sizze_x_16641), ct.c_float(i64_res_16642), ct.c_float(i64_res_16643), ct.c_float(screen_world_sizze_y_16645), ct.c_float(defunc_1_f_res_16940), ct.c_float(defunc_1_f_res_16941), ct.c_float(defunc_1_f_res_16942), ct.c_float(defunc_1_f_res_16949), ct.c_float(defunc_1_f_res_16950), ct.c_float(defunc_1_f_res_16951), mem_21358, mem_21363)
-      cl.enqueue_nd_range_kernel(self.queue, self.mainzisegmap_21146_var, ((np.int64(segmap_usable_groups_21142) * np.int64(segmap_group_sizze_21141)),), (np.int64(segmap_group_sizze_21141),))
+    y_20133 = slt64(np.int64(3), tape_slot_count_15898)
+    index_certs_20134 = True
+    assert y_20133, ("Error: %s%d%s%d%s\n\nBacktrace:\n-> #0  src/tape.fut:35:15-39:16\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n" % ("Index [", np.int64(3), "] out of bounds for array of shape [", tape_slot_count_15898, "]."))
+    y_20131 = slt64(np.int64(2), tape_slot_count_15898)
+    index_certs_20132 = True
+    assert y_20131, ("Error: %s%d%s%d%s\n\nBacktrace:\n-> #0  src/tape.fut:35:15-38:16\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n" % ("Index [", np.int64(2), "] out of bounds for array of shape [", tape_slot_count_15898, "]."))
+    y_20129 = slt64(np.int64(1), tape_slot_count_15898)
+    index_certs_20130 = True
+    assert y_20129, ("Error: %s%d%s%d%s\n\nBacktrace:\n-> #0  src/tape.fut:35:15-37:16\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n" % ("Index [", np.int64(1), "] out of bounds for array of shape [", tape_slot_count_15898, "]."))
+    y_20127 = slt64(np.int64(0), tape_slot_count_15898)
+    index_certs_20128 = True
+    assert y_20127, ("Error: %s%d%s%d%s\n\nBacktrace:\n-> #0  src/tape.fut:35:15-36:16\n   #1  src/dda.fut:165:10-38\n   #2  /prelude/functional.fut:9:42-44\n   #3  src/dda.fut:162:5-165:48\n   #4  src/dda.fut:127:1-171:24\n" % ("Index [", np.int64(0), "] out of bounds for array of shape [", tape_slot_count_15898, "]."))
+    segmap_group_sizze_23601 = self.sizes["main.segmap_group_size_22801"]
+    segmap_usable_groups_23602 = sdiv_up64(np.int64(16777216), segmap_group_sizze_23601)
+    mem_25550 = opencl_alloc(self, np.int64(16777216), "mem_25550")
+    binop_y_25536 = (np.int64(4) * tape_slot_count_15898)
+    bytes_25537 = smax64(np.int64(0), binop_y_25536)
+    num_threads_25636 = (segmap_group_sizze_23601 * segmap_usable_groups_23602)
+    total_sizze_25637 = (bytes_25537 * num_threads_25636)
+    color_25630 = opencl_alloc(self, total_sizze_25637, "color_25630")
+    virt_num_groups_25653 = sext_i64_i32(sdiv_up64(np.int64(16777216), segmap_group_sizze_23601))
+    if ((1 * (np.int64(segmap_usable_groups_23602) * np.int64(segmap_group_sizze_23601))) != 0):
+      self.mainzisegmap_23607_var.set_args(self.global_failure, self.failure_is_an_option, self.global_failure_args, ct.c_int64(dz2080U_15879), ct.c_int64(dz2081U_15880), ct.c_int64(tape_slot_count_15898), tape_constants_mem_25525, mem_25528, mem_25530, mem_25532, mem_25534, mem_25550, color_25630)
+      cl.enqueue_nd_range_kernel(self.queue, self.mainzisegmap_23607_var, ((np.int64(segmap_usable_groups_23602) * np.int64(segmap_group_sizze_23601)),), (np.int64(segmap_group_sizze_23601),))
       if synchronous:
         sync(self)
     self.failure_is_an_option = np.int32(1)
-    mem_21358 = None
-    mem_out_21369 = mem_21363
-    return mem_out_21369
-  def main(self, pixel_width_13899_ext, pixel_height_13900_ext, cam_pos_x_13901_ext, cam_pos_y_13902_ext, cam_pos_zz_13903_ext, cam_forward_x_13904_ext, cam_forward_y_13905_ext, cam_forward_zz_13906_ext, cam_right_x_13907_ext, cam_right_y_13908_ext, cam_right_zz_13909_ext, cam_up_x_13910_ext, cam_up_y_13911_ext, cam_up_zz_13912_ext, cam_fov_rad_13913_ext, tape_instrs_mem_21332_ext, tape_constants_mem_21333_ext, tape_slot_count_13916_ext):
-    dz2080U_13897 = None
-    dz2081U_13898 = None
+    color_25630 = None
+    bounds_invalid_upwards_20919 = slt64(pixel_width_15881, np.int64(0))
+    valid_20920 = not(bounds_invalid_upwards_20919)
+    range_valid_c_20921 = True
+    assert valid_20920, ("Error: %s%d%s%d%s%d%s\n\nBacktrace:\n-> #0  /prelude/array.fut:95:3-10\n   #1  src/dda.fut:167:5-41\n   #2  src/dda.fut:127:1-171:24\n" % ("Range ", np.int64(0), "..", np.int64(1), "..<", pixel_width_15881, " is invalid."))
+    bounds_invalid_upwards_20924 = slt64(pixel_height_15882, np.int64(0))
+    valid_20925 = not(bounds_invalid_upwards_20924)
+    range_valid_c_20926 = True
+    assert valid_20925, ("Error: %s%d%s%d%s%d%s\n\nBacktrace:\n-> #0  /prelude/array.fut:95:3-10\n   #1  src/dda.fut:167:5-41\n   #2  src/dda.fut:127:1-171:24\n" % ("Range ", np.int64(0), "..", np.int64(1), "..<", pixel_height_15882, " is invalid."))
+    defunc_1_f_res_20954 = (np.float32(10.0) - cam_pos_zz_15885)
+    defunc_1_f_res_20953 = (np.float32(10.0) - cam_pos_y_15884)
+    defunc_1_f_res_20952 = (np.float32(10.0) - cam_pos_x_15883)
+    defunc_1_f_res_20936 = (np.float32(-10.0) - cam_pos_zz_15885)
+    defunc_1_f_res_20935 = (np.float32(-10.0) - cam_pos_y_15884)
+    defunc_1_f_res_20934 = (np.float32(-10.0) - cam_pos_x_15883)
+    i64_res_20363 = sitofp_i64_f32(pixel_width_15881)
+    i64_res_20362 = sitofp_i64_f32(pixel_height_15882)
+    y_20364 = (i64_res_20362 / i64_res_20363)
+    tan_arg_20359 = (cam_fov_rad_15895 / np.float32(2.0))
+    tan_res_20360 = futhark_tan32(tan_arg_20359)
+    screen_world_sizze_x_20361 = (np.float32(2.0) * tan_res_20360)
+    screen_world_sizze_y_20365 = (screen_world_sizze_x_20361 * y_20364)
+    nest_sizze_24925 = (pixel_width_15881 * pixel_height_15882)
+    segmap_group_sizze_24926 = self.sizes["main.segmap_group_size_23806"]
+    segmap_usable_groups_24927 = sdiv_up64(nest_sizze_24925, segmap_group_sizze_24926)
+    binop_y_25605 = (np.int64(4) * nest_sizze_24925)
+    bytes_25606 = smax64(np.int64(0), binop_y_25605)
+    mem_25607 = opencl_alloc(self, bytes_25606, "mem_25607")
+    num_threads_25638 = (segmap_group_sizze_24926 * segmap_usable_groups_24927)
+    total_sizze_25639 = (bytes_25537 * num_threads_25638)
+    color_25631 = opencl_alloc(self, total_sizze_25639, "color_25631")
+    total_sizze_25640 = (bytes_25537 * num_threads_25638)
+    color_25632 = opencl_alloc(self, total_sizze_25640, "color_25632")
+    total_sizze_25641 = (bytes_25537 * num_threads_25638)
+    color_25633 = opencl_alloc(self, total_sizze_25641, "color_25633")
+    total_sizze_25642 = (bytes_25537 * num_threads_25638)
+    color_25634 = opencl_alloc(self, total_sizze_25642, "color_25634")
+    virt_num_groups_25668 = sext_i64_i32(sdiv_up64((pixel_width_15881 * pixel_height_15882), segmap_group_sizze_24926))
+    if ((1 * (np.int64(segmap_usable_groups_24927) * np.int64(segmap_group_sizze_24926))) != 0):
+      self.mainzisegmap_24931_var.set_args(self.global_failure, self.failure_is_an_option, self.global_failure_args, ct.c_int64(dz2080U_15879), ct.c_int64(dz2081U_15880), ct.c_int64(pixel_width_15881), ct.c_int64(pixel_height_15882), ct.c_float(cam_pos_x_15883), ct.c_float(cam_pos_y_15884), ct.c_float(cam_pos_zz_15885), ct.c_float(cam_forward_x_15886), ct.c_float(cam_forward_y_15887), ct.c_float(cam_forward_zz_15888), ct.c_float(cam_right_x_15889), ct.c_float(cam_right_y_15890), ct.c_float(cam_right_zz_15891), ct.c_float(cam_up_x_15892), ct.c_float(cam_up_y_15893), ct.c_float(cam_up_zz_15894), ct.c_int64(tape_slot_count_15898), ct.c_float(screen_world_sizze_x_20361), ct.c_float(i64_res_20362), ct.c_float(i64_res_20363), ct.c_float(screen_world_sizze_y_20365), ct.c_float(defunc_1_f_res_20934), ct.c_float(defunc_1_f_res_20935), ct.c_float(defunc_1_f_res_20936), ct.c_float(defunc_1_f_res_20952), ct.c_float(defunc_1_f_res_20953), ct.c_float(defunc_1_f_res_20954), ct.c_int64(num_threads_25638), tape_constants_mem_25525, mem_25528, mem_25530, mem_25532, mem_25534, mem_25550, mem_25607, color_25631, color_25632, color_25633, color_25634)
+      cl.enqueue_nd_range_kernel(self.queue, self.mainzisegmap_24931_var, ((np.int64(segmap_usable_groups_24927) * np.int64(segmap_group_sizze_24926)),), (np.int64(segmap_group_sizze_24926),))
+      if synchronous:
+        sync(self)
+    self.failure_is_an_option = np.int32(1)
+    mem_25528 = None
+    mem_25530 = None
+    mem_25532 = None
+    mem_25534 = None
+    mem_25550 = None
+    color_25631 = None
+    color_25632 = None
+    color_25633 = None
+    color_25634 = None
+    mem_out_25643 = mem_25607
+    return mem_out_25643
+  def main(self, pixel_width_15881_ext, pixel_height_15882_ext, cam_pos_x_15883_ext, cam_pos_y_15884_ext, cam_pos_zz_15885_ext, cam_forward_x_15886_ext, cam_forward_y_15887_ext, cam_forward_zz_15888_ext, cam_right_x_15889_ext, cam_right_y_15890_ext, cam_right_zz_15891_ext, cam_up_x_15892_ext, cam_up_y_15893_ext, cam_up_zz_15894_ext, cam_fov_rad_15895_ext, tape_instrs_mem_25524_ext, tape_constants_mem_25525_ext, tape_slot_count_15898_ext):
+    dz2080U_15879 = None
+    dz2081U_15880 = None
     try:
-      pixel_width_13899 = np.int64(ct.c_int64(pixel_width_13899_ext))
+      pixel_width_15881 = np.int64(ct.c_int64(pixel_width_15881_ext))
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #0 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("i64", type(pixel_width_13899_ext), pixel_width_13899_ext))
+      raise TypeError("Argument #0 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("i64", type(pixel_width_15881_ext), pixel_width_15881_ext))
     try:
-      pixel_height_13900 = np.int64(ct.c_int64(pixel_height_13900_ext))
+      pixel_height_15882 = np.int64(ct.c_int64(pixel_height_15882_ext))
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #1 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("i64", type(pixel_height_13900_ext), pixel_height_13900_ext))
+      raise TypeError("Argument #1 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("i64", type(pixel_height_15882_ext), pixel_height_15882_ext))
     try:
-      cam_pos_x_13901 = np.float32(cam_pos_x_13901_ext)
+      cam_pos_x_15883 = np.float32(cam_pos_x_15883_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #2 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_pos_x_13901_ext), cam_pos_x_13901_ext))
+      raise TypeError("Argument #2 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_pos_x_15883_ext), cam_pos_x_15883_ext))
     try:
-      cam_pos_y_13902 = np.float32(cam_pos_y_13902_ext)
+      cam_pos_y_15884 = np.float32(cam_pos_y_15884_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #3 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_pos_y_13902_ext), cam_pos_y_13902_ext))
+      raise TypeError("Argument #3 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_pos_y_15884_ext), cam_pos_y_15884_ext))
     try:
-      cam_pos_zz_13903 = np.float32(cam_pos_zz_13903_ext)
+      cam_pos_zz_15885 = np.float32(cam_pos_zz_15885_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #4 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_pos_zz_13903_ext), cam_pos_zz_13903_ext))
+      raise TypeError("Argument #4 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_pos_zz_15885_ext), cam_pos_zz_15885_ext))
     try:
-      cam_forward_x_13904 = np.float32(cam_forward_x_13904_ext)
+      cam_forward_x_15886 = np.float32(cam_forward_x_15886_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #5 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_forward_x_13904_ext), cam_forward_x_13904_ext))
+      raise TypeError("Argument #5 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_forward_x_15886_ext), cam_forward_x_15886_ext))
     try:
-      cam_forward_y_13905 = np.float32(cam_forward_y_13905_ext)
+      cam_forward_y_15887 = np.float32(cam_forward_y_15887_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #6 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_forward_y_13905_ext), cam_forward_y_13905_ext))
+      raise TypeError("Argument #6 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_forward_y_15887_ext), cam_forward_y_15887_ext))
     try:
-      cam_forward_zz_13906 = np.float32(cam_forward_zz_13906_ext)
+      cam_forward_zz_15888 = np.float32(cam_forward_zz_15888_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #7 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_forward_zz_13906_ext), cam_forward_zz_13906_ext))
+      raise TypeError("Argument #7 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_forward_zz_15888_ext), cam_forward_zz_15888_ext))
     try:
-      cam_right_x_13907 = np.float32(cam_right_x_13907_ext)
+      cam_right_x_15889 = np.float32(cam_right_x_15889_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #8 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_right_x_13907_ext), cam_right_x_13907_ext))
+      raise TypeError("Argument #8 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_right_x_15889_ext), cam_right_x_15889_ext))
     try:
-      cam_right_y_13908 = np.float32(cam_right_y_13908_ext)
+      cam_right_y_15890 = np.float32(cam_right_y_15890_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #9 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_right_y_13908_ext), cam_right_y_13908_ext))
+      raise TypeError("Argument #9 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_right_y_15890_ext), cam_right_y_15890_ext))
     try:
-      cam_right_zz_13909 = np.float32(cam_right_zz_13909_ext)
+      cam_right_zz_15891 = np.float32(cam_right_zz_15891_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #10 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_right_zz_13909_ext), cam_right_zz_13909_ext))
+      raise TypeError("Argument #10 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_right_zz_15891_ext), cam_right_zz_15891_ext))
     try:
-      cam_up_x_13910 = np.float32(cam_up_x_13910_ext)
+      cam_up_x_15892 = np.float32(cam_up_x_15892_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #11 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_up_x_13910_ext), cam_up_x_13910_ext))
+      raise TypeError("Argument #11 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_up_x_15892_ext), cam_up_x_15892_ext))
     try:
-      cam_up_y_13911 = np.float32(cam_up_y_13911_ext)
+      cam_up_y_15893 = np.float32(cam_up_y_15893_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #12 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_up_y_13911_ext), cam_up_y_13911_ext))
+      raise TypeError("Argument #12 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_up_y_15893_ext), cam_up_y_15893_ext))
     try:
-      cam_up_zz_13912 = np.float32(cam_up_zz_13912_ext)
+      cam_up_zz_15894 = np.float32(cam_up_zz_15894_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #13 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_up_zz_13912_ext), cam_up_zz_13912_ext))
+      raise TypeError("Argument #13 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_up_zz_15894_ext), cam_up_zz_15894_ext))
     try:
-      cam_fov_rad_13913 = np.float32(cam_fov_rad_13913_ext)
+      cam_fov_rad_15895 = np.float32(cam_fov_rad_15895_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #14 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_fov_rad_13913_ext), cam_fov_rad_13913_ext))
+      raise TypeError("Argument #14 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(cam_fov_rad_15895_ext), cam_fov_rad_15895_ext))
     try:
-      assert ((type(tape_instrs_mem_21332_ext) in [np.ndarray, cl.array.Array]) and (tape_instrs_mem_21332_ext.dtype == np.uint32)), "Parameter has unexpected type"
-      if (dz2080U_13897 == None):
-        dz2080U_13897 = np.int64(tape_instrs_mem_21332_ext.shape[0])
+      assert ((type(tape_instrs_mem_25524_ext) in [np.ndarray, cl.array.Array]) and (tape_instrs_mem_25524_ext.dtype == np.uint32)), "Parameter has unexpected type"
+      if (dz2080U_15879 == None):
+        dz2080U_15879 = np.int64(tape_instrs_mem_25524_ext.shape[0])
       else:
-        assert (dz2080U_13897 == tape_instrs_mem_21332_ext.shape[0]), "Error: entry point arguments have invalid sizes."
-      if (type(tape_instrs_mem_21332_ext) == cl.array.Array):
-        tape_instrs_mem_21332 = tape_instrs_mem_21332_ext.data
+        assert (dz2080U_15879 == tape_instrs_mem_25524_ext.shape[0]), "Error: entry point arguments have invalid sizes."
+      if (type(tape_instrs_mem_25524_ext) == cl.array.Array):
+        tape_instrs_mem_25524 = tape_instrs_mem_25524_ext.data
       else:
-        tape_instrs_mem_21332 = opencl_alloc(self, np.int64(tape_instrs_mem_21332_ext.nbytes), "tape_instrs_mem_21332")
-        if (np.int64(tape_instrs_mem_21332_ext.nbytes) != 0):
-          cl.enqueue_copy(self.queue, tape_instrs_mem_21332, normaliseArray(tape_instrs_mem_21332_ext), is_blocking=synchronous)
+        tape_instrs_mem_25524 = opencl_alloc(self, np.int64(tape_instrs_mem_25524_ext.nbytes), "tape_instrs_mem_25524")
+        if (np.int64(tape_instrs_mem_25524_ext.nbytes) != 0):
+          cl.enqueue_copy(self.queue, tape_instrs_mem_25524, normaliseArray(tape_instrs_mem_25524_ext), is_blocking=synchronous)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #15 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("[]u32", type(tape_instrs_mem_21332_ext), tape_instrs_mem_21332_ext))
+      raise TypeError("Argument #15 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("[]u32", type(tape_instrs_mem_25524_ext), tape_instrs_mem_25524_ext))
     try:
-      assert ((type(tape_constants_mem_21333_ext) in [np.ndarray, cl.array.Array]) and (tape_constants_mem_21333_ext.dtype == np.float32)), "Parameter has unexpected type"
-      if (dz2081U_13898 == None):
-        dz2081U_13898 = np.int64(tape_constants_mem_21333_ext.shape[0])
+      assert ((type(tape_constants_mem_25525_ext) in [np.ndarray, cl.array.Array]) and (tape_constants_mem_25525_ext.dtype == np.float32)), "Parameter has unexpected type"
+      if (dz2081U_15880 == None):
+        dz2081U_15880 = np.int64(tape_constants_mem_25525_ext.shape[0])
       else:
-        assert (dz2081U_13898 == tape_constants_mem_21333_ext.shape[0]), "Error: entry point arguments have invalid sizes."
-      if (type(tape_constants_mem_21333_ext) == cl.array.Array):
-        tape_constants_mem_21333 = tape_constants_mem_21333_ext.data
+        assert (dz2081U_15880 == tape_constants_mem_25525_ext.shape[0]), "Error: entry point arguments have invalid sizes."
+      if (type(tape_constants_mem_25525_ext) == cl.array.Array):
+        tape_constants_mem_25525 = tape_constants_mem_25525_ext.data
       else:
-        tape_constants_mem_21333 = opencl_alloc(self, np.int64(tape_constants_mem_21333_ext.nbytes), "tape_constants_mem_21333")
-        if (np.int64(tape_constants_mem_21333_ext.nbytes) != 0):
-          cl.enqueue_copy(self.queue, tape_constants_mem_21333, normaliseArray(tape_constants_mem_21333_ext), is_blocking=synchronous)
+        tape_constants_mem_25525 = opencl_alloc(self, np.int64(tape_constants_mem_25525_ext.nbytes), "tape_constants_mem_25525")
+        if (np.int64(tape_constants_mem_25525_ext.nbytes) != 0):
+          cl.enqueue_copy(self.queue, tape_constants_mem_25525, normaliseArray(tape_constants_mem_25525_ext), is_blocking=synchronous)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #16 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("[]f32", type(tape_constants_mem_21333_ext), tape_constants_mem_21333_ext))
+      raise TypeError("Argument #16 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("[]f32", type(tape_constants_mem_25525_ext), tape_constants_mem_25525_ext))
     try:
-      tape_slot_count_13916 = np.int64(ct.c_int64(tape_slot_count_13916_ext))
+      tape_slot_count_15898 = np.int64(ct.c_int64(tape_slot_count_15898_ext))
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #17 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("i64", type(tape_slot_count_13916_ext), tape_slot_count_13916_ext))
+      raise TypeError("Argument #17 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("i64", type(tape_slot_count_15898_ext), tape_slot_count_15898_ext))
     time_start = time.time()
     with np.errstate(divide="ignore", over="ignore", under="ignore", invalid="ignore"):
-      mem_out_21369 = self.futhark_entry_main(tape_instrs_mem_21332, tape_constants_mem_21333, dz2080U_13897, dz2081U_13898, pixel_width_13899, pixel_height_13900, cam_pos_x_13901, cam_pos_y_13902, cam_pos_zz_13903, cam_forward_x_13904, cam_forward_y_13905, cam_forward_zz_13906, cam_right_x_13907, cam_right_y_13908, cam_right_zz_13909, cam_up_x_13910, cam_up_y_13911, cam_up_zz_13912, cam_fov_rad_13913, tape_slot_count_13916)
+      mem_out_25643 = self.futhark_entry_main(tape_instrs_mem_25524, tape_constants_mem_25525, dz2080U_15879, dz2081U_15880, pixel_width_15881, pixel_height_15882, cam_pos_x_15883, cam_pos_y_15884, cam_pos_zz_15885, cam_forward_x_15886, cam_forward_y_15887, cam_forward_zz_15888, cam_right_x_15889, cam_right_y_15890, cam_right_zz_15891, cam_up_x_15892, cam_up_y_15893, cam_up_zz_15894, cam_fov_rad_15895, tape_slot_count_15898)
     runtime = (int((time.time() * 1000000)) - int((time_start * 1000000)))
     sync(self)
-    return cl.array.Array(self.queue, (pixel_width_13899, pixel_height_13900), np.uint32, data=mem_out_21369)
+    return cl.array.Array(self.queue, (pixel_width_15881, pixel_height_15882), np.uint32, data=mem_out_25643)

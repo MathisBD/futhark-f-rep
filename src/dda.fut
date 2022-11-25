@@ -1,7 +1,11 @@
 import "lib/github.com/athas/matte/colour"
 import "utils"
+import "tape"
+
 
 type ray = { orig : vec3.vector, dir : vec3.vector }
+
+type hit = #miss | #hit { t : f32 }
 
 -- Get the point on the ray corresponding to the parameter t
 def ray_eval (r : ray) (t : f32) : vec3.vector = 
@@ -72,14 +76,14 @@ def raygrid_intersect (r : ray) (grd : grid) : { hit : bool, t_enter : f32, t_le
   let hit = vec3_max t_enter <= vec3_min t_leave && 0.0 <= vec3_min t_leave
   in { hit = hit, t_enter = vec3_max t_enter, t_leave = vec3_min t_leave }
 
-def raytrace [n] (grd : grid) (voxels : [n][n][n]bool) (r : ray) : argb.colour =
+def raytrace [n] (grd : grid) (voxels : [n][n][n]bool) (r : ray) : hit =
   let { hit, t_enter, t_leave } = raygrid_intersect r grd in
-  if !hit then 0 else
-  let (_, color) = 
+  if !hit then #miss else
+  let (_, hit) = 
     -- t_curr is at the proximal boundary of the current voxel : 
     -- testing which voxel the corresponding position is in is thus unstable.
     -- We add EPS to t_curr to get a position slightly inside the current voxel.
-    loop (t_curr, _) = (f32.max 0.0 t_enter, argb.black) while t_curr + EPS < t_leave do
+    loop (t_curr, _) = (f32.max 0.0 t_enter, #miss) while t_curr + EPS < t_leave do
       -- This is the voxel with float coordinates that t_curr is in.
       let norm_pos = vec3.scale (1.0 / grid_cell_size grd) ((ray_eval r (t_curr + EPS)) vec3.- grd.pos)
       -- This is the voxel with integer coordinates that t_curr is in.
@@ -90,7 +94,7 @@ def raytrace [n] (grd : grid) (voxels : [n][n][n]bool) (r : ray) : argb.colour =
       in 
         if 0 <= x && x < grd.dim && 0 <= y && y < grd.dim && 0 <= z && z < grd.dim && voxels[x, y, z]
         -- We hit a voxel.
-        then (t_leave, argb.red) 
+        then (t_leave, #hit { t = t_curr }) 
         -- Otherwise step forward
         -- These are the first times at which we cross the x/y/z axis after t_curr. 
         -- We have to use the same t as in norm_pos.
@@ -98,79 +102,24 @@ def raytrace [n] (grd : grid) (voxels : [n][n][n]bool) (r : ray) : argb.colour =
           t_curr + EPS + (f32.i64 x + (if r.dir.x >= 0.0 then 1.0 else 0.0) - norm_pos.x) * (grid_cell_size grd) / r.dir.x,
           t_curr + EPS + (f32.i64 y + (if r.dir.y >= 0.0 then 1.0 else 0.0) - norm_pos.y) * (grid_cell_size grd) / r.dir.y,
           t_curr + EPS + (f32.i64 z + (if r.dir.z >= 0.0 then 1.0 else 0.0) - norm_pos.z) * (grid_cell_size grd) / r.dir.z)
-        in (vec3_min { x=t_x, y=t_y, z=t_z }, argb.black)
-  in color
+        in (vec3_min { x=t_x, y=t_y, z=t_z }, #miss)
+  in hit
 
-type tape_instr = { op : u8, out_slot : u8, in_slotA : u8, in_slotB : u8 }
+def shade (tap : tape) (r : ray) (h : hit) : argb.colour = 
+  match h 
+  case #miss -> argb.black
+  case #hit h -> 
+    let pos = ray_eval r h.t
+    let normal = vec3.normalise (tape_gradient tap pos.x pos.y pos.z 0.0)
+    in argb.from_rgba normal.x normal.y normal.z 1.0
+    --let light = vec3.normalise { x = -1.0, y = -1.0, z = 0.0 } 
+    -- The intensity of the light at this point.
+    -- There is a minus sign in front of the dot product 
+    -- because we have to reverse the light vector.
+    --let intensity = 0.2 + f32.max 0.0 (- vec3.dot normal light)  
+    --in 
+    --  intensity * argb.white
 
-type~ tape = { 
-  instrs : []tape_instr, 
-  constants : []f32,
-  slot_count : i64  
-}
-
-def decode_instruction (instr : u32) : tape_instr =
-  let op       = u8.u32 ((instr >> 24) & 0xFF)
-  let out_slot = u8.u32 ((instr >> 16) & 0xFF)
-  let in_slotA = u8.u32 ((instr >> 8)  & 0xFF)
-  let in_slotB = u8.u32 ((instr >> 0)  & 0xFF)
-  in { op, out_slot, in_slotA, in_slotB }
-
-
-def OP_CONST = 0u8
-def OP_SIN = 1u8
-def OP_COS = 2u8
-def OP_EXP = 3u8
-def OP_SQRT = 4u8
-def OP_NEG = 5u8
-def OP_ADD = 6u8
-def OP_SUB = 7u8
-def OP_MUL = 8u8
-def OP_DIV = 9u8
-def OP_MIN = 10u8
-def OP_MAX = 11u8
-def OP_COPY = 12u8
-
--- Sequentially evaluate a tape given values for the axes.
-def eval_tape (tap : tape) x y z t : f32 =
-  let slots = replicate tap.slot_count 0f32 
-    with [0] = x
-    with [1] = y
-    with [2] = z
-    with [3] = t
-  in 
-    let slots = loop slots = slots for instr in tap.instrs do 
-      if instr.op == OP_CONST 
-        then slots with [i8.u8 instr.out_slot] = tap.constants[i8.u8 instr.in_slotA]
-      else if instr.op == OP_SIN 
-        then slots with [i8.u8 instr.out_slot] = f32.sin slots[i8.u8 instr.in_slotA]
-      else if instr.op == OP_COS 
-        then slots with [i8.u8 instr.out_slot] = f32.cos slots[i8.u8 instr.in_slotA]
-      else if instr.op == OP_EXP 
-        then slots with [i8.u8 instr.out_slot] = f32.exp slots[i8.u8 instr.in_slotA]
-      else if instr.op == OP_SQRT 
-        then slots with [i8.u8 instr.out_slot] = f32.sqrt slots[i8.u8 instr.in_slotA]
-      else if instr.op == OP_NEG 
-        then slots with [i8.u8 instr.out_slot] = -slots[i8.u8 instr.in_slotA]
-      else if instr.op == OP_ADD 
-        then slots with [i8.u8 instr.out_slot] = slots[i8.u8 instr.in_slotA] + slots[i8.u8 instr.in_slotB]
-      else if instr.op == OP_SUB 
-        then slots with [i8.u8 instr.out_slot] = slots[i8.u8 instr.in_slotA] - slots[i8.u8 instr.in_slotB]
-      else if instr.op == OP_MUL 
-        then slots with [i8.u8 instr.out_slot] = slots[i8.u8 instr.in_slotA] * slots[i8.u8 instr.in_slotB]
-      else if instr.op == OP_DIV 
-        then slots with [i8.u8 instr.out_slot] = slots[i8.u8 instr.in_slotA] / slots[i8.u8 instr.in_slotB]
-      else if instr.op == OP_MIN 
-        then slots with [i8.u8 instr.out_slot] = f32.min slots[i8.u8 instr.in_slotA] slots[i8.u8 instr.in_slotB]
-      else if instr.op == OP_MAX 
-        then slots with [i8.u8 instr.out_slot] = f32.max slots[i8.u8 instr.in_slotA] slots[i8.u8 instr.in_slotB]
-      else if instr.op == OP_COPY
-        then slots with [i8.u8 instr.out_slot] = slots[i8.u8 instr.in_slotA]
-      else slots
-  -- The output is always in slot 0
-  in slots[0]
-
-  
 
 -- Assumes that the camera axis vectors are normalized, orthogonal and correctly oriented.
 -- The camera field of view is the horizontal field of view in radians.
@@ -211,12 +160,15 @@ entry main
   }
   let voxels = 
     make_grid_3d grd.dim grd.dim grd.dim 
-    |> map (map (map (\(x, y, z) -> grid_voxel2world grd x y z)))
-    |> map (map (map (\p -> eval_tape tap p.x p.y p.z 0.0 <= 0.0)))
-  in make_grid_2d pixel_width pixel_height
-  |> map (map (\(x, y) -> camera_make_ray cam x y)) 
-  |> map (map (raytrace grd voxels))
-
+    |> map (map (map (\(x, y, z) -> 
+      let p = grid_voxel2world grd x y z 
+      in tape_eval tap p.x p.y p.z 0.0 <= 0.0)))
+  in 
+    make_grid_2d pixel_width pixel_height
+    |> map (map (\(x, y) -> 
+      let r = camera_make_ray cam x y
+      let h = raytrace grd voxels r
+      in shade tap r h))
 
 -- 
 -- compiled input { 
