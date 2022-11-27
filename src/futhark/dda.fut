@@ -158,17 +158,15 @@ entry main
     constants = tape_constants 
   }
   let voxels = 
-    make_grid_3d grd.dim grd.dim grd.dim 
-    |> map (map (map (\(x, y, z) -> 
+    tabulate_3d grd.dim grd.dim grd.dim (\x y z -> 
       let pos = grid_voxel2world grd x y z 
       let f = scalar_tape_evaluator.eval tap pos.x pos.y pos.z 0.0
-      in f <= 0.0)))
+      in f <= 0.0)
   in 
-    make_grid_2d pixel_width pixel_height
-    |> map (map (\(x, y) -> 
+    tabulate_2d pixel_width pixel_height (\x y -> 
       let r = camera_make_ray cam x y
       let h = raytrace grd voxels r
-      in shade tap r h))
+      in shade tap r h)
 
 -- 
 -- compiled input { 
