@@ -31,3 +31,10 @@ def f32_min4 x0 x1 x2 x3 =
 
 def f32_max4 x0 x1 x2 x3 = 
   f32.max (f32.max x0 x1) (f32.max x2 x3)
+
+-- Is there an integer in the interval [low, high] ?
+-- This should also work for inputs of the type nan/inf.
+def contains_int (low : f32) (high : f32) =
+  if low == f32.inf then false 
+  else if high == -f32.inf then false 
+  else low <= f32.floor high

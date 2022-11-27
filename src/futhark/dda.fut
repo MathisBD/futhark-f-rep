@@ -110,16 +110,14 @@ def shade (tap : tape) (r : ray) (h : hit) : argb.colour =
   case #miss -> argb.black
   case #hit h -> 
     let pos = ray_eval r h.t
-    let normal = vec3.normalise (tape_gradient tap pos.x pos.y pos.z 0.0)
+    let grad = gradient_tape_evaluator.eval tap 
+      { v = pos.x, dx = 1.0, dy = 0.0, dz = 0.0 }
+      { v = pos.y, dx = 0.0, dy = 1.0, dz = 0.0 }
+      { v = pos.z, dx = 0.0, dy = 0.0, dz = 1.0 }
+      (gradient.constant 0.0)
+    let normal = vec3.normalise { x = grad.dx, y = grad.dy, z = grad.dz }
     let color = (vec3_full 0.5) vec3.+ (vec3.scale 0.5 normal)
     in argb.from_rgba color.x color.y color.z 1.0
-    --let light = vec3.normalise { x = -1.0, y = -1.0, z = 0.0 } 
-    -- The intensity of the light at this point.
-    -- There is a minus sign in front of the dot product 
-    -- because we have to reverse the light vector.
-    --let intensity = 0.2 + f32.max 0.0 (- vec3.dot normal light)  
-    --in 
-    --  intensity * argb.white
 
 
 -- Assumes that the camera axis vectors are normalized, orthogonal and correctly oriented.
@@ -162,8 +160,9 @@ entry main
   let voxels = 
     make_grid_3d grd.dim grd.dim grd.dim 
     |> map (map (map (\(x, y, z) -> 
-      let p = grid_voxel2world grd x y z 
-      in tape_eval tap p.x p.y p.z 0.0 <= 0.0)))
+      let pos = grid_voxel2world grd x y z 
+      let f = scalar_tape_evaluator.eval tap pos.x pos.y pos.z 0.0
+      in f <= 0.0)))
   in 
     make_grid_2d pixel_width pixel_height
     |> map (map (\(x, y) -> 
