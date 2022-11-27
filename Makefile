@@ -13,5 +13,6 @@ src/futhark/lib: src/futhark/futhark.pkg
 
 clean: 
 	rm -rf src/python/__pycache__ src/futhark/lib src/python/__engine.py
+	rm -rf src/futhark/tests/*.expected src/futhark/tests/*.actual
 
 .PHONY: all clean test

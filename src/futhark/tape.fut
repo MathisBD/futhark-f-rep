@@ -11,7 +11,6 @@ module type value = {
   val sqrt : t -> *t
   val neg : t -> *t
   val add : t -> t -> *t
-
   val sub : t -> t -> *t
   val mul : t -> t -> *t
   val div : t -> t -> *t
@@ -116,8 +115,8 @@ module interval : (value with t = { low : f32, high : f32 }) = {
   -- If an endpoint of the interval a is NAN, replace it with inf/-inf.
   -- Call this after performing any operation on intervals if you suspect it could create NANs.
   def remove_nans (a : t) =
-    { low  = if a.low == f32.nan then -f32.inf else a.low, 
-      high = if a.high == f32.nan then f32.inf else a.high }
+    { low  = if f32.isnan a.low then -f32.inf else a.low, 
+      high = if f32.isnan a.high then f32.inf else a.high }
 
   def constant (x : f32) = 
     { low = x, high = x } 
@@ -125,26 +124,26 @@ module interval : (value with t = { low : f32, high : f32 }) = {
 
   def TWO_PI : f32 = 2*f32.pi
 
-  -- The default behaviour for min/max is : f32.min 42.0 f32.nan == 42.0.
-  -- Since f32.sin f32.inf == f32.nan, we have to deal with this here.
+  -- The default behaviour for min/max is : f32.min 42.0 f32.nan is 42.0.
+  -- Since f32.sin f32.inf is f32.nan we have to deal with this here.
   def sin (a : t) =
     { low  = if contains_int (a.low/TWO_PI - 3/4) (a.high/TWO_PI - 3/4) ||
-                f32.sin a.low == f32.nan || f32.sin a.high == f32.nan
+                f32.isnan (f32.sin a.low) || f32.isnan (f32.sin a.high)
              then -1f32 
              else f32.min (f32.sin a.low) (f32.sin a.high),
       high = if contains_int (a.low/TWO_PI - 1/4) (a.high/TWO_PI - 1/4) ||
-                f32.sin a.low == f32.nan || f32.sin a.high == f32.nan
+                f32.isnan (f32.sin a.low) || f32.isnan (f32.sin a.high)
              then 1f32 
              else f32.max (f32.sin a.low) (f32.sin a.high) }
 
   -- See comment above sin.
   def cos (a : t) = 
     { low  = if contains_int (a.low/TWO_PI - 1/2) (a.high/TWO_PI - 1/2) ||
-                f32.cos a.low == f32.nan || f32.cos a.high == f32.nan 
+                f32.isnan (f32.cos a.low) || f32.isnan (f32.cos a.high) 
              then -1f32 
              else f32.min (f32.cos a.low) (f32.cos a.high),
       high = if contains_int (a.low/TWO_PI) (a.high/TWO_PI) ||
-                f32.cos a.low == f32.nan || f32.cos a.high == f32.nan 
+                f32.isnan (f32.cos a.low) || f32.isnan (f32.cos a.high) 
              then 1f32 
              else f32.max (f32.cos a.low) (f32.cos a.high) }
 
@@ -169,9 +168,11 @@ module interval : (value with t = { low : f32, high : f32 }) = {
   def sub (a : t) (b : t) = 
     add a (neg b)
   
+  -- We can create NANs if multiplying 0 with infinity.
   def mul (a : t) (b : t) =
     { low  = f32_min4 (a.low * b.low) (a.low * b.high) (a.high * b.low) (a.high * b.high), 
       high = f32_max4 (a.low * b.low) (a.low * b.high) (a.high * b.low) (a.high * b.high) }
+  |> remove_nans 
 
   def inv (a : t) =
     if a.low <= 0.0 && a.high >= 0.0 
