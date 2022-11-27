@@ -1,10 +1,11 @@
 import numpy as np
 import pygame
 
-from moving_average import MovingAverage
+from utils import MovingAverage
 import csg
 import tape
-from dda import dda
+from __engine import __engine
+
 
 # Dimensions (in pixels) of the screen
 WIDTH, HEIGHT = 1200, 900
@@ -26,7 +27,7 @@ def main():
     font = pygame.font.SysFont('comicsans', 40)
 
     # Create the futhark instance
-    fut = dda()
+    fut = __engine()
     
     cam_pos     = np.array([0.0, 0.0, 20.0])
     cam_forward = np.array([0.0, 0.0, -1.0])

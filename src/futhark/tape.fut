@@ -1,5 +1,36 @@
 import "utils"
 
+--
+--module type value = {
+--  type t 
+--  val make : f32 -> f32 -> t
+--  val sin : t -> t
+--  val cos : t -> t
+--  val exp : t -> t
+--  val sqrt : t -> t
+--  val neg : t -> t
+--  val add : t -> t -> t
+--  val sub : t -> t -> t
+--  val mul : t -> t -> t
+--  val div : t -> t -> t
+--  val min : t -> t -> t 
+--  val max : t -> t -> t
+--}
+--
+--module scalar : value = {
+--  type t = f32
+--}
+--
+--module gradient : value = {
+--  type t = { f : f32, dx : f32, dy : f32, dz : f32 }
+--}
+--
+--module interval : value = {
+--  type t = { low : f32, high : f32 }
+--}
+--
+--
+
 def OP_CONST = 0u8
 def OP_SIN = 1u8
 def OP_COS = 2u8
@@ -131,4 +162,77 @@ def tape_gradient (tap : tape) x y z t : vec3.vector =
   -- The output is always in slot 0
   in { x = slots[0].0, y = slots[0].1, z = slots[0].2 }
 
-  
+
+--module interval :  = {
+--  type t = { low : f32, high : f32 }
+--
+--  def make low high : interval = { low, high }
+--  
+--  def sin (i : interval) = 
+--    { low  = -1.0,
+--      high = 1.0 }
+--    
+--  def cos (i : interval) = 
+--    { low  = -1.0,
+--      high = 1.0 }
+--
+--}
+--  
+---- Multiply two intervals
+--def interval_mult (a : interval) (b : interval) : interval =
+--  { low  = f32_min4 (a.low * b.low) (a.low * b.high) (a.high * b.low) (a.high * b.high),
+--    high = f32_max4 (a.low * b.low) (a.low * b.high) (a.high * b.low) (a.high * b.high) }
+--
+---- Sequentially evaluate a tape given intervals for its inputs,
+---- using basic interval arithmetic.
+--def tape_interval (tap : tape) (x : interval.t) (y : interval.t) (z : interval.t) (t : interval.t) : interval.t =
+--  let slots = replicate tap.slot_count 
+--    with [0] = x
+--    with [1] = y
+--    with [2] = z
+--    with [3] = t
+--  in 
+--  let slots = loop slots = slots for instr in tap.instrs do 
+--    let iA = i8.u8 instr.in_slotA 
+--    let iB = i8.u8 instr.in_slotB 
+--    let iO = i8.u8 instr.out_slot
+--    in slots with [iO] =
+--      if instr.op == OP_CONST then 
+--        { low  = tap.constants[iA], 
+--          high = tap.constants[iA] }
+--      else if instr.op == OP_SIN then 
+--        { low  = -1.0, 
+--          high = 1.0 }
+--      else if instr.op == OP_COS then 
+--        { low  = -1.0, 
+--          high = 1.0 }
+--      else if instr.op == OP_EXP then 
+--        { low  = f32.exp slots[iA].low, 
+--          high = f32.exp slots[iA].high }
+--      else if instr.op == OP_SQRT then 
+--        -- We clamp the input interval to [0%, +inf[
+--        { low  = f32.sqrt (f32.max 0.0 slots[iA].low), 
+--          high = f32.sqrt (f32.max 0.0 slots[iA].high) }
+--      else if instr.op == OP_NEG then 
+--        { low  = - slots[iA].high, 
+--          high = - slots[iA].low }
+--      else if instr.op == OP_ADD  then 
+--        { low  = slots[iA].low + slots[iB].low, 
+--          high = slots[iA].high + slots[iB].high }
+--      else if instr.op == OP_SUB then
+--        { low  = slots[iA].low - slots[iB].high,
+--          high = slots[iA].high - slots[iB].low }
+--      else if instr.op == OP_MUL then
+--        interval_mult slots[iA] slots[iB]
+--      else if instr.op == OP_DIV then
+--        
+--      else if instr.op == OP_MIN then
+--        { low  = f32.min slots[iA].low slots[iB].low,
+--          high = f32.min slots[iA].high slots[iB].high }
+--      else if instr.op == OP_MAX then
+--        { low  = f32.max slots[iA].low slots[iB].low,
+--          high = f32.max slots[iA].high slots[iB].high }
+--      else if instr.op == OP_COPY then slots[iA]
+--      else slots[iO]
+--  -- The output is in slot 0.
+--  in slots[0]

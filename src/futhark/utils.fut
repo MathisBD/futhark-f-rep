@@ -25,3 +25,9 @@ def i64_clamp (x : i64) min max =
   if x < min then min 
   else if x > max then max 
   else x
+
+def f32_min4 x0 x1 x2 x3 = 
+  f32.min (f32.min x0 x1) (f32.min x2 x3)
+
+def f32_max4 x0 x1 x2 x3 = 
+  f32.max (f32.max x0 x1) (f32.max x2 x3)

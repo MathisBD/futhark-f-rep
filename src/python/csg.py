@@ -1,6 +1,7 @@
 import graphviz
 import math 
 
+
 # Nullary operators (no inputs)
 OP_X = 0
 OP_Y = 1

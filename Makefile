@@ -1,17 +1,14 @@
 
-all: src/main.py src/dda.py
-	python3 src/main.py
+all: src/python/main.py engine
+	python3 src/python/main.py
 
-bench: src/*.fut src/lib
-	futhark bench --backend=pyopencl src/dda.fut
+engine: src/futhark/*.fut src/futhark/lib
+	futhark pyopencl --library src/futhark/dda.fut -o src/python/__engine
 
-src/dda.py: src/*.fut src/lib
-	futhark pyopencl --library src/dda.fut
-
-src/lib: src/futhark.pkg
-	cd src && futhark pkg sync
+src/futhark/lib: src/futhark/futhark.pkg
+	cd src/futhark && futhark pkg sync
 
 clean: 
-	rm -rf src/__pycache__ src/lib src/dda.py src/dda
+	rm -rf src/python/__pycache__ src/futhark/lib src/python/__engine.py
 
-.PHONY: all bench clean
+.PHONY: all clean
