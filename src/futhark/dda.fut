@@ -22,23 +22,6 @@ type camera = {
   pixel_height : i64 -- the pixel height of the screen
 }
 
--- This describes a cube grid in 3D space
-type grid = { 
-  pos : vec3.vector, -- the corner (x_min, y_min, z_mn) of the grid in world space
-  size : f32, -- the extent of the grid in world size : it is the same along each axis
-  dim : i64 -- the number of cells along each axis
-}
-
--- The world size of a single cell of the grid
-def grid_cell_size (grd : grid) : f32 = grd.size / f32.i64 grd.dim
-
--- Converts integer voxel coordinates to a world position 
-def grid_voxel2world (grd : grid) x y z : vec3.vector = 
-  { 
-    x = grd.pos.x + grd.size * (f32.i64 x / f32.i64 grd.dim), 
-    y = grd.pos.y + grd.size * (f32.i64 y / f32.i64 grd.dim), 
-    z = grd.pos.z + grd.size * (f32.i64 z / f32.i64 grd.dim)
-  }
 
 -- This returns a ray passing starting at the camera center 
 -- and corresponding to the direction of the pixel (x, y).
