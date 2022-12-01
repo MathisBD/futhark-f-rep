@@ -3,7 +3,6 @@ import "lib/github.com/athas/matte/colour"
 
 module vec3 = mk_vspace_3d f32
 
-def EPS : f32 = 0.000001
 
 def vec3_full (k : f32) : vec3.vector = { x=k, y=k, z=k }
 
