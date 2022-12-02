@@ -8,6 +8,9 @@ module mk_basic_vec3 (T : { type t }) = {
 
   def full k : t = { x = k, y = k, z = k }
 
+  def rot_left  (a : t) : t = { x = a.y, y = a.z, z = a.x }
+  def rot_right (a : t) : t = { x = a.z, y = a.x, z = a.y }
+
   -- The map and map2 functions work for any scalar type,
   -- and can thus be used to convert between different vector types.
   -- Doing it this way is very flexible : any vector module can convert between any two types
@@ -86,6 +89,9 @@ module mk_numeric_vec3 (T : numeric) = {
   -- Minimum and maximum coordinate.
   def min_coord (a : t) : scalar = T.min a.x (T.min a.y a.z)
   def max_coord (a : t) : scalar = T.max a.x (T.max a.y a.z)
+  -- Sum and product of coordinates.
+  def sum_coords (a : t) : scalar = T.(a.x + a.y + a.z)
+  def prod_coords (a : t) : scalar = T.(a.x * a.y * a.z)
 }
 
 -- A module for vectors of 'real' objects (think floats).

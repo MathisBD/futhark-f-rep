@@ -35,7 +35,7 @@ def main():
     cam_up      = np.array([0.0, 1.0, 0.0])
         
     # Create the expression and tape
-    expr = csg.X() * csg.X() + csg.Y() * csg.Y() + csg.Z() * csg.Z() - csg.const(100)
+    expr = csg.X() * csg.X() + csg.Y() * csg.Y() + csg.Z() * csg.Z() - csg.const(10*10)
     tap = tape.Tape(expr)
     print(tap.to_string(detailed = True))
 
