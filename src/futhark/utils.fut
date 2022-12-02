@@ -1,26 +1,6 @@
-import "lib/github.com/athas/vector/vspace"
 import "lib/github.com/athas/matte/colour"
 
-module vec3 = mk_vspace_3d f32
 
-
-def vec3_full (k : f32) : vec3.vector = { x=k, y=k, z=k }
-
-def vec3_from_i64 x y z = 
-  { 
-    x = f32.i64 x, 
-    y = f32.i64 y, 
-    z = f32.i64 z 
-  }
-
--- Minimum coordinate of a vector
-def vec3_min (v : vec3.vector) = 
-  f32.min v.x (f32.min v.y v.z)
-
--- Maximum coordinate of a vector
-def vec3_max (v : vec3.vector) = 
-  f32.max v.x (f32.max v.y v.z)
-  
 def i64_clamp (x : i64) min max = 
   if x <= min then min 
   else if x >= max then max 

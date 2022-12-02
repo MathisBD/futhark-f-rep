@@ -36,7 +36,6 @@ module scalar : (value with t = f32) = {
   def copy = id
 }
 
-
 module gradient : (value with t = { v : f32, dx : f32, dy : f32, dz : f32 }) = {
   -- This represents the value of the function and its three partial derivatives.
   type t = { v : f32, dx : f32, dy : f32, dz : f32 }

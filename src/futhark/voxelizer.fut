@@ -1,10 +1,11 @@
 import "tape"
 import "utils"
+import "vector"
 
 
 -- A simple cubic frame that will contain all the voxels.
 type frame = {
-  pos : vec3.vector,
+  pos : f32vec3.t,
   size : f32
 }
 
@@ -13,7 +14,7 @@ type child_list [dim] = [dim][dim][dim]i32
 
 -- A non-terminal node, i.e. some cells are nodes.
 type NT_node [dim] = {
-  world_pos : vec3.vector,
+  world_pos : f32vec3.t,
   leaf_mask : node_mask[dim],
   child_mask : node_mask[dim],
   child_list : child_list[dim] -- the index of a child should be -1 if it does not exists, so that scatter works nicely
@@ -42,10 +43,10 @@ type~voxels [d0] = {
 }
 
 
-def voxelize_interval d (tap : tape) (cell_size : f32) (node_pos : vec3.vector)
+def voxelize_interval d (tap : tape) (cell_size : f32) (node_pos : f32vec3.t)
   : { child_mask : node_mask[d], leaf_mask : node_mask[d] } =
   let intervals = tabulate_3d d d d (\x y z -> 
-      let cell_pos : vec3.vector = node_pos vec3.+ vec3.scale cell_size (vec3_from_i64 x y z) 
+      let cell_pos = f32vec3.(node_pos + scale cell_size (map f32.i64 { x, y, z }))
       in interval_tape_evaluator.eval tap 
         { low = cell_pos.x, high = cell_pos.x + cell_size }
         { low = cell_pos.y, high = cell_pos.y + cell_size }
@@ -57,10 +58,10 @@ def voxelize_interval d (tap : tape) (cell_size : f32) (node_pos : vec3.vector)
   let leaf_mask = map (map (map (\i -> i.high <= 0.0))) intervals 
   in { child_mask, leaf_mask }
 
-def voxelize_scalar d (tap : tape) (cell_size : f32) (node_pos : vec3.vector)
+def voxelize_scalar d (tap : tape) (cell_size : f32) (node_pos : f32vec3.t)
   : { leaf_mask : node_mask[d] } =
   let densities = tabulate_3d d d d (\x y z -> 
-      let cell_pos : vec3.vector = node_pos vec3.+ vec3.scale cell_size (vec3_from_i64 x y z) 
+      let cell_pos = f32vec3.(node_pos + scale cell_size (map f32.i64 { x, y, z }))
       in scalar_tape_evaluator.eval tap 
         (cell_pos.x + cell_size / 2.0)
         (cell_pos.y + cell_size / 2.0)
@@ -76,15 +77,15 @@ def voxelize_scalar d (tap : tape) (cell_size : f32) (node_pos : vec3.vector)
 --   arr[node.child_list[cell]] = cell_position  
 -- n is the number of nodes in the current level (i.e. the number of children of the previous level).
 def build_world_pos [dp] n (cell_size : f32) (prev_lvl : []NT_node[dp]) 
-  : *[n]vec3.vector =
+  : *[n]f32vec3.t =
   -- We rely on the fact that scatter simply ignores out of bound indices.
   let (is, vs) = map (\node -> 
       tabulate_3d dp dp dp (\x y z -> 
-        let cell_pos = node.world_pos vec3.+ vec3.scale cell_size (vec3_from_i64 x y z)
+        let cell_pos = f32vec3.(node.world_pos + scale cell_size (map f32.i64 { x, y, z }))
         in (i64.i32 node.child_list[x, y, z], cell_pos))) 
       prev_lvl
     |> flatten_4d |> unzip
-  in scatter (replicate n vec3.zero) is vs
+  in scatter (replicate n f32vec3.zeros) is vs
 
 def build_NT_level [dp] d n (tap : tape) (cell_size : f32) (prev_lvl : []NT_node[dp])
   : { child_count : i64, nodes : *[n]NT_node[d] } = 

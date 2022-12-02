@@ -6670,32 +6670,32 @@ class internal:
                                        user_sizes=sizes,
                                        all_sizes={})
     self.constants = {}
-  def futhark_entry_contains_int_correct(self, a_7929, b_7930):
-    cond_7948 = (a_7929 == np.inf)
-    cond_7951 = (b_7930 == -np.inf)
-    floor_res_7953 = futhark_floor32(b_7930)
-    contains_int_res_f_res_f_res_7954 = (a_7929 <= floor_res_7953)
-    x_7959 = not(cond_7951)
-    y_7960 = (contains_int_res_f_res_f_res_7954 and x_7959)
-    x_7956 = not(cond_7948)
-    y_7957 = (x_7956 and y_7960)
-    prim_out_7961 = y_7957
-    return prim_out_7961
-  def contains_int_correct(self, a_7929_ext, b_7930_ext):
+  def futhark_entry_contains_int_correct(self, a_7927, b_7928):
+    cond_7946 = (a_7927 == np.inf)
+    cond_7949 = (b_7928 == -np.inf)
+    floor_res_7951 = futhark_floor32(b_7928)
+    contains_int_res_f_res_f_res_7952 = (a_7927 <= floor_res_7951)
+    x_7957 = not(cond_7949)
+    y_7958 = (contains_int_res_f_res_f_res_7952 and x_7957)
+    x_7954 = not(cond_7946)
+    y_7955 = (x_7954 and y_7958)
+    prim_out_7959 = y_7955
+    return prim_out_7959
+  def contains_int_correct(self, a_7927_ext, b_7928_ext):
     try:
-      a_7929 = np.float32(a_7929_ext)
+      a_7927 = np.float32(a_7927_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #0 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(a_7929_ext), a_7929_ext))
+      raise TypeError("Argument #0 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(a_7927_ext), a_7927_ext))
     try:
-      b_7930 = np.float32(b_7930_ext)
+      b_7928 = np.float32(b_7928_ext)
     except (TypeError, AssertionError) as e:
-      raise TypeError("Argument #1 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(b_7930_ext), b_7930_ext))
+      raise TypeError("Argument #1 has invalid value\nFuthark type: {}\nArgument has Python type {} and value: {}\n".format("f32", type(b_7928_ext), b_7928_ext))
     time_start = time.time()
     with np.errstate(divide="ignore", over="ignore", under="ignore", invalid="ignore"):
-      prim_out_7961 = self.futhark_entry_contains_int_correct(a_7929, b_7930)
+      prim_out_7959 = self.futhark_entry_contains_int_correct(a_7927, b_7928)
     sync(self)
     runtime = (int((time.time() * 1000000)) - int((time_start * 1000000)))
     sync(self)
-    return (runtime, np.bool_(prim_out_7961))
+    return (runtime, np.bool_(prim_out_7959))
 server = Server(internal())
 server.run()
