@@ -6,7 +6,7 @@ import "voxelizer"
 
 -- This is used for raycasting.
 -- DO NOT make it too small, or the program will crash !
-def EPS : f32 = 0.00001
+def EPS : f32 = 0.0001
 
 
 type frame = {
@@ -67,35 +67,39 @@ def rayframe_intersect (r : ray) (fram : frame) : { hit : bool, t_enter : f32, t
 
 def raytrace [d] (fram : frame) (vxls : [d][d][d]bool) (r : ray) : hit =
   let { hit, t_enter, t_leave=_ } = rayframe_intersect r fram in 
-  if !hit then #miss else 
+  if !hit then #hit { t = -1 } else 
   let cell_size = fram.size / f32.i64 d
   let norm_pos = f32vec3.scale (1.0 / cell_size) (ray_eval r (t_enter + EPS) f32vec3.- fram.pos)
   -- The coordinates of the cell we are in.
   let cell = f32vec3.map (f32.floor >-> i32.f32) norm_pos
-  -- The time it takes to move one unit along a given axis.
-  let t_delta = f32vec3.map (\x -> f32.abs (1.0 / x)) r.dir
+  -- The time it takes to move one cell along a given axis.
+  let t_delta = f32vec3.map (\x -> f32.abs (cell_size / x)) r.dir
   -- The time until we enter a new cell along a given axis.
   let t_cross = f32vec3.(
     full (t_enter f32.+ EPS) + scale cell_size (map f32.i32 cell + map f32.bool (r.dir >= zeros) - norm_pos) / r.dir)
   let step = i32vec3.(cond f32vec3.(r.dir >= zeros) (full 1) (full (-1)))
   let (_, _, hit, _) =
-  loop (cell, t_cross, _, t) = (cell, t_cross, #miss, t_enter + EPS) 
+  loop (cell, t_cross, _, t) = (cell, t_cross, #miss, t_enter) 
   while bvec3.(all (map (\x -> 0 <= x && x < i32.i64 d) cell)) do
+    let cell = break cell in
     -- We hit something.
     if vxls[cell.x, cell.y, cell.z] 
     then ({ x = -1, y = -1, z = -1 }, t_cross, #hit { t }, t)
     -- Step one cell forward.
-    -- This is a vector of bool with exactly one 'true' where t_cross is minimal 
     else 
+    -- This is a vector of bool with 'true' where t_cross is minimal.
+    -- There can be several 'true' coordinates.
     let mask = f32vec3.(t_cross <= min (rot_left t_cross) (rot_right t_cross))
-    --let mask = assert (bvec3.any mask) mask
+    let mask = assert (bvec3.any mask) mask
+    let t_cross = assert (t_cross.x >= t_enter && t_cross.y >= t_enter && t_cross.z >= t_enter) t_cross
+    let t = f32vec3.min_coord t_cross
     let t_cross = f32vec3.(t_cross + cond mask t_delta zeros)
     let cell = i32vec3.(cell + cond mask step zeros)
-    let t = t + f32vec3.(sum_coords (cond mask t_delta zeros))
+    let cell = break cell
     in (cell, t_cross, #miss, t)
   in hit
 
---def raytrace [d] (fram : frame) (voxels : [d][d][d]bool) (r : ray) : hit =
+--def raytrace_old [d] (fram : frame) (voxels : [d][d][d]bool) (r : ray) : hit =
 --  let { hit, t_enter, t_leave } = rayframe_intersect r fram in
 --  if !hit then #miss else
 --  let cell_size = fram.size / f32.i64 d
@@ -124,16 +128,17 @@ def raytrace [d] (fram : frame) (vxls : [d][d][d]bool) (r : ray) : hit =
 def shade (tap : tape) (r : ray) (h : hit) : argb.colour = 
   match h 
   case #miss -> argb.black
-  case #hit h -> argb.red
-    --let pos = ray_eval r h.t
-    --let grad = gradient_tape_evaluator.eval tap 
-    --  { v = pos.x, dx = 1.0, dy = 0.0, dz = 0.0 }
-    --  { v = pos.y, dx = 0.0, dy = 1.0, dz = 0.0 }
-    --  { v = pos.z, dx = 0.0, dy = 0.0, dz = 1.0 }
-    --  (gradient.constant 0.0)
-    --let normal = f32vec3.normalize { x = grad.dx, y = grad.dy, z = grad.dz }
-    --let color = f32vec3.(full 0.5 + scale 0.5 normal)
-    --in argb.from_rgba color.x color.y color.z 1.0
+  case #hit h -> 
+    if h.t < 0 then argb.black else
+    let pos = ray_eval r h.t
+    let grad = gradient_tape_evaluator.eval tap 
+      { v = pos.x, dx = 1.0, dy = 0.0, dz = 0.0 }
+      { v = pos.y, dx = 0.0, dy = 1.0, dz = 0.0 }
+      { v = pos.z, dx = 0.0, dy = 0.0, dz = 1.0 }
+      (gradient.constant 0.0)
+    let normal = f32vec3.normalize { x = grad.dx, y = grad.dy, z = grad.dz }
+    let color = f32vec3.(full 0.5 + scale 0.5 normal)
+    in argb.from_rgba color.x color.y color.z 1.0
 
 -- Assumes that the camera axis vectors are normalized, orthogonal and correctly oriented.
 -- The camera field of view is the horizontal field of view in radians.
@@ -183,3 +188,14 @@ entry main
       let r = camera_make_ray cam x y
       let h = raytrace fram vxls r
       in shade tap r h)
+
+
+--def test (_ : i32) =
+--  let d = 3
+--  let vxls = tabulate_3d d d d (\x y z -> false)
+--  let fram = { pos = { x = -10, y = -10, z = -10 }, size = 20 }
+--  let r = { 
+--    orig = { x = 0, y = 0, z = 20 }, 
+--    dir = f32vec3.normalize { x = 0, y = 0, z = -1 } 
+--  }
+--  in raytrace fram vxls r
