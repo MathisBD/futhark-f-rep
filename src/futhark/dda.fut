@@ -6,7 +6,7 @@ import "voxelizer"
 
 -- This is used for raycasting.
 -- DO NOT make it too small, or the program will crash !
-def EPS : f32 = 0.0001
+--def EPS : f32 = 0.0001
 
 
 type frame = {
@@ -69,11 +69,13 @@ def raytrace [d] (fram : frame) (vxls : [d][d][d]bool) (r : ray) : hit =
   let { hit, t_enter, t_leave=_ } = rayframe_intersect r fram in 
   if !hit then #hit { t = -1 } else 
   let cell_size = fram.size / f32.i64 d
+  -- The time it takes to move one cell along a given axis.
+  let t_delta = f32vec3.map (\x -> f32.abs (cell_size / x)) r.dir
+  let EPS = 0.5 * f32vec3.min_coord t_delta
+  let EPS = assert (EPS > 0) EPS
   let norm_pos = f32vec3.scale (1.0 / cell_size) (ray_eval r (t_enter + EPS) f32vec3.- fram.pos)
   -- The coordinates of the cell we are in.
   let cell = f32vec3.map (f32.floor >-> i32.f32) norm_pos
-  -- The time it takes to move one cell along a given axis.
-  let t_delta = f32vec3.map (\x -> f32.abs (cell_size / x)) r.dir
   -- The time until we enter a new cell along a given axis.
   let t_cross = f32vec3.(
     full (t_enter f32.+ EPS) + scale cell_size (map f32.i32 cell + map f32.bool (r.dir >= zeros) - norm_pos) / r.dir)
